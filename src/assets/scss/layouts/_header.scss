@@ -1,48 +1,48 @@
 html .topbar {
-  background-color: $background;
-  position: sticky;
-  top: 0;
-  z-index: 9;
-  height: $header-height;
+	background-color: $background;
+	position: sticky;
+	top: 0;
+	z-index: 9;
+	height: $header-height;
 }
 
 .topbar-dd {
-  min-width: 360px !important;
+	min-width: 360px !important;
 }
 
 .apps-dd {
-  min-width: 830px !important;
-  overflow: unset !important;
+	min-width: 830px !important;
+	overflow: unset !important;
 
-  .mat-mdc-menu-content {
-    padding: 0;
-  }
+	.mat-mdc-menu-content {
+		padding: 0;
+	}
 }
 
 .upgrade-bg {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  height: 100%;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
 }
 
 .object-cover {
-  object-fit: cover;
+	object-fit: cover;
 }
 
 @media (min-width: 768px) {
-  .search-dialog {
-    width: 600px;
-  }
+	.search-dialog {
+		width: 600px;
+	}
 }
 
 // perfect scroll
 .ps__rail-y {
-  right: 0;
-  left: unset !important;
+	right: 0;
+	left: unset !important;
 }
 
 .profile-dd {
-  margin-top: -5px;
-  margin-left: -5px;
+	margin-top: -5px;
+	margin-left: -5px;
 }

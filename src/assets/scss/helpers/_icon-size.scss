@@ -1,14 +1,14 @@
-@use "sass:meta";
+@use 'sass:meta';
 
 $columns: 48;
 
 @mixin icon_size {
-  @for $i from 1 through $columns {
-    .icon-#{$i} {
-      height: #{$i}px !important;
-      width: #{$i}px !important;
-    }
-  }
+	@for $i from 1 through $columns {
+		.icon-#{$i} {
+			height: #{$i}px !important;
+			width: #{$i}px !important;
+		}
+	}
 }
 
 @include icon_size;

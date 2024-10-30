@@ -7,15 +7,15 @@
 .mdc-fab.mat-primary,
 .mdc-fab.mat-accent,
 .mdc-fab.mat-warn {
-  color: white;
+	color: white;
 }
 
 .mdc-button {
-  border-radius: $border-radius;
+	border-radius: $border-radius;
 }
 
 .mat-mdc-raised-button {
-  box-shadow: $cardshadow;
+	box-shadow: $cardshadow;
 }
 
 .mat-mdc-fab,
@@ -24,19 +24,19 @@
 .mat-mdc-fab:focus,
 .mat-mdc-mini-fab:hover,
 .mat-mdc-mini-fab:focus {
-  box-shadow: none;
+	box-shadow: none;
 }
 
 .mat-button-toggle-button {
-  font-size: 14px;
+	font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  .flex-sm-row {
-    flex-direction: row !important;
-  }
+	.flex-sm-row {
+		flex-direction: row !important;
+	}
 }
 
 .flex-column {
-  flex-direction: column;
+	flex-direction: column;
 }

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 // font
 $font-family: 'DM Sans', sans-serif;
 
@@ -15,21 +15,22 @@ $darksidebarbg: #2a3447;
 $darkbackground: #2a3447;
 $darkcardbg: #2a3447;
 $darktoolbar: #2a3447;
-$darkcardshadow: rgba(145, 158, 171, 0.3) 0px 0px 2px 0px, rgba(145, 158, 171, 0.02) 0px 12px 24px -4px;
+$darkcardshadow:
+	rgba(145, 158, 171, 0.3) 0px 0px 2px 0px,
+	rgba(145, 158, 171, 0.02) 0px 12px 24px -4px;
 $darkborderColor: #333f55;
 $darkformborderColor: #465670;
 $darkhoverbgcolor: #333f55;
 $darkthemelightprimary: #253662;
-$darkthemelightaccent: #1C455D;
-$darkthemelightwarning: #4D3A2A;
-$darkthemelighterror: #4B313D;
-$darkthemelightsuccess: #1B3C48;
+$darkthemelightaccent: #1c455d;
+$darkthemelightwarning: #4d3a2a;
+$darkthemelighterror: #4b313d;
+$darkthemelightsuccess: #1b3c48;
 
 // Sidenav
 $sidenav-desktop: 270px !default;
 $sidenav-mini: 80px !default;
 $header-height: 70px !default;
-
 
 //BorderColor
 $borderColor: #e5eaef;
@@ -45,7 +46,7 @@ $white: #ffffff;
 
 $light: #f2f6fa;
 
-$gray-100:  #7c8fac;
+$gray-100: #7c8fac;
 
 $light-primary: #ffe5dc;
 $light-accent: #e5fafb;
