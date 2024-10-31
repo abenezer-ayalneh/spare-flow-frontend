@@ -20,7 +20,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 //Import all material modules
 import { MaterialModule } from './material.module';
-import { FilterPipe } from './pipe/filter.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 export function HttpLoaderFactory(http: HttpClient): any {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');

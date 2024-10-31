@@ -44,16 +44,25 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
 })
 export class FullComponent implements OnDestroy {
 	navItems = navItems;
+
 	@ViewChild('leftsidenav')
 	public sidenav: MatSidenav;
+
 	resView = false;
+
 	//get options from service
 	options = this.settings.getOptions();
+
 	navopt = this.navService.showClass;
+
 	private layoutChangesSubscription = Subscription.EMPTY;
+
 	private isMobileScreen = false;
+
 	private isContentWidthFixed = true;
+
 	private isCollapsedWidthFixed = false;
+
 	private htmlElement!: HTMLHtmlElement;
 
 	get isOver(): boolean {
@@ -76,7 +85,7 @@ export class FullComponent implements OnDestroy {
 			this.options.sidenavOpened = true;
 			this.isMobileScreen = state.breakpoints[BELOWMONITOR];
 
-			if (this.options.sidenavCollapsed == false) {
+			if (!this.options.sidenavCollapsed) {
 				this.options.sidenavCollapsed = state.breakpoints[TABLET_VIEW];
 			}
 			this.isContentWidthFixed = state.breakpoints[MONITOR_VIEW];
