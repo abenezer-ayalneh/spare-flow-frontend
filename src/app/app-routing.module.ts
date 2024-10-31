@@ -13,11 +13,11 @@ const routes: Routes = [
 		children: [
 			{
 				path: '',
-				redirectTo: '/starter',
+				redirectTo: '/home',
 				pathMatch: 'full',
 			},
 			{
-				path: 'starter',
+				path: 'home',
 				loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
 			},
 		],

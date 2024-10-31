@@ -20,17 +20,17 @@ export class AppLoginComponent {
 		private router: Router,
 	) {}
 
-	form = new FormGroup({
-		uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
+	loginFormGroup = new FormGroup({
+		username: new FormControl('', [Validators.required, Validators.minLength(4)]),
 		password: new FormControl('', [Validators.required]),
 	});
 
-	get f() {
-		return this.form.controls;
+	get formControls() {
+		return this.loginFormGroup.controls;
 	}
 
 	submit() {
 		// console.log(this.form.value);
-		this.router.navigate(['/starter']);
+		this.router.navigate(['/home']);
 	}
 }

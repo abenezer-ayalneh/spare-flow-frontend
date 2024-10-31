@@ -8,7 +8,7 @@ export class HelperService {
 
 	getAccessToken() {
 		// TODO get the actual access token here
-		return null;
-		// return 'access-token';
+		// return null;
+		return 'access-token';
 	}
 }

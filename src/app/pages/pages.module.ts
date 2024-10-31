@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 
 import { MaterialModule } from '../material.module';
 import { PagesRoutes } from './pages.routing.module';
-import { StarterComponent } from './starter/starter.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-	imports: [CommonModule, MaterialModule, FormsModule, RouterModule.forChild(PagesRoutes), StarterComponent],
+	imports: [CommonModule, MaterialModule, FormsModule, RouterModule.forChild(PagesRoutes), HomeComponent],
 })
 export class PagesModule {}

@@ -29,6 +29,6 @@ export class AppForgotPasswordComponent {
 
 	submit() {
 		// console.log(this.form.value);
-		this.router.navigate(['/starter']);
+		this.router.navigate(['/home']);
 	}
 }
