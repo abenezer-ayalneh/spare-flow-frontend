@@ -10,9 +10,6 @@ import { MaterialModule } from 'src/app/material.module';
 import { CoreService } from 'src/app/services/core.service';
 
 import { NavService } from '../../services/nav.service';
-import { AppHorizontalHeaderComponent } from './horizontal/header/header.component';
-import { AppHorizontalSidebarComponent } from './horizontal/sidebar/sidebar.component';
-import { CustomizerComponent } from './shared/customizer/customizer.component';
 import { AppSearchDialogComponent, HeaderComponent } from './vertical/header/header.component';
 import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component';
 import { SidebarComponent } from './vertical/sidebar/sidebar.component';
@@ -22,23 +19,12 @@ const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
 const MONITOR_VIEW = 'screen and (min-width: 1024px)';
 const BELOWMONITOR = 'screen and (max-width: 1023px)';
+
 @Component({
 	selector: 'app-full',
 	templateUrl: './full.component.html',
 	standalone: true,
-	imports: [
-		NgScrollbarModule,
-		HeaderComponent,
-		AppHorizontalHeaderComponent,
-		AppHorizontalSidebarComponent,
-		SidebarComponent,
-		AppSearchDialogComponent,
-		CustomizerComponent,
-		MaterialModule,
-		RouterModule,
-		CommonModule,
-		AppNavItemComponent,
-	],
+	imports: [NgScrollbarModule, HeaderComponent, SidebarComponent, AppSearchDialogComponent, MaterialModule, RouterModule, CommonModule, AppNavItemComponent],
 	styleUrls: [],
 	encapsulation: ViewEncapsulation.None,
 })
@@ -65,14 +51,6 @@ export class FullComponent implements OnDestroy {
 
 	private htmlElement!: HTMLHtmlElement;
 
-	get isOver(): boolean {
-		return this.isMobileScreen;
-	}
-
-	get isTablet(): boolean {
-		return this.resView;
-	}
-
 	constructor(
 		private settings: CoreService,
 		private mediaMatcher: MediaMatcher,
@@ -94,6 +72,14 @@ export class FullComponent implements OnDestroy {
 
 		// Initialize project theme with options
 		this.receiveOptions(this.options);
+	}
+
+	get isOver(): boolean {
+		return this.isMobileScreen;
+	}
+
+	get isTablet(): boolean {
+		return this.resView;
 	}
 
 	ngOnDestroy() {

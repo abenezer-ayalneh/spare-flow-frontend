@@ -1,46 +1,46 @@
 import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
+	// {
+	// 	navCap: 'Home',
+	// },
 	{
-		navCap: 'Home',
-	},
-	{
-		displayName: 'Home',
-		iconName: 'home',
+		displayName: 'Items',
+		iconName: 'table',
 		route: '/home',
 	},
-	{
-		navCap: 'Other',
-	},
-	{
-		displayName: 'Menu Level',
-		iconName: 'box-multiple',
-		route: '/menu-level',
-		children: [
-			{
-				displayName: 'Menu 1',
-				iconName: 'point',
-				route: '/menu-1',
-				children: [
-					{
-						displayName: 'Menu 1',
-						iconName: 'point',
-						route: '/menu-1',
-					},
-
-					{
-						displayName: 'Menu 2',
-						iconName: 'point',
-						route: '/menu-2',
-					},
-				],
-			},
-
-			{
-				displayName: 'Menu 2',
-				iconName: 'point',
-				route: '/menu-2',
-			},
-		],
-	},
+	// {
+	// 	navCap: 'Other',
+	// },
+	// {
+	// 	displayName: 'Menu Level',
+	// 	iconName: 'box-multiple',
+	// 	route: '/menu-level',
+	// 	children: [
+	// 		{
+	// 			displayName: 'Menu 1',
+	// 			iconName: 'point',
+	// 			route: '/menu-1',
+	// 			children: [
+	// 				{
+	// 					displayName: 'Menu 1',
+	// 					iconName: 'point',
+	// 					route: '/menu-1',
+	// 				},
+	//
+	// 				{
+	// 					displayName: 'Menu 2',
+	// 					iconName: 'point',
+	// 					route: '/menu-2',
+	// 				},
+	// 			],
+	// 		},
+	//
+	// 		{
+	// 			displayName: 'Menu 2',
+	// 			iconName: 'point',
+	// 			route: '/menu-2',
+	// 		},
+	// 	],
+	// },
 ];

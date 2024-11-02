@@ -18,26 +18,24 @@
 	<!-- Vertical Sidebar -->
 	<!-- ============================================================== -->
 
-	@if (!options.horizontal) {
-		<mat-sidenav
-			#leftsidenav
-			[mode]="isOver ? 'over' : 'side'"
-			[opened]="options.navPos === 'side' && options.sidenavOpened && !isOver && !resView"
-			(openedChange)="onSidenavOpenedChange($event)"
-			(closedStart)="onSidenavClosedStart()"
-			class="sidebarNav">
-			<div class="flex-layout">
-				<app-sidebar (toggleMobileNav)="sidenav.toggle()" [showToggle]="isOver"></app-sidebar>
-				<ng-scrollbar class="position-relative" style="height: 100%">
-					<mat-nav-list class="sidebar-list">
-						@for (item of navItems; track item) {
-							<app-nav-item [item]="item" (notify)="sidenav.toggle()"> </app-nav-item>
-						}
-					</mat-nav-list>
-				</ng-scrollbar>
-			</div>
-		</mat-sidenav>
-	}
+	<mat-sidenav
+		#leftsidenav
+		[mode]="isOver ? 'over' : 'side'"
+		[opened]="options.navPos === 'side' && options.sidenavOpened && !isOver && !resView"
+		(openedChange)="onSidenavOpenedChange($event)"
+		(closedStart)="onSidenavClosedStart()"
+		class="sidebarNav">
+		<div class="flex-layout">
+			<app-sidebar (toggleMobileNav)="sidenav.toggle()" [showToggle]="isOver"></app-sidebar>
+			<ng-scrollbar class="position-relative" style="height: 100%">
+				<mat-nav-list class="sidebar-list">
+					@for (item of navItems; track item) {
+						<app-nav-item [item]="item" (notify)="sidenav.toggle()"></app-nav-item>
+					}
+				</mat-nav-list>
+			</ng-scrollbar>
+		</div>
+	</mat-sidenav>
 
 	<!-- ============================================================== -->
 	<!-- horizontal Sidebar -->
@@ -55,7 +53,7 @@
 				<ng-scrollbar class="position-relative" style="height: 100%">
 					<mat-nav-list class="sidebar-list">
 						@for (item of navItems; track item) {
-							<app-nav-item [item]="item" (notify)="sidenav.toggle()"> </app-nav-item>
+							<app-nav-item [item]="item" (notify)="sidenav.toggle()"></app-nav-item>
 						}
 					</mat-nav-list>
 				</ng-scrollbar>
@@ -70,15 +68,7 @@
 		<!-- ============================================================== -->
 		<!-- VerticalHeader -->
 		<!-- ============================================================== -->
-		@if (!options.horizontal) {
-			<app-header [showToggle]="!isOver" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"></app-header>
-		} @else {
-			<app-horizontal-header (toggleMobileNav)="sidenav.toggle()"></app-horizontal-header>
-		}
-
-		@if (options.horizontal) {
-			<app-horizontal-sidebar></app-horizontal-sidebar>
-		}
+		<app-header [showToggle]="!isOver" (toggleCollapsed)="toggleCollapsed()" (toggleMobileNav)="sidenav.toggle()"></app-header>
 
 		<main
 			class="pageWrapper"
@@ -89,15 +79,6 @@
 			<!-- Outlet -->
 			<!-- ============================================================== -->
 			<router-outlet></router-outlet>
-			<div class="customizerBtn">
-				<button mat-fab color="primary" (click)="customizerRight.toggle()">
-					<mat-icon>settings</mat-icon>
-				</button>
-			</div>
 		</main>
 	</mat-sidenav-content>
-
-	<mat-sidenav #customizerRight mode="over" position="end">
-		<app-customizer (optionsChange)="receiveOptions($event)"></app-customizer>
-	</mat-sidenav>
 </mat-sidenav-container>
