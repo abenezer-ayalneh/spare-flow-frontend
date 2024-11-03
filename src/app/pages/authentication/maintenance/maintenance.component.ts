@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core'
+import { RouterModule } from '@angular/router'
 
-import { MaterialModule } from '../../../material.module';
+import { MaterialModule } from '../../../material.module'
 
 @Component({
 	selector: 'app-maintenance',

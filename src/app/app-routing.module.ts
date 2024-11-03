@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
 
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
-import { authGuard } from './guards/auth.guard';
+import { BlankComponent } from './layouts/blank/blank.component'
+import { FullComponent } from './layouts/full/full.component'
+import { authGuard } from './guards/auth.guard'
 
 const routes: Routes = [
 	{
@@ -31,7 +31,7 @@ const routes: Routes = [
 		path: '**',
 		redirectTo: 'authentication/error',
 	},
-];
+]
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],

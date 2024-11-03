@@ -1,13 +1,13 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostBinding, Input, OnChanges, Output } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-import { TablerIconsModule } from 'angular-tabler-icons';
-import { MaterialModule } from 'src/app/material.module';
+import { animate, state, style, transition, trigger } from '@angular/animations'
+import { CommonModule } from '@angular/common'
+import { Component, EventEmitter, HostBinding, Input, OnChanges, Output } from '@angular/core'
+import { Router } from '@angular/router'
+import { TranslateModule } from '@ngx-translate/core'
+import { TablerIconsModule } from 'angular-tabler-icons'
+import { MaterialModule } from 'src/app/material.module'
 
-import { NavService } from '../../../../../shared/services/nav.service';
-import { NavItem } from './nav-item';
+import { NavService } from '../../../../../shared/services/nav.service'
+import { NavItem } from './nav-item'
 
 @Component({
 	selector: 'app-nav-item',
@@ -24,22 +24,22 @@ import { NavItem } from './nav-item';
 	],
 })
 export class AppNavItemComponent implements OnChanges {
-	@Output() toggleMobileLink: any = new EventEmitter<void>();
-	@Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>();
+	@Output() toggleMobileLink: any = new EventEmitter<void>()
+	@Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>()
 
-	expanded: any = false;
-	disabled: any = false;
-	twoLines: any = false;
-	@HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
-	@Input() item: NavItem | any;
-	@Input() depth: any;
+	expanded: any = false
+	disabled: any = false
+	twoLines: any = false
+	@HostBinding('attr.aria-expanded') ariaExpanded = this.expanded
+	@Input() item: NavItem | any
+	@Input() depth: any
 
 	constructor(
 		public navService: NavService,
 		public router: Router,
 	) {
 		if (this.depth === undefined) {
-			this.depth = 0;
+			this.depth = 0
 		}
 	}
 
@@ -47,29 +47,29 @@ export class AppNavItemComponent implements OnChanges {
 		this.navService.currentUrl.subscribe((url?: string) => {
 			if (this.item.route && url) {
 				// console.log(`Checking '/${this.item.route}' against '${url}'`);
-				this.expanded = url.indexOf(`/${this.item.route}`) === 0;
-				this.ariaExpanded = this.expanded;
+				this.expanded = url.indexOf(`/${this.item.route}`) === 0
+				this.ariaExpanded = this.expanded
 				//console.log(`${this.item.route} is expanded: ${this.expanded}`);
 			}
-		});
+		})
 	}
 
 	onItemSelected(item: NavItem) {
 		if (!item.children || !item.children.length) {
-			this.router.navigate([item.route]);
+			this.router.navigate([item.route])
 		}
 		if (item.children && item.children.length) {
-			this.expanded = !this.expanded;
+			this.expanded = !this.expanded
 		}
 		//scroll
 		window.scroll({
 			top: 0,
 			left: 0,
 			behavior: 'smooth',
-		});
+		})
 		if (!this.expanded) {
 			if (window.innerWidth < 1024) {
-				this.notify.emit();
+				this.notify.emit()
 			}
 		}
 	}
@@ -77,7 +77,7 @@ export class AppNavItemComponent implements OnChanges {
 	onSubItemSelected(item: NavItem) {
 		if (!item.children || !item.children.length) {
 			if (this.expanded && window.innerWidth < 1024) {
-				this.notify.emit();
+				this.notify.emit()
 			}
 		}
 	}

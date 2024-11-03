@@ -1,30 +1,30 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { RouterModule } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { FeatherModule } from 'angular-feather';
-import { TablerIconsModule } from 'angular-tabler-icons';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-import { MaterialModule } from 'src/app/material.module';
-import { CoreService } from 'src/app/shared/services/core.service';
+import { CommonModule } from '@angular/common'
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core'
+import { FormsModule } from '@angular/forms'
+import { MatDialog } from '@angular/material/dialog'
+import { RouterModule } from '@angular/router'
+import { TranslateService } from '@ngx-translate/core'
+import { FeatherModule } from 'angular-feather'
+import { TablerIconsModule } from 'angular-tabler-icons'
+import { NgScrollbarModule } from 'ngx-scrollbar'
+import { MaterialModule } from 'src/app/material.module'
+import { CoreService } from 'src/app/shared/services/core.service'
 
-import { navItems } from '../sidebar/sidebar-data';
+import { navItems } from '../sidebar/sidebar-data'
 
 interface notifications {
-	id: number;
-	img: string;
-	title: string;
-	subtitle: string;
+	id: number
+	img: string
+	title: string
+	subtitle: string
 }
 
 interface profile {
-	id: number;
-	img: string;
-	title: string;
-	subtitle: string;
-	link: string;
+	id: number
+	img: string
+	title: string
+	subtitle: string
+	link: string
 }
 
 // interface apps {
@@ -49,20 +49,20 @@ interface profile {
 	encapsulation: ViewEncapsulation.None,
 })
 export class HeaderComponent {
-	@Input() showToggle = true;
-	@Input() toggleChecked = false;
-	@Output() toggleMobileNav = new EventEmitter<void>();
-	@Output() toggleMobileFilterNav = new EventEmitter<void>();
-	@Output() toggleCollapsed = new EventEmitter<void>();
+	@Input() showToggle = true
+	@Input() toggleChecked = false
+	@Output() toggleMobileNav = new EventEmitter<void>()
+	@Output() toggleMobileFilterNav = new EventEmitter<void>()
+	@Output() toggleCollapsed = new EventEmitter<void>()
 
-	showFiller = false;
+	showFiller = false
 
 	public selectedLanguage: any = {
 		language: 'English',
 		code: 'en',
 		type: 'US',
 		icon: '/assets/images/flag/icon-flag-en.svg',
-	};
+	}
 
 	public languages: any[] = [
 		{
@@ -86,27 +86,27 @@ export class HeaderComponent {
 			code: 'de',
 			icon: '/assets/images/flag/icon-flag-de.svg',
 		},
-	];
+	]
 
 	constructor(
 		private vsidenav: CoreService,
 		public dialog: MatDialog,
 		private translate: TranslateService,
 	) {
-		translate.setDefaultLang('en');
+		translate.setDefaultLang('en')
 	}
 
 	openDialog() {
-		const dialogRef = this.dialog.open(AppSearchDialogComponent);
+		const dialogRef = this.dialog.open(AppSearchDialogComponent)
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result}`);
-		});
+			console.log(`Dialog result: ${result}`)
+		})
 	}
 
 	changeLanguage(lang: any): void {
-		this.translate.use(lang.code);
-		this.selectedLanguage = lang;
+		this.translate.use(lang.code)
+		this.selectedLanguage = lang
 	}
 
 	notifications: notifications[] = [
@@ -140,7 +140,7 @@ export class HeaderComponent {
 			title: 'Roman Joined the Team!',
 			subtitle: 'Congratulate him',
 		},
-	];
+	]
 
 	profiledd: profile[] = [
 		{
@@ -164,7 +164,7 @@ export class HeaderComponent {
 			subtitle: 'To-do and Daily Tasks',
 			link: '/apps/taskboard',
 		},
-	];
+	]
 }
 
 @Component({
@@ -174,10 +174,10 @@ export class HeaderComponent {
 	templateUrl: 'search-dialog.component.html',
 })
 export class AppSearchDialogComponent {
-	searchText: string = '';
-	navItems = navItems;
+	searchText: string = ''
+	navItems = navItems
 
-	navItemsData = navItems.filter((navitem) => navitem.displayName);
+	navItemsData = navItems.filter((navitem) => navitem.displayName)
 
 	// filtered = this.navItemsData.find((obj) => {
 	//   return obj.displayName == this.searchinput;

@@ -9,24 +9,28 @@
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput formControlName="name" />
 				<mat-hint>The name of the item or a short description of the item</mat-hint>
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.name) }}</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
 			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Part Number</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput formControlName="partNumber" />
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.partNumber) }}</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
 			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Quantity</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput type="number" formControlName="quantity" />
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.quantity) }}</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
 			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Price (before VAT)</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput type="number" formControlName="price" />
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.price) }}</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
@@ -46,6 +50,7 @@
 						</mat-option>
 					}
 				</mat-autocomplete>
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.store) }}</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
@@ -65,6 +70,7 @@
 						</mat-option>
 					}
 				</mat-autocomplete>
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.shelf) }}</mat-error>
 			</mat-form-field>
 
 			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Bought From</mat-label>
@@ -74,6 +80,7 @@
 						<mat-option [value]="boughtFrom">{{ boughtFrom }}</mat-option>
 					}
 				</mat-select>
+				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.boughtFrom) }}</mat-error>
 			</mat-form-field>
 
 			<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">

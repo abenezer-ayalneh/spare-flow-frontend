@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { MaterialModule } from '../../../../material.module';
-import { BehaviorSubject, startWith } from 'rxjs';
-import { Store } from '../../../../shared/models/store.model';
-import { Shelf } from '../../../../shared/models/shelf.model';
-import { AsyncPipe } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core'
+import { MaterialModule } from '../../../../material.module'
+import { BehaviorSubject, startWith } from 'rxjs'
+import { Store } from '../../../../shared/models/store.model'
+import { Shelf } from '../../../../shared/models/shelf.model'
+import { AsyncPipe } from '@angular/common'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { HelperService } from '../../../../shared/services/helper.service'
 
 @Component({
 	selector: 'app-add-item',
@@ -14,25 +15,27 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 	styleUrl: './add-item.component.scss',
 })
 export class AddItemComponent implements OnInit {
-	stores: Store[] = [];
+	stores: Store[] = []
 
-	shelves: Shelf[] = [];
+	shelves: Shelf[] = []
 
-	boughtFromList: string[] = ['ORIGINAL', 'LOCAL'];
+	boughtFromList: string[] = ['ORIGINAL', 'LOCAL']
 
-	filteredStores$ = new BehaviorSubject<Store[]>([]);
+	filteredStores$ = new BehaviorSubject<Store[]>([])
 
-	filteredShelves$ = new BehaviorSubject<Shelf[]>([]);
+	filteredShelves$ = new BehaviorSubject<Shelf[]>([])
 
 	addItemFormGroup = new FormGroup({
 		name: new FormControl<string>('', { validators: [Validators.required] }),
 		partNumber: new FormControl<string>('', { validators: [Validators.required] }),
-		quantity: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		price: new FormControl<number | null>(null, { validators: [Validators.required] }),
+		quantity: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
+		price: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
 		store: new FormControl<string | Store>('', { validators: [Validators.required] }),
 		shelf: new FormControl<string | Shelf>('', { validators: [Validators.required] }),
 		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),
-	});
+	})
+
+	constructor(protected readonly helperService: HelperService) {}
 
 	ngOnInit(): void {
 		// TODO remove the code block below
@@ -58,7 +61,7 @@ export class AddItemComponent implements OnInit {
 				createdAt: '2024-11-02T11:31:49.681Z',
 				updatedAt: '2024-11-02T11:31:49.681Z',
 			},
-		];
+		]
 
 		// TODO remove the code block below
 		this.shelves = [
@@ -86,36 +89,38 @@ export class AddItemComponent implements OnInit {
 				createdAt: '2024-11-02T11:31:49.681Z',
 				updatedAt: '2024-11-02T11:31:49.681Z',
 			},
-		];
+		]
 
 		this.addItemFormGroup.controls.store.valueChanges.pipe(startWith('')).subscribe({
 			next: (store) => {
-				const name = typeof store === 'string' ? store : store?.name;
+				const name = typeof store === 'string' ? store : store?.name
 
-				this.filteredStores$.next(this.filterByName<Store>(name, this.stores));
+				this.filteredStores$.next(this.filterByName<Store>(name, this.stores))
 			},
-		});
+		})
 
 		this.addItemFormGroup.controls.shelf.valueChanges.pipe(startWith('')).subscribe({
 			next: (shelf) => {
-				const name = typeof shelf === 'string' ? shelf : shelf?.name;
+				const name = typeof shelf === 'string' ? shelf : shelf?.name
 
-				this.filteredShelves$.next(this.filterByName<Shelf>(name, this.shelves));
+				this.filteredShelves$.next(this.filterByName<Shelf>(name, this.shelves))
 			},
-		});
+		})
 	}
 
 	displayWith(option: { name: string }): string {
-		return option && option.name ? option.name : '';
+		return option && option.name ? option.name : ''
 	}
 
 	filterByName<T extends { name: string }>(key: string | undefined, list: T[]): T[] {
-		let filterValue: string = key?.toLowerCase() ?? '';
+		let filterValue: string = key?.toLowerCase() ?? ''
 
-		return list.filter((option) => option.name?.toLowerCase().includes(filterValue));
+		return list.filter((option) => option.name?.toLowerCase().includes(filterValue))
 	}
 
 	addItem() {
-		console.log({ formData: this.addItemFormGroup.value });
+		if (this.addItemFormGroup.valid) {
+			console.log({ formData: this.addItemFormGroup.value })
+		}
 	}
 }

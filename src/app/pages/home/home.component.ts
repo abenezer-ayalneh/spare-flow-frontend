@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core'
 
-import { MaterialModule } from '../../material.module';
+import { MaterialModule } from '../../material.module'
 @Component({
 	selector: 'app-home',
 	standalone: true,

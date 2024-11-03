@@ -1,16 +1,16 @@
-import { CanActivateFn } from '@angular/router';
-import { inject } from '@angular/core';
-import { HelperService } from '../shared/services/helper.service';
+import { CanActivateFn } from '@angular/router'
+import { inject } from '@angular/core'
+import { HelperService } from '../shared/services/helper.service'
 
 export const authGuard: CanActivateFn = () => {
-	const helperService = inject(HelperService);
-	const token = helperService.getAccessToken();
+	const helperService = inject(HelperService)
+	const token = helperService.getAccessToken()
 
 	if (token) {
-		return true;
+		return true
 	}
 
-	window.location.href = 'authentication/login'; // This is intentional!
+	window.location.href = 'authentication/login' // This is intentional!
 
-	return false;
-};
+	return false
+}

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Item } from './types/items.type';
+import { Injectable } from '@angular/core'
+import { Item } from './types/items.type'
 
 /** Constants used to fill up our data base. */
 const PART_NUMBERS = [
@@ -33,7 +33,7 @@ const PART_NUMBERS = [
 	'DIZIRE',
 	'DIZIRE',
 	'DIZIRE',
-];
+]
 
 const NAMES = [
 	'CABLE ASSY, PARKING BRAKE, NO.1',
@@ -66,7 +66,7 @@ const NAMES = [
 	'LINER LH',
 	'LINER RH',
 	'MOTOR GUARD',
-];
+]
 
 @Injectable({
 	providedIn: 'root',
@@ -76,12 +76,12 @@ export class ItemsService {
 
 	/** Builds and returns a new Item. */
 	createNewItem(id: number): Item {
-		const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' + NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
+		const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' + NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.'
 		const partNumber =
 			PART_NUMBERS[Math.round(Math.random() * (PART_NUMBERS.length - 1))] +
 			' ' +
 			PART_NUMBERS[Math.round(Math.random() * (PART_NUMBERS.length - 1))].charAt(0) +
-			'.';
+			'.'
 
 		// tslint:disable-next-line - Disables all
 		return {
@@ -93,6 +93,6 @@ export class ItemsService {
 			price: Math.round(Math.random() * 100),
 			vat: 15,
 			totalPrice: Math.round(Math.random() * 100),
-		};
+		}
 	}
 }
