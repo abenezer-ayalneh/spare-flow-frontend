@@ -8,7 +8,7 @@ import { FeatherModule } from 'angular-feather';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MaterialModule } from 'src/app/material.module';
-import { CoreService } from 'src/app/services/core.service';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 import { navItems } from '../sidebar/sidebar-data';
 

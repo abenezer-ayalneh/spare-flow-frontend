@@ -1,0 +1,85 @@
+<mat-card class="cardWithShadow theme-card">
+	<mat-card-header>
+		<mat-card-title class="m-b-0">Add Item Form</mat-card-title>
+	</mat-card-header>
+	<mat-card-content class="b-t-1">
+		<form [formGroup]="addItemFormGroup" (ngSubmit)="addItem()">
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Name</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input matInput formControlName="name" />
+				<mat-hint>The name of the item or a short description of the item</mat-hint>
+			</mat-form-field>
+
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Part Number</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input matInput formControlName="partNumber" />
+			</mat-form-field>
+
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Quantity</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input matInput type="number" formControlName="quantity" />
+			</mat-form-field>
+
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Price (before VAT)</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input matInput type="number" formControlName="price" />
+			</mat-form-field>
+
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Store Location</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input
+					type="text"
+					placeholder="Select Store Location"
+					aria-label="Store"
+					matInput
+					formControlName="store"
+					[matAutocomplete]="storeAutocomplete" />
+				<mat-autocomplete autoActiveFirstOption #storeAutocomplete="matAutocomplete" [displayWith]="displayWith">
+					@for (store of filteredStores$ | async; track store) {
+						<mat-option [value]="store">
+							{{ store.name }}
+						</mat-option>
+					}
+				</mat-autocomplete>
+			</mat-form-field>
+
+			<!-- input -->
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Shelf Location</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<input
+					type="text"
+					placeholder="Select Shelf Location"
+					aria-label="Shelf"
+					matInput
+					formControlName="shelf"
+					[matAutocomplete]="shelfAutocomplete" />
+				<mat-autocomplete autoActiveFirstOption #shelfAutocomplete="matAutocomplete" [displayWith]="displayWith">
+					@for (shelf of filteredShelves$ | async; track shelf) {
+						<mat-option [value]="shelf">
+							{{ shelf.name }}
+						</mat-option>
+					}
+				</mat-autocomplete>
+			</mat-form-field>
+
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Bought From</mat-label>
+			<mat-form-field appearance="outline" class="w-100" color="primary">
+				<mat-select formControlName="boughtFrom">
+					@for (boughtFrom of boughtFromList; track boughtFrom) {
+						<mat-option [value]="boughtFrom">{{ boughtFrom }}</mat-option>
+					}
+				</mat-select>
+			</mat-form-field>
+
+			<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
+				<button mat-flat-button color="primary" type="submit">Submit</button>
+				<!--        <button mat-stroked-button color="warn">Cancel</button>-->
+			</div>
+		</form>
+	</mat-card-content>
+</mat-card>

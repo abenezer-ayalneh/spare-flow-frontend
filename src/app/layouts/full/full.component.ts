@@ -7,9 +7,9 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { Subscription } from 'rxjs';
 import { AppSettings } from 'src/app/app.config';
 import { MaterialModule } from 'src/app/material.module';
-import { CoreService } from 'src/app/services/core.service';
+import { CoreService } from 'src/app/shared/services/core.service';
 
-import { NavService } from '../../services/nav.service';
+import { NavService } from '../../shared/services/nav.service';
 import { AppSearchDialogComponent, HeaderComponent } from './vertical/header/header.component';
 import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component';
 import { SidebarComponent } from './vertical/sidebar/sidebar.component';

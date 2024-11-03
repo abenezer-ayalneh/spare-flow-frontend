@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { CoreService } from 'src/app/services/core.service';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 import { MaterialModule } from '../../../material.module';
 
@@ -29,6 +29,6 @@ export class AppLockscreenComponent {
 
 	submit() {
 		// console.log(this.form.value);
-		this.router.navigate(['/home']);
+		this.router.navigate(['/']);
 	}
 }

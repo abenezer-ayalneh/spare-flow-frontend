@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppSettings } from 'src/app/app.config';
-import { CoreService } from 'src/app/services/core.service';
+import { CoreService } from 'src/app/shared/services/core.service';
 
 @Component({
 	selector: 'app-blank',

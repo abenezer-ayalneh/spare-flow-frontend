@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { ItemsComponent } from './items/items.component';
+import { AddItemComponent } from './items/components/add-item/add-item.component';
 
 export const PagesRoutes: Routes = [
 	{
@@ -9,5 +11,18 @@ export const PagesRoutes: Routes = [
 		data: {
 			title: 'Home Page',
 		},
+	},
+	{
+		path: 'items',
+		children: [
+			{
+				path: '',
+				component: ItemsComponent,
+			},
+			{
+				path: 'add',
+				component: AddItemComponent,
+			},
+		],
 	},
 ];
