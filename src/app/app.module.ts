@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
@@ -21,6 +21,7 @@ import { FullComponent } from './layouts/full/full.component'
 //Import all material modules
 import { MaterialModule } from './material.module'
 import { FilterPipe } from './pipes/filter.pipe'
+import { AccessTokenInterceptor } from './shared/interceptors/access-token.interceptor'
 
 export function HttpLoaderFactory(http: HttpClient): any {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -48,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
 		NgScrollbarModule,
 		FullComponent,
 	],
+	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }],
 	exports: [TablerIconsModule],
 	bootstrap: [AppComponent],
 })
