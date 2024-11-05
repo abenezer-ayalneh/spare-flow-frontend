@@ -25,40 +25,26 @@
 			<div class="p-32 d-flex align-items-start align-items-lg-center justify-content-center h-100">
 				<div class="row justify-content-center w-100">
 					<div class="col-lg-9 max-width-form">
-						<h4 class="f-w-700 f-s-24 m-0">Welcome to SpareFlow</h4>
+						<h4 class="f-w-700 f-s-24 m-0">{{ 'login.title' | translate: { appName: APP_NAME } }}</h4>
 
 						<form class="m-t-30" [formGroup]="loginFormGroup" (ngSubmit)="submit()">
 							<mat-form-field appearance="outline" class="w-100" color="primary">
-								<mat-label>Username</mat-label>
+								<mat-label>{{ 'username' | translate | titlecase }}</mat-label>
 								<input matInput formControlName="username" />
-								@if (formControls['username'].touched && formControls['username'].invalid) {
-									<mat-hint class="m-b-16 error-msg">
-										@if (formControls['username'].errors && formControls['username'].errors['required']) {
-											<div class="text-error">Name is required.</div>
-										}
-										@if (formControls['username'].errors && formControls['username'].errors['minlength']) {
-											<div class="text-error">Name should be 6 character.</div>
-										}
-									</mat-hint>
-								}
+								<mat-error>
+									<app-form-error-message [control]="formControls.username"></app-form-error-message>
+								</mat-error>
 							</mat-form-field>
 
-							<!-- password -->
-
-							<mat-form-field appearance="outline" class="w-100" color="primary">
-								<mat-label>Password</mat-label>
+							<mat-form-field appearance="outline" class="w-100 m-t-12" color="primary">
+								<mat-label>{{ 'password' | translate | titlecase }}</mat-label>
 								<input matInput type="password" formControlName="password" />
-								@if (formControls['password'].touched && formControls['password'].invalid) {
-									<mat-hint class="m-b-16 error-msg">
-										@if (formControls['password'].errors && formControls['password'].errors['required']) {
-											<div class="text-error">Password is required.</div>
-										}
-									</mat-hint>
-								}
+								<mat-error>
+									<app-form-error-message [control]="formControls.password"></app-form-error-message>
+								</mat-error>
 							</mat-form-field>
 
-							<button mat-flat-button color="primary" class="w-100" [disabled]="!loginFormGroup.valid">Sign In</button>
-							<!-- input -->
+							<button mat-flat-button color="primary" class="w-100" [disabled]="loginFormGroup.invalid">Sign In</button>
 						</form>
 					</div>
 				</div>

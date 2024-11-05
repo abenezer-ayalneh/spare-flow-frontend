@@ -40,6 +40,8 @@ export function HttpLoaderFactory(http: HttpClient): any {
 		TablerIconsModule.pick(TablerIcons),
 		FeatherModule.pick(allIcons),
 		TranslateModule.forRoot({
+			defaultLanguage: 'en',
+			useDefaultLang: true,
 			loader: {
 				provide: TranslateLoader,
 				useFactory: HttpLoaderFactory,
@@ -49,7 +51,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
 		NgScrollbarModule,
 		FullComponent,
 	],
-	providers: [{ provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }],
+	// providers: [{ provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true }],
 	exports: [TablerIconsModule],
 	bootstrap: [AppComponent],
 })

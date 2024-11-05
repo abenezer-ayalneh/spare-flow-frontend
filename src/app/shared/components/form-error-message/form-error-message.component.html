@@ -1,0 +1,29 @@
+@if (control.errors) {
+	@if (control.errors['required']) {
+		<span>{{ 'validation.required' | translate }}</span>
+	}
+
+	@if (control.errors['minlength']) {
+		<span>{{ 'validation.minLength' | translate: { requiredLength: control.errors['minlength']['requiredLength'] } }}</span>
+	}
+
+	@if (control.errors['maxLength']) {
+		<span>{{ 'validation.maxLength' | translate: { requiredLength: control.errors['maxlength']['requiredLength'] } }}</span>
+	}
+
+	@if (control.errors['email']) {
+		<span>{{ 'validation.email' | translate }}</span>
+	}
+
+	@if (control.errors['min']) {
+		<span>{{ 'validation.min' | translate: { min: control.errors['min']['min'] } }}</span>
+	}
+
+	@if (control.errors['max']) {
+		<span>{{ 'validation.max' | translate: { max: control.errors['max']['max'] } }}</span>
+	}
+
+	@if (control.errors['emailTaken']) {
+		<span>{{ 'validation.emailTaken' | translate }}</span>
+	}
+}

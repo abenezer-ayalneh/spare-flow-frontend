@@ -1,0 +1,18 @@
+{
+	"common": {
+		"username": "የተጠቃሚ ስም",
+		"password": "የይለፍ ቃል"
+	},
+	"validation": {
+		"required": "መስክ መሞላት አለበት።",
+		"minLength": "ቢያንስ {{requiredLength}} ፊደላት መሆን አለበት።",
+		"maxLength": "ቢበዛ {{requiredLength}} ፊደላት መሆን አለበት።",
+		"email": "የሚሰራ ኢሜይል ማስገባት አለቦት።",
+		"min": "ቢያንስ {{min}} መሆን አለበት።",
+		"max": "ቢበዛ {{max}} መሆን አለበት።",
+		"emailTaken": "ይህ ኢሜል ተይዟል። "
+	},
+	"login": {
+		"title": "እንኳን ወደ {{appName}} በደህና መጡ!"
+	}
+}
