@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Item } from './types/items.type'
+import { Store } from '../../shared/models/store.model'
+import { delay, of } from 'rxjs'
+import { Shelf } from '../../shared/models/shelf.model'
 
 /** Constants used to fill up our data base. */
 const PART_NUMBERS = [
@@ -94,5 +97,60 @@ export class ItemsService {
 			vat: 15,
 			totalPrice: Math.round(Math.random() * 100),
 		}
+	}
+
+	getStores() {
+		return of<Store[]>([
+			{
+				id: 1,
+				name: 'Store 1',
+				description: 'Store One',
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+			{
+				id: 2,
+				name: 'Store 2',
+				description: 'Store Two',
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+			{
+				id: 3,
+				name: 'Store 3',
+				description: 'Store Three',
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+		]).pipe(delay(1500))
+	}
+
+	getShelves() {
+		return of<Shelf[]>([
+			{
+				id: 1,
+				name: 'Shelf 1',
+				description: 'Shelf One',
+				storeId: 1,
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+			{
+				id: 2,
+				name: 'Shelf 2',
+				description: 'Shelf Two',
+				storeId: 2,
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+			{
+				id: 3,
+				name: 'Shelf 3',
+				description: 'Shelf Three',
+				storeId: 3,
+				createdAt: '2024-11-02T11:31:49.681Z',
+				updatedAt: '2024-11-02T11:31:49.681Z',
+			},
+		]).pipe(delay(1500))
 	}
 }
