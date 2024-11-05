@@ -29,7 +29,7 @@
 
 						<form class="m-t-30" [formGroup]="loginFormGroup" (ngSubmit)="submit()">
 							<mat-form-field appearance="outline" class="w-100" color="primary">
-								<mat-label>{{ 'username' | translate | titlecase }}</mat-label>
+								<mat-label>{{ 'username' | translate }}</mat-label>
 								<input matInput formControlName="username" />
 								<mat-error>
 									<app-form-error-message [control]="formControls.username"></app-form-error-message>
@@ -37,7 +37,7 @@
 							</mat-form-field>
 
 							<mat-form-field appearance="outline" class="w-100 m-t-12" color="primary">
-								<mat-label>{{ 'password' | translate | titlecase }}</mat-label>
+								<mat-label>{{ 'password' | translate }}</mat-label>
 								<input matInput type="password" formControlName="password" />
 								<mat-error>
 									<app-form-error-message [control]="formControls.password"></app-form-error-message>

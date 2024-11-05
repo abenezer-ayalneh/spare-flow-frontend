@@ -8,11 +8,13 @@ import { Item } from './types/items.type'
 import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { RouterLink, RouterLinkActive } from '@angular/router'
+import { TranslateModule } from '@ngx-translate/core'
+import { TitleCasePipe } from '@angular/common'
 
 @Component({
 	selector: 'app-items',
 	standalone: true,
-	imports: [MaterialModule, TablerIconsModule, RouterLink, RouterLinkActive],
+	imports: [MaterialModule, TablerIconsModule, RouterLink, RouterLinkActive, TranslateModule, TitleCasePipe],
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })

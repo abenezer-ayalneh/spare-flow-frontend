@@ -8,7 +8,6 @@ import { MaterialModule } from '../../../material.module'
 import { TranslateModule } from '@ngx-translate/core'
 import { APP_NAME } from '../../../shared/constants/shared.constant'
 import { TitleCasePipe } from '@angular/common'
-import { HelperService } from '../../../shared/services/helper.service'
 import { FormErrorMessageComponent } from '../../../shared/components/form-error-message/form-error-message.component'
 
 @Component({
@@ -35,7 +34,6 @@ export class AppLoginComponent {
 	}
 
 	submit() {
-		// console.log(this.form.value);
 		this.router.navigate(['/'])
 	}
 }

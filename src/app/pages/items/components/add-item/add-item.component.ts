@@ -6,11 +6,13 @@ import { Shelf } from '../../../../shared/models/shelf.model'
 import { AsyncPipe } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { HelperService } from '../../../../shared/services/helper.service'
+import { FormErrorMessageComponent } from '../../../../shared/components/form-error-message/form-error-message.component'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
 	selector: 'app-add-item',
 	standalone: true,
-	imports: [MaterialModule, AsyncPipe, ReactiveFormsModule],
+	imports: [MaterialModule, AsyncPipe, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
 	templateUrl: './add-item.component.html',
 	styleUrl: './add-item.component.scss',
 })
@@ -29,7 +31,7 @@ export class AddItemComponent implements OnInit {
 		name: new FormControl<string>('', { validators: [Validators.required] }),
 		partNumber: new FormControl<string>('', { validators: [Validators.required] }),
 		quantity: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
-		price: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
+		price: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0.1)] }),
 		store: new FormControl<string | Store>('', { validators: [Validators.required] }),
 		shelf: new FormControl<string | Shelf>('', { validators: [Validators.required] }),
 		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),

@@ -1,7 +1,10 @@
 {
 	"common": {
-		"username": "username",
-		"password": "password"
+		"username": "Username",
+		"password": "Password",
+		"search": "Search here",
+		"filter": "Filter",
+		"submit": "Submit"
 	},
 	"validation": {
 		"required": "Field is required.",
@@ -13,6 +16,33 @@
 		"emailTaken": "Email taken. Please try another email."
 	},
 	"login": {
-		"title": "welcome to {{appName}}"
+		"title": "Welcome to {{appName}}!"
+	},
+	"sidebar": {
+		"reporting": "Reporting",
+		"dashboard": "Dashboard",
+		"main": "Main",
+		"items": "Items"
+	},
+	"items": {
+		"list": "Items list",
+		"add": "Add item",
+		"tableAndForm": {
+			"name": "Name",
+			"nameHint": "The name of the item or a short description of the item",
+			"partNumber": "Part number",
+			"location": "Location",
+			"storeLocation": "Store location",
+			"storeLocationPlaceholder": "Select store location",
+			"shelfLocation": "Shelf location",
+			"shelfLocationPlaceholder": "Select shelf location",
+			"quantity": "Quantity",
+			"price": "Price",
+			"priceBeforeVat": "Price (before VAT)",
+			"vat": "VAT",
+			"totalPrice": "Total price",
+			"actions": "Actions",
+			"boughtFrom": "Bought from"
+		}
 	}
 }

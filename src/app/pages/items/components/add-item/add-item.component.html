@@ -1,44 +1,52 @@
 <mat-card class="cardWithShadow theme-card">
 	<mat-card-header>
-		<mat-card-title class="m-b-0">Add Item Form</mat-card-title>
+		<mat-card-title class="m-b-0">{{ 'items.add' | translate }}</mat-card-title>
 	</mat-card-header>
 	<mat-card-content class="b-t-1">
 		<form [formGroup]="addItemFormGroup" (ngSubmit)="addItem()">
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">Name</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'items.tableAndForm.name' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput formControlName="name" />
-				<mat-hint>The name of the item or a short description of the item</mat-hint>
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.name) }}</mat-error>
+				<mat-hint>{{ 'items.tableAndForm.nameHint' | translate }}</mat-hint>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.name"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Part Number</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.partNumber' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput formControlName="partNumber" />
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.partNumber) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.partNumber"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Quantity</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.quantity' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput type="number" formControlName="quantity" />
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.quantity) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.quantity"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Price (before VAT)</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.priceBeforeVat' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input matInput type="number" formControlName="price" />
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.price) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.price"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Store Location</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.storeLocation' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input
 					type="text"
-					placeholder="Select Store Location"
+					[placeholder]="'items.tableAndForm.storeLocationPlaceholder' | translate"
 					aria-label="Store"
 					matInput
 					formControlName="store"
@@ -50,15 +58,17 @@
 						</mat-option>
 					}
 				</mat-autocomplete>
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.store) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.store"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Shelf Location</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.shelfLocation' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<input
 					type="text"
-					placeholder="Select Shelf Location"
+					[placeholder]="'items.tableAndForm.shelfLocationPlaceholder' | translate"
 					aria-label="Shelf"
 					matInput
 					formControlName="shelf"
@@ -70,22 +80,26 @@
 						</mat-option>
 					}
 				</mat-autocomplete>
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.shelf) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.shelf"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">Bought From</mat-label>
+			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.boughtFrom' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<mat-select formControlName="boughtFrom">
 					@for (boughtFrom of boughtFromList; track boughtFrom) {
 						<mat-option [value]="boughtFrom">{{ boughtFrom }}</mat-option>
 					}
 				</mat-select>
-				<mat-error>{{ helperService.getFormFieldError(addItemFormGroup.controls.boughtFrom) }}</mat-error>
+				<mat-error>
+					<app-form-error-message [control]="addItemFormGroup.controls.boughtFrom"></app-form-error-message>
+				</mat-error>
 			</mat-form-field>
 
 			<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
-				<button mat-flat-button color="primary" type="submit">Submit</button>
-				<!--        <button mat-stroked-button color="warn">Cancel</button>-->
+				<button mat-flat-button color="primary" type="submit">{{ 'common.submit' | translate }}</button>
+				<!--        <button mat-stroked-button color="warn">{{'common.cancel' | translate }}</button>-->
 			</div>
 		</form>
 	</mat-card-content>

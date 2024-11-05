@@ -3,13 +3,13 @@
 		<div class="row justify-content-between m-b-8">
 			<div class="col-lg-5 col-sm-6 d-flex align-items-center">
 				<div>
-					<mat-card-title>Items List</mat-card-title>
+					<mat-card-title>{{ 'items.list' | translate }}</mat-card-title>
 				</div>
 			</div>
 			<div class="col-lg-3 col-sm-4">
 				<mat-form-field appearance="outline" class="w-100 hide-hint">
-					<mat-label>Search Here</mat-label>
-					<input matInput (keyup)="applyFilter($event)" placeholder="Filter" />
+					<mat-label>{{ 'common.search' | translate }}</mat-label>
+					<input matInput (keyup)="applyFilter($event)" placeholder="{{ 'common.filter' | translate }}" />
 				</mat-form-field>
 			</div>
 		</div>
@@ -17,7 +17,7 @@
 		<div class="d-flex d-sm-block align-items-center gap-1 m-b-16 m-t-16">
 			<button mat-fab extended routerLink="add">
 				<mat-icon>add</mat-icon>
-				Add Item
+				{{ 'items.add' | translate }}
 			</button>
 		</div>
 
@@ -25,7 +25,9 @@
 			<mat-table [dataSource]="dataSource" matSort>
 				<!-- Name Column -->
 				<ng-container matColumnDef="name">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Name </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.name' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.name }}
 					</mat-cell>
@@ -33,13 +35,17 @@
 
 				<!-- Part Number Column -->
 				<ng-container matColumnDef="partNumber">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Part Number </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.partNumber' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row"> {{ row.partNumber }}</mat-cell>
 				</ng-container>
 
 				<!-- Location Column -->
 				<ng-container matColumnDef="location">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Location </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.location' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.location }}
 					</mat-cell>
@@ -47,7 +53,9 @@
 
 				<!-- Quantity Column -->
 				<ng-container matColumnDef="quantity">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Quantity </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.quantity' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.quantity }}
 					</mat-cell>
@@ -55,7 +63,9 @@
 
 				<!-- Price Column -->
 				<ng-container matColumnDef="price">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Price </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.price' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.price }}
 					</mat-cell>
@@ -63,7 +73,9 @@
 
 				<!-- VAT Column -->
 				<ng-container matColumnDef="vat">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> VAT </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.vat' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.vat }}
 					</mat-cell>
@@ -71,7 +83,9 @@
 
 				<!-- Total Price Column -->
 				<ng-container matColumnDef="totalPrice">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Total Price </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.totalPrice' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						{{ row.totalPrice }}
 					</mat-cell>
@@ -79,7 +93,9 @@
 
 				<!-- Actions Column -->
 				<ng-container matColumnDef="actions">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16"> Actions </mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
+						{{ 'items.tableAndForm.actions' | translate }}</mat-header-cell
+					>
 					<mat-cell *matCellDef="let row">
 						<div class="d-flex">
 							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" routerLink="edit/{{ row.id }}">

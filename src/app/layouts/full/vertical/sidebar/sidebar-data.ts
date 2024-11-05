@@ -2,18 +2,18 @@ import { NavItem } from './nav-item/nav-item'
 
 export const navItems: NavItem[] = [
 	{
-		navCap: 'Reporting',
+		navCap: 'sidebar.reporting',
 	},
 	{
-		displayName: 'Dashboard',
+		displayName: 'sidebar.dashboard',
 		iconName: 'dashboard',
 		route: '/',
 	},
 	{
-		navCap: 'Main',
+		navCap: 'sidebar.main',
 	},
 	{
-		displayName: 'Items',
+		displayName: 'sidebar.items',
 		iconName: 'table',
 		route: '/items',
 		// children: [
