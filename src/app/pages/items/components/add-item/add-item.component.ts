@@ -7,6 +7,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormErrorMessageComponent } from '../../../../shared/components/form-error-message/form-error-message.component'
 import { TranslateModule } from '@ngx-translate/core'
 import { ItemsService } from '../../items.service'
+import { LoadingService } from '../../../../shared/components/loading/loading.service'
+import { finalize } from 'rxjs'
 
 @Component({
 	selector: 'app-add-item',
@@ -34,18 +36,25 @@ export class AddItemComponent implements OnInit {
 		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),
 	})
 
-	constructor(protected readonly itemsService: ItemsService) {}
+	constructor(
+		protected readonly itemsService: ItemsService,
+		private readonly loadingService: LoadingService,
+	) {}
 
 	get formControls() {
 		return this.addItemFormGroup.controls
 	}
 
 	ngOnInit(): void {
-		this.itemsService.getStores().subscribe({
-			next: (stores) => {
-				this.stores = stores
-			},
-		})
+		this.loadingService.loadingOn()
+		this.itemsService
+			.getStores()
+			.pipe(finalize(() => this.loadingService.loadingOff()))
+			.subscribe({
+				next: (stores) => {
+					this.stores = stores
+				},
+			})
 
 		this.itemsService.getShelves().subscribe({
 			next: (shelves) => {
