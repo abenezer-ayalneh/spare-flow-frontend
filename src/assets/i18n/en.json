@@ -4,7 +4,8 @@
 		"password": "Password",
 		"search": "Search here",
 		"filter": "Filter",
-		"submit": "Submit"
+		"submit": "Submit",
+		"update": "Update"
 	},
 	"validation": {
 		"required": "Field is required.",
@@ -27,6 +28,7 @@
 	"items": {
 		"list": "Items list",
 		"add": "Add item",
+		"edit": "Edit item",
 		"tableAndForm": {
 			"name": "Name",
 			"nameHint": "The name of the item or a short description of the item",

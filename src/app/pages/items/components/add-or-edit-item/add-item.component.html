@@ -3,7 +3,7 @@
 		<mat-card-title class="m-b-0">{{ 'items.add' | translate }}</mat-card-title>
 	</mat-card-header>
 	<mat-card-content class="b-t-1">
-		<form [formGroup]="addItemFormGroup" (ngSubmit)="addItem()">
+		<form [formGroup]="addItemFormGroup" (ngSubmit)="addItemFormSubmit()">
 			<!-- input -->
 			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'items.tableAndForm.name' | translate }}</mat-label>
 			<mat-form-field appearance="outline" class="w-100" color="primary">
@@ -61,7 +61,7 @@
 			<mat-form-field appearance="outline" class="w-100" color="primary">
 				<mat-select formControlName="shelf" [placeholder]="'items.tableAndForm.shelfLocationPlaceholder' | translate">
 					@for (shelf of shelvesUnderSelectedStore; track shelf) {
-						<mat-option [value]="shelf">
+						<mat-option [value]="shelf.id">
 							{{ shelf.name }}
 						</mat-option>
 					}

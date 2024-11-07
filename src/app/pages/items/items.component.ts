@@ -1,15 +1,15 @@
-import { Component, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { BreakpointObserver } from '@angular/cdk/layout'
 import { MaterialModule } from '../../material.module'
-import { Item } from './types/items.type'
 import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { RouterLink, RouterLinkActive } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { TitleCasePipe } from '@angular/common'
+import { Item } from '../../shared/models/item.model'
 
 @Component({
 	selector: 'app-items',
@@ -18,7 +18,7 @@ import { TitleCasePipe } from '@angular/common'
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })
-export class ItemsComponent {
+export class ItemsComponent implements AfterViewInit {
 	displayedColumns = ['name', 'partNumber', 'location', 'quantity', 'price', 'vat', 'totalPrice', 'actions']
 	dataSource: MatTableDataSource<Item>
 

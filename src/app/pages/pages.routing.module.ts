@@ -2,7 +2,8 @@ import { Routes } from '@angular/router'
 
 import { HomeComponent } from './home/home.component'
 import { ItemsComponent } from './items/items.component'
-import { AddItemComponent } from './items/components/add-item/add-item.component'
+import { AddItemComponent } from './items/components/add-or-edit-item/add-item.component'
+import { EditItemComponent } from './items/components/edit-item/edit-item.component'
 
 export const PagesRoutes: Routes = [
 	{
@@ -25,7 +26,7 @@ export const PagesRoutes: Routes = [
 			},
 			{
 				path: 'edit/:id',
-				component: AddItemComponent,
+				component: EditItemComponent,
 			},
 		],
 	},

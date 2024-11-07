@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core'
-import { Item } from './types/items.type'
 import { Store } from '../../shared/models/store.model'
-import { delay, of } from 'rxjs'
+import { delay, Observable, of } from 'rxjs'
 import { Shelf } from '../../shared/models/shelf.model'
+import { Item } from '../../shared/models/item.model'
+import { MOCK_DELAY } from '../../shared/constants/shared.constant'
 
 /** Constants used to fill up our data base. */
 const PART_NUMBERS = [
@@ -71,13 +72,66 @@ const NAMES = [
 	'MOTOR GUARD',
 ]
 
+const STORES = [
+	{
+		id: 1,
+		name: 'Store 1',
+		description: 'Store One',
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+	{
+		id: 2,
+		name: 'Store 2',
+		description: 'Store Two',
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+	{
+		id: 3,
+		name: 'Store 3',
+		description: 'Store Three',
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+]
+
+const SHELVES = [
+	{
+		id: 1,
+		name: 'Shelf 1',
+		description: 'Shelf One',
+		storeId: 1,
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+	{
+		id: 2,
+		name: 'Shelf 2',
+		description: 'Shelf Two',
+		storeId: 2,
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+	{
+		id: 3,
+		name: 'Shelf 3',
+		description: 'Shelf Three',
+		storeId: 3,
+		createdAt: '2024-11-02T11:31:49.681Z',
+		updatedAt: '2024-11-02T11:31:49.681Z',
+	},
+]
+
 @Injectable({
 	providedIn: 'root',
 })
 export class ItemsService {
 	constructor() {}
 
-	/** Builds and returns a new Item. */
+	/**
+	 * Builds and returns a new Item.
+	 */
 	createNewItem(id: number): Item {
 		const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' + NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.'
 		const partNumber =
@@ -86,7 +140,6 @@ export class ItemsService {
 			PART_NUMBERS[Math.round(Math.random() * (PART_NUMBERS.length - 1))].charAt(0) +
 			'.'
 
-		// tslint:disable-next-line - Disables all
 		return {
 			id: id.toString(),
 			name: name,
@@ -96,61 +149,21 @@ export class ItemsService {
 			price: Math.round(Math.random() * 100),
 			vat: 15,
 			totalPrice: Math.round(Math.random() * 100),
+			boughtFrom: 'ORIGINAL',
+			store: STORES[0],
+			shelf: SHELVES[0],
 		}
 	}
 
 	getStores() {
-		return of<Store[]>([
-			{
-				id: 1,
-				name: 'Store 1',
-				description: 'Store One',
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-			{
-				id: 2,
-				name: 'Store 2',
-				description: 'Store Two',
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-			{
-				id: 3,
-				name: 'Store 3',
-				description: 'Store Three',
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-		]).pipe(delay(1500))
+		return of<Store[]>(STORES).pipe(delay(MOCK_DELAY))
 	}
 
 	getShelves() {
-		return of<Shelf[]>([
-			{
-				id: 1,
-				name: 'Shelf 1',
-				description: 'Shelf One',
-				storeId: 1,
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-			{
-				id: 2,
-				name: 'Shelf 2',
-				description: 'Shelf Two',
-				storeId: 2,
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-			{
-				id: 3,
-				name: 'Shelf 3',
-				description: 'Shelf Three',
-				storeId: 3,
-				createdAt: '2024-11-02T11:31:49.681Z',
-				updatedAt: '2024-11-02T11:31:49.681Z',
-			},
-		]).pipe(delay(1500))
+		return of<Shelf[]>(SHELVES).pipe(delay(MOCK_DELAY))
+	}
+
+	getItemById(id: number): Observable<Item> {
+		return of<Item>(this.createNewItem(id)).pipe(delay(MOCK_DELAY))
 	}
 }
