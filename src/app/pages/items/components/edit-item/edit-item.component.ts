@@ -41,7 +41,7 @@ export class EditItemComponent implements OnInit {
 	protected readonly Boolean = Boolean
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: { item: Item },
+		@Inject(MAT_DIALOG_DATA) private readonly data: Item,
 		protected readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
 	) {}
@@ -53,13 +53,13 @@ export class EditItemComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
-		this.itemToEdit = this.data.item
+		this.itemToEdit = this.data
 		this.editItemFormGroup.patchValue({
-			name: this.data.item.name,
-			partNumber: this.data.item.partNumber,
-			store: this.data.item.store.id,
-			shelf: this.data.item.shelf.id,
-			boughtFrom: this.data.item.boughtFrom,
+			name: this.data.name,
+			partNumber: this.data.partNumber,
+			store: this.data.store.id,
+			shelf: this.data.shelf.id,
+			boughtFrom: this.data.boughtFrom,
 		})
 
 		this.itemsService

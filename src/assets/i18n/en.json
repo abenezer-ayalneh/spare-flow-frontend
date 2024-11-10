@@ -23,7 +23,8 @@
 		"reporting": "Reporting",
 		"dashboard": "Dashboard",
 		"main": "Main",
-		"items": "Items"
+		"items": "Items",
+		"stores": "Stores"
 	},
 	"items": {
 		"list": "Items list",
@@ -45,6 +46,16 @@
 			"totalPrice": "Total price",
 			"actions": "Actions",
 			"boughtFrom": "Bought from"
+		}
+	},
+	"stores": {
+		"list": "Stores list",
+		"add": "Add store",
+		"edit": "Edit store",
+		"tableAndForm": {
+			"name": "Name",
+			"description": "Description",
+			"actions": "Actions"
 		}
 	}
 }

@@ -16,31 +16,10 @@ export const navItems: NavItem[] = [
 		displayName: 'sidebar.items',
 		iconName: 'table',
 		route: '/items',
-		// children: [
-		// 	{
-		// 		displayName: 'Menu 1',
-		// 		iconName: 'point',
-		// 		route: '/menu-1',
-		// 		children: [
-		// 			{
-		// 				displayName: 'Menu 1',
-		// 				iconName: 'point',
-		// 				route: '/menu-1',
-		// 			},
-		//
-		// 			{
-		// 				displayName: 'Menu 2',
-		// 				iconName: 'point',
-		// 				route: '/menu-2',
-		// 			},
-		// 		],
-		// 	},
-		//
-		// 	{
-		// 		displayName: 'Menu 2',
-		// 		iconName: 'point',
-		// 		route: '/menu-2',
-		// 	},
-		// ],
+	},
+	{
+		displayName: 'sidebar.stores',
+		iconName: 'building-store',
+		route: '/stores',
 	},
 ]

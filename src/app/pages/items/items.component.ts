@@ -68,6 +68,6 @@ export class ItemsComponent implements AfterViewInit {
 	}
 
 	openEditItemModal(item: Item) {
-		this.matDialog.open(EditItemComponent, { data: { item } })
+		this.matDialog.open(EditItemComponent, { data: item })
 	}
 }
