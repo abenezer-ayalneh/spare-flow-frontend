@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { MaterialModule } from '../../../../material.module'
 import { Store } from '../../../../shared/models/store.model'
 import { Shelf } from '../../../../shared/models/shelf.model'
@@ -10,8 +10,7 @@ import { ItemsService } from '../../items.service'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { finalize } from 'rxjs'
 import { Item } from '../../../../shared/models/item.model'
-import { ActivatedRoute, Router } from '@angular/router'
-import { HttpErrorResponse } from '@angular/common/http'
+import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 
 @Component({
 	selector: 'app-edit-item',
@@ -34,20 +33,17 @@ export class EditItemComponent implements OnInit {
 	editItemFormGroup = new FormGroup({
 		name: new FormControl<string>('', { validators: [Validators.required] }),
 		partNumber: new FormControl<string>('', { validators: [Validators.required] }),
-		quantity: new FormControl<number | null>({ value: null, disabled: Boolean(this.itemToEdit) }, { validators: [Validators.required, Validators.min(1)] }),
-		price: new FormControl<number | null>({ value: null, disabled: Boolean(this.itemToEdit) }, { validators: [Validators.required, Validators.min(0.1)] }),
 		store: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		shelf: new FormControl<number | null>({ value: null, disabled: !Boolean(this.itemToEdit) }, { validators: [Validators.required] }),
+		shelf: new FormControl<number | null>(null, { validators: [Validators.required] }),
 		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),
 	})
 
 	protected readonly Boolean = Boolean
 
 	constructor(
+		@Inject(MAT_DIALOG_DATA) private readonly data: { item: Item },
 		protected readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
-		private readonly activatedRoute: ActivatedRoute,
-		private readonly router: Router,
 	) {}
 
 	get formControls() {
@@ -57,27 +53,14 @@ export class EditItemComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
-		const itemToEditId = this.activatedRoute.snapshot.params['id']
-		if (itemToEditId) {
-			this.itemsService.getItemById(itemToEditId).subscribe({
-				next: (item) => {
-					this.itemToEdit = item
-					this.editItemFormGroup.patchValue({
-						name: item.name,
-						partNumber: item.partNumber,
-						quantity: item.quantity,
-						price: item.price,
-						store: item.store.id,
-						shelf: item.shelf.id,
-						boughtFrom: item.boughtFrom,
-					})
-				},
-				error: async (err: HttpErrorResponse) => {
-					console.error({ getItemByIdError: err })
-					await this.router.navigateByUrl('/items')
-				},
-			})
-		}
+		this.itemToEdit = this.data.item
+		this.editItemFormGroup.patchValue({
+			name: this.data.item.name,
+			partNumber: this.data.item.partNumber,
+			store: this.data.item.store.id,
+			shelf: this.data.item.shelf.id,
+			boughtFrom: this.data.item.boughtFrom,
+		})
 
 		this.itemsService
 			.getStores()

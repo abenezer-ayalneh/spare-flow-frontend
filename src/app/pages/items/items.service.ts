@@ -4,6 +4,8 @@ import { delay, Observable, of } from 'rxjs'
 import { Shelf } from '../../shared/models/shelf.model'
 import { Item } from '../../shared/models/item.model'
 import { MOCK_DELAY } from '../../shared/constants/shared.constant'
+import { STORES } from '../../shared/mocks/stores.mock'
+import { SHELVES } from '../../shared/mocks/shelves.mock'
 
 /** Constants used to fill up our data base. */
 const PART_NUMBERS = [
@@ -70,57 +72,6 @@ const NAMES = [
 	'LINER LH',
 	'LINER RH',
 	'MOTOR GUARD',
-]
-
-const STORES = [
-	{
-		id: 1,
-		name: 'Store 1',
-		description: 'Store One',
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
-	{
-		id: 2,
-		name: 'Store 2',
-		description: 'Store Two',
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
-	{
-		id: 3,
-		name: 'Store 3',
-		description: 'Store Three',
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
-]
-
-const SHELVES = [
-	{
-		id: 1,
-		name: 'Shelf 1',
-		description: 'Shelf One',
-		storeId: 1,
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
-	{
-		id: 2,
-		name: 'Shelf 2',
-		description: 'Shelf Two',
-		storeId: 2,
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
-	{
-		id: 3,
-		name: 'Shelf 3',
-		description: 'Shelf Three',
-		storeId: 3,
-		createdAt: '2024-11-02T11:31:49.681Z',
-		updatedAt: '2024-11-02T11:31:49.681Z',
-	},
 ]
 
 @Injectable({

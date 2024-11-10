@@ -10,6 +10,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { TitleCasePipe } from '@angular/common'
 import { Item } from '../../shared/models/item.model'
+import { MatDialog } from '@angular/material/dialog'
+import { EditItemComponent } from './components/edit-item/edit-item.component'
 
 @Component({
 	selector: 'app-items',
@@ -28,6 +30,7 @@ export class ItemsComponent implements AfterViewInit {
 	constructor(
 		breakpointObserver: BreakpointObserver,
 		private readonly itemsService: ItemsService,
+		private readonly matDialog: MatDialog,
 	) {
 		breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
 			this.displayedColumns = result.matches
@@ -57,5 +60,9 @@ export class ItemsComponent implements AfterViewInit {
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value
 		this.dataSource.filter = filterValue.trim().toLowerCase()
+	}
+
+	openEditItemModal(item: Item) {
+		this.matDialog.open(EditItemComponent, { data: { item } })
 	}
 }
