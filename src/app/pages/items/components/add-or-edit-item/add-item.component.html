@@ -1,92 +1,87 @@
-<mat-card class="cardWithShadow theme-card">
-	<mat-card-header>
-		<mat-card-title class="m-b-0">{{ 'items.add' | translate }}</mat-card-title>
-	</mat-card-header>
-	<mat-card-content class="b-t-1">
-		<form [formGroup]="addItemFormGroup" (ngSubmit)="addItemFormSubmit()">
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'items.tableAndForm.name' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<input matInput formControlName="name" />
-				<mat-hint>{{ 'items.tableAndForm.nameHint' | translate }}</mat-hint>
-				<mat-error>
-					<app-form-error-message [control]="formControls.name"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+<p mat-dialog-title>{{ 'items.add' | translate }}</p>
+<mat-dialog-content>
+	<form [formGroup]="addItemFormGroup" (ngSubmit)="addItemFormSubmit()" class="w-[600px]">
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'items.tableAndForm.name' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput formControlName="name" />
+			<mat-hint>{{ 'items.tableAndForm.nameHint' | translate }}</mat-hint>
+			<mat-error>
+				<app-form-error-message [control]="formControls.name"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.partNumber' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<input matInput formControlName="partNumber" />
-				<mat-error>
-					<app-form-error-message [control]="formControls.partNumber"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.partNumber' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput formControlName="partNumber" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.partNumber"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.quantity' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<input matInput type="number" formControlName="quantity" />
-				<mat-error>
-					<app-form-error-message [control]="formControls.quantity"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.quantity' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput type="number" formControlName="quantity" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.quantity"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.priceBeforeVat' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<input matInput type="number" formControlName="price" />
-				<mat-error>
-					<app-form-error-message [control]="formControls.price"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.priceBeforeVat' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput type="number" formControlName="price" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.price"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.storeLocation' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<mat-select formControlName="store" [placeholder]="'items.tableAndForm.storeLocationPlaceholder' | translate">
-					@for (store of stores; track store) {
-						<mat-option [value]="store.id">
-							{{ store.name }}
-						</mat-option>
-					}
-				</mat-select>
-				<mat-error>
-					<app-form-error-message [control]="formControls.store"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.storeLocation' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<mat-select formControlName="store" [placeholder]="'items.tableAndForm.storeLocationPlaceholder' | translate">
+				@for (store of stores; track store) {
+					<mat-option [value]="store.id">
+						{{ store.name }}
+					</mat-option>
+				}
+			</mat-select>
+			<mat-error>
+				<app-form-error-message [control]="formControls.store"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<!-- input -->
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.shelfLocation' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<mat-select formControlName="shelf" [placeholder]="'items.tableAndForm.shelfLocationPlaceholder' | translate">
-					@for (shelf of shelvesUnderSelectedStore; track shelf) {
-						<mat-option [value]="shelf.id">
-							{{ shelf.name }}
-						</mat-option>
-					}
-				</mat-select>
-				<mat-error>
-					<app-form-error-message [control]="formControls.shelf"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.shelfLocation' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<mat-select formControlName="shelf" [placeholder]="'items.tableAndForm.shelfLocationPlaceholder' | translate">
+				@for (shelf of shelvesUnderSelectedStore; track shelf) {
+					<mat-option [value]="shelf.id">
+						{{ shelf.name }}
+					</mat-option>
+				}
+			</mat-select>
+			<mat-error>
+				<app-form-error-message [control]="formControls.shelf"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.boughtFrom' | translate }}</mat-label>
-			<mat-form-field appearance="outline" class="w-100" color="primary">
-				<mat-select formControlName="boughtFrom">
-					@for (boughtFrom of boughtFromList; track boughtFrom) {
-						<mat-option [value]="boughtFrom">{{ boughtFrom }}</mat-option>
-					}
-				</mat-select>
-				<mat-error>
-					<app-form-error-message [control]="formControls.boughtFrom"></app-form-error-message>
-				</mat-error>
-			</mat-form-field>
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.boughtFrom' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<mat-select formControlName="boughtFrom">
+				@for (boughtFrom of boughtFromList; track boughtFrom) {
+					<mat-option [value]="boughtFrom">{{ boughtFrom }}</mat-option>
+				}
+			</mat-select>
+			<mat-error>
+				<app-form-error-message [control]="formControls.boughtFrom"></app-form-error-message>
+			</mat-error>
+		</mat-form-field>
 
-			<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
-				<button mat-flat-button color="primary" type="submit">{{ 'common.submit' | translate }}</button>
-				<!--        <button mat-stroked-button color="warn">{{'common.cancel' | translate }}</button>-->
-			</div>
-		</form>
-	</mat-card-content>
-</mat-card>
+		<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
+			<button mat-flat-button color="primary" type="submit">{{ 'common.submit' | translate }}</button>
+		</div>
+	</form>
+</mat-dialog-content>

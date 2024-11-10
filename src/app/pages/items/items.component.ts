@@ -12,6 +12,7 @@ import { TitleCasePipe } from '@angular/common'
 import { Item } from '../../shared/models/item.model'
 import { MatDialog } from '@angular/material/dialog'
 import { EditItemComponent } from './components/edit-item/edit-item.component'
+import { AddItemComponent } from './components/add-or-edit-item/add-item.component'
 
 @Component({
 	selector: 'app-items',
@@ -60,6 +61,10 @@ export class ItemsComponent implements AfterViewInit {
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value
 		this.dataSource.filter = filterValue.trim().toLowerCase()
+	}
+
+	openAddModal() {
+		this.matDialog.open(AddItemComponent)
 	}
 
 	openEditItemModal(item: Item) {
