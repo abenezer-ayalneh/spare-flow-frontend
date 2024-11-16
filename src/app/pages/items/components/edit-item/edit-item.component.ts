@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core'
 import { MaterialModule } from '../../../../material.module'
 import { Store } from '../../../../shared/models/store.model'
 import { Shelf } from '../../../../shared/models/shelf.model'
-import { AsyncPipe } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { FormErrorMessageComponent } from '../../../../shared/components/form-error-message/form-error-message.component'
 import { TranslateModule } from '@ngx-translate/core'
@@ -15,7 +14,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 @Component({
 	selector: 'app-edit-item',
 	standalone: true,
-	imports: [MaterialModule, AsyncPipe, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
+	imports: [MaterialModule, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
 	templateUrl: './edit-item.component.html',
 	styleUrl: './edit-item.component.scss',
 })
@@ -76,7 +75,7 @@ export class EditItemComponent implements OnInit {
 				this.shelves = shelves
 
 				if (this.itemToEdit) {
-					this.shelvesUnderSelectedStore = shelves.filter((shelf) => shelf.storeId === this.itemToEdit?.store.id)
+					this.shelvesUnderSelectedStore = shelves.filter((shelf) => shelf.store.id === this.itemToEdit?.store.id)
 				}
 			},
 		})
@@ -86,7 +85,7 @@ export class EditItemComponent implements OnInit {
 				this.formControls.shelf.setValue(null)
 				if (storeId) {
 					this.formControls.shelf.enable()
-					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.storeId === this.editItemFormGroup.controls.store.value)
+					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.store.id === this.editItemFormGroup.controls.store.value)
 				} else {
 					this.shelvesUnderSelectedStore = []
 				}

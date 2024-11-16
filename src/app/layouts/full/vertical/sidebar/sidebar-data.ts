@@ -22,4 +22,9 @@ export const navItems: NavItem[] = [
 		iconName: 'building-store',
 		route: '/stores',
 	},
+	{
+		displayName: 'sidebar.shelves',
+		iconName: 'packages',
+		route: '/shelves',
+	},
 ]

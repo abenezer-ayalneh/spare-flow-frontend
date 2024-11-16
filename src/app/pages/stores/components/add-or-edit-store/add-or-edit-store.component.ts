@@ -3,18 +3,17 @@ import { TranslateModule } from '@ngx-translate/core'
 import { FormErrorMessageComponent } from '../../../../shared/components/form-error-message/form-error-message.component'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MaterialModule } from '../../../../material.module'
-import { AsyncPipe } from '@angular/common'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Store } from '../../../../shared/models/store.model'
 
 @Component({
-	selector: 'app-add-store',
+	selector: 'app-add-or-edit-store',
 	standalone: true,
-	imports: [MaterialModule, AsyncPipe, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
-	templateUrl: './add-store.component.html',
-	styleUrl: './add-store.component.scss',
+	imports: [MaterialModule, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
+	templateUrl: './add-or-edit-store.component.html',
+	styleUrl: './add-or-edit-store.component.scss',
 })
-export class AddStoreComponent implements OnInit {
+export class AddOrEditStoreComponent implements OnInit {
 	isEditing: boolean
 
 	addStoreFormGroup = new FormGroup({

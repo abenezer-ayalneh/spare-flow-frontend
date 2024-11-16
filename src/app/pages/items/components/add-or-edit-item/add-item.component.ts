@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { MaterialModule } from '../../../../material.module'
 import { Store } from '../../../../shared/models/store.model'
 import { Shelf } from '../../../../shared/models/shelf.model'
-import { AsyncPipe } from '@angular/common'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { FormErrorMessageComponent } from '../../../../shared/components/form-error-message/form-error-message.component'
 import { TranslateModule } from '@ngx-translate/core'
@@ -13,7 +12,7 @@ import { finalize } from 'rxjs'
 @Component({
 	selector: 'app-add-item',
 	standalone: true,
-	imports: [MaterialModule, AsyncPipe, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
+	imports: [MaterialModule, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
 	templateUrl: './add-item.component.html',
 	styleUrl: './add-item.component.scss',
 })
@@ -70,7 +69,7 @@ export class AddItemComponent implements OnInit {
 				this.formControls.shelf.setValue(null)
 				if (storeId) {
 					this.formControls.shelf.enable()
-					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.storeId === this.addItemFormGroup.controls.store.value)
+					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.store.id === this.addItemFormGroup.controls.store.value)
 				} else {
 					this.shelvesUnderSelectedStore = []
 				}

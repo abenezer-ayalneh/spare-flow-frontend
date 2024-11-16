@@ -18,17 +18,17 @@ import {
 	MatTable,
 	MatTableDataSource,
 } from '@angular/material/table'
-import { Store } from '../../shared/models/store.model'
 import { MatSort, MatSortHeader } from '@angular/material/sort'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatPaginator } from '@angular/material/paginator'
-import { StoresService } from './stores.service'
+import { Shelf } from '../../shared/models/shelf.model'
 import { MatDialog } from '@angular/material/dialog'
-import { AddOrEditStoreComponent } from './components/add-or-edit-store/add-or-edit-store.component'
+import { AddOrEditShelvesComponent } from './components/add-or-edit-shelves/add-or-edit-shelves.component'
+import { ShelvesService } from './shelves.service'
 
 @Component({
-	selector: 'app-stores',
+	selector: 'app-shelves',
 	standalone: true,
 	imports: [
 		MatCard,
@@ -56,23 +56,23 @@ import { AddOrEditStoreComponent } from './components/add-or-edit-store/add-or-e
 		MatPaginator,
 		MatRowDef,
 	],
-	templateUrl: './stores.component.html',
-	styleUrl: './stores.component.scss',
+	templateUrl: './shelves.component.html',
+	styleUrl: './shelves.component.scss',
 })
-export class StoresComponent implements OnInit {
-	dataSource: MatTableDataSource<Store>
+export class ShelvesComponent implements OnInit {
+	dataSource: MatTableDataSource<Shelf>
 
-	displayedColumns: string[] = ['name', 'description', 'actions']
+	displayedColumns: string[] = ['name', 'description', 'store', 'actions']
 
 	constructor(
-		private readonly storesService: StoresService,
+		private readonly shelvesService: ShelvesService,
 		private readonly matDialog: MatDialog,
 	) {}
 
 	ngOnInit() {
-		this.storesService.getStores().subscribe({
-			next: (stores) => {
-				this.dataSource = new MatTableDataSource(stores)
+		this.shelvesService.getShelves().subscribe({
+			next: (shelves) => {
+				this.dataSource = new MatTableDataSource(shelves)
 			},
 		})
 	}
@@ -82,11 +82,11 @@ export class StoresComponent implements OnInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase()
 	}
 
-	openAddStoreModal() {
-		this.matDialog.open(AddOrEditStoreComponent)
+	openAddShelfModal() {
+		this.matDialog.open(AddOrEditShelvesComponent)
 	}
 
-	openEditStoreModal(store: Store) {
-		this.matDialog.open(AddOrEditStoreComponent, { data: store })
+	openEditShelfModal(shelf: Shelf) {
+		this.matDialog.open(AddOrEditShelvesComponent, { data: shelf })
 	}
 }

@@ -24,7 +24,8 @@
 		"dashboard": "Dashboard",
 		"main": "Main",
 		"items": "Items",
-		"stores": "Stores"
+		"stores": "Stores",
+		"shelves": "Shelves"
 	},
 	"items": {
 		"list": "Items list",
@@ -55,6 +56,17 @@
 		"tableAndForm": {
 			"name": "Name",
 			"description": "Description",
+			"actions": "Actions"
+		}
+	},
+	"shelves": {
+		"list": "Shelves list",
+		"add": "Add shelf",
+		"edit": "Edit shelf",
+		"tableAndForm": {
+			"name": "Name",
+			"description": "Description",
+			"store": "Store",
 			"actions": "Actions"
 		}
 	}
