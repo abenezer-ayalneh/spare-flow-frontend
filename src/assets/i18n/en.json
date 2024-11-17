@@ -25,7 +25,9 @@
 		"main": "Main",
 		"items": "Items",
 		"stores": "Stores",
-		"shelves": "Shelves"
+		"shelves": "Shelves",
+		"config": "Configurations",
+		"users": "Users"
 	},
 	"items": {
 		"list": "Items list",
@@ -67,6 +69,19 @@
 			"name": "Name",
 			"description": "Description",
 			"store": "Store",
+			"actions": "Actions"
+		}
+	},
+	"users": {
+		"list": "Users list",
+		"add": "Add user",
+		"edit": "Edit user",
+		"tableAndForm": {
+			"name": "Name",
+			"username": "Username",
+			"phoneNumber": "Phone Number",
+			"role": "Role",
+			"active": "Active",
 			"actions": "Actions"
 		}
 	}

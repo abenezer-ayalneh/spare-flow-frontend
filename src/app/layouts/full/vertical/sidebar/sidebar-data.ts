@@ -27,4 +27,13 @@ export const navItems: NavItem[] = [
 		iconName: 'packages',
 		route: '/shelves',
 	},
+	{
+		navCap: 'sidebar.config',
+	},
+
+	{
+		displayName: 'sidebar.users',
+		iconName: 'users',
+		route: '/users',
+	},
 ]

@@ -7,7 +7,7 @@
 			<input matInput formControlName="name" />
 			<mat-hint>{{ 'items.tableAndForm.nameHint' | translate }}</mat-hint>
 			<mat-error>
-				<app-form-error-message [control]="formControls.name"></app-form-error-message>
+				<app-form-error-message [control]="formControls.name" />
 			</mat-error>
 		</mat-form-field>
 
@@ -16,7 +16,7 @@
 		<mat-form-field appearance="outline" class="w-100" color="primary">
 			<input matInput formControlName="partNumber" />
 			<mat-error>
-				<app-form-error-message [control]="formControls.partNumber"></app-form-error-message>
+				<app-form-error-message [control]="formControls.partNumber" />
 			</mat-error>
 		</mat-form-field>
 
@@ -25,7 +25,7 @@
 		<mat-form-field appearance="outline" class="w-100" color="primary">
 			<input matInput type="number" formControlName="quantity" />
 			<mat-error>
-				<app-form-error-message [control]="formControls.quantity"></app-form-error-message>
+				<app-form-error-message [control]="formControls.quantity" />
 			</mat-error>
 		</mat-form-field>
 
@@ -34,7 +34,7 @@
 		<mat-form-field appearance="outline" class="w-100" color="primary">
 			<input matInput type="number" formControlName="price" />
 			<mat-error>
-				<app-form-error-message [control]="formControls.price"></app-form-error-message>
+				<app-form-error-message [control]="formControls.price" />
 			</mat-error>
 		</mat-form-field>
 
@@ -49,7 +49,7 @@
 				}
 			</mat-select>
 			<mat-error>
-				<app-form-error-message [control]="formControls.store"></app-form-error-message>
+				<app-form-error-message [control]="formControls.store" />
 			</mat-error>
 		</mat-form-field>
 
@@ -64,7 +64,7 @@
 				}
 			</mat-select>
 			<mat-error>
-				<app-form-error-message [control]="formControls.shelf"></app-form-error-message>
+				<app-form-error-message [control]="formControls.shelf" />
 			</mat-error>
 		</mat-form-field>
 
@@ -76,7 +76,7 @@
 				}
 			</mat-select>
 			<mat-error>
-				<app-form-error-message [control]="formControls.boughtFrom"></app-form-error-message>
+				<app-form-error-message [control]="formControls.boughtFrom" />
 			</mat-error>
 		</mat-form-field>
 

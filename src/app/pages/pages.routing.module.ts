@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component'
 import { ItemsComponent } from './items/items.component'
 import { StoresComponent } from './stores/stores.component'
 import { ShelvesComponent } from './shelves/shelves.component'
+import { UsersComponent } from './users/users.component'
 
 export const PagesRoutes: Routes = [
 	{
@@ -24,5 +25,9 @@ export const PagesRoutes: Routes = [
 	{
 		path: 'shelves',
 		component: ShelvesComponent,
+	},
+	{
+		path: 'users',
+		component: UsersComponent,
 	},
 ]

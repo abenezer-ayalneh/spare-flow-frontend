@@ -1,0 +1,53 @@
+<p mat-dialog-title>{{ (isEditing ? 'users.edit' : 'users.add') | translate }}</p>
+<mat-dialog-content>
+	<form [formGroup]="addUserFormGroup" (ngSubmit)="addUserFormSubmit()" class="w-[600px]">
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'users.tableAndForm.name' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput formControlName="name" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.name" />
+			</mat-error>
+		</mat-form-field>
+
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'users.tableAndForm.username' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput formControlName="username" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.username" />
+			</mat-error>
+		</mat-form-field>
+
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'users.tableAndForm.phoneNumber' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<input matInput formControlName="phoneNumber" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.phoneNumber" />
+			</mat-error>
+		</mat-form-field>
+
+		<!-- input -->
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'users.tableAndForm.role' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-100" color="primary">
+			<mat-select formControlName="role" [placeholder]="'users.tableAndForm.role' | translate">
+				@for (role of roles; track role) {
+					<mat-option [value]="role.id">
+						{{ role.name }}
+					</mat-option>
+				}
+			</mat-select>
+			<mat-error>
+				<app-form-error-message [control]="formControls.role" />
+			</mat-error>
+		</mat-form-field>
+
+		<!-- input -->
+		<mat-checkbox formControlName="active" color="primary">{{ 'users.tableAndForm.active' | translate }}</mat-checkbox>
+
+		<div class="d-flex flex-sm-row flex-column align-users-center justify-content-start gap-8 m-t-12">
+			<button mat-flat-button color="primary" type="submit">{{ 'common.submit' | translate }}</button>
+		</div>
+	</form>
+</mat-dialog-content>
