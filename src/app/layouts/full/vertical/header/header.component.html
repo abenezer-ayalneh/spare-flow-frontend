@@ -19,8 +19,8 @@
 	<!-- --------------------------------------------------------------- -->
 	<!-- profile Dropdown -->
 	<!-- --------------------------------------------------------------- -->
-	<button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
-		<img alt="user profile" src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover icon-35 profile-dd" width="35" />
+	<button [matMenuTriggerFor]="profilemenu" class="w-12 h-12 rounded-full overflow-hidden p-0 flex justify-center items-center bg-pink-500">
+		<img src="/assets/images/profile/user-1.jpg" alt="button image" class="w-full object-cover" />
 	</button>
 	<mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
 		<ng-scrollbar class="position-relative">

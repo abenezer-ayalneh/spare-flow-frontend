@@ -9,11 +9,12 @@ import { Role } from '../../../../shared/models/role.model'
 import { UsersService } from '../../users.service'
 import { finalize } from 'rxjs'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
+import { TitleCasePipe } from '@angular/common'
 
 @Component({
 	selector: 'app-add-or-edit-user',
 	standalone: true,
-	imports: [MaterialModule, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule],
+	imports: [MaterialModule, ReactiveFormsModule, FormErrorMessageComponent, TranslateModule, TitleCasePipe],
 	templateUrl: './add-or-edit-user.component.html',
 	styleUrl: './add-or-edit-user.component.scss',
 })

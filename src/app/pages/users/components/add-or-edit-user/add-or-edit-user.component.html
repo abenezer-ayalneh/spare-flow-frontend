@@ -34,7 +34,7 @@
 			<mat-select formControlName="role" [placeholder]="'users.tableAndForm.role' | translate">
 				@for (role of roles; track role) {
 					<mat-option [value]="role.id">
-						{{ role.name }}
+						{{ role.name | titlecase }}
 					</mat-option>
 				}
 			</mat-select>

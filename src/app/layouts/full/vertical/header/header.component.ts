@@ -87,28 +87,6 @@ export class HeaderComponent {
 			icon: '/assets/images/flag/icon-flag-de.svg',
 		},
 	]
-
-	constructor(
-		private vsidenav: CoreService,
-		public dialog: MatDialog,
-		private translate: TranslateService,
-	) {
-		translate.setDefaultLang('en')
-	}
-
-	openDialog() {
-		const dialogRef = this.dialog.open(AppSearchDialogComponent)
-
-		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result}`)
-		})
-	}
-
-	changeLanguage(lang: any): void {
-		this.translate.use(lang.code)
-		this.selectedLanguage = lang
-	}
-
 	notifications: notifications[] = [
 		{
 			id: 1,
@@ -141,7 +119,6 @@ export class HeaderComponent {
 			subtitle: 'Congratulate him',
 		},
 	]
-
 	profiledd: profile[] = [
 		{
 			id: 1,
@@ -165,6 +142,27 @@ export class HeaderComponent {
 			link: '/apps/taskboard',
 		},
 	]
+
+	constructor(
+		private vsidenav: CoreService,
+		public dialog: MatDialog,
+		private translate: TranslateService,
+	) {
+		translate.setDefaultLang('en')
+	}
+
+	openDialog() {
+		const dialogRef = this.dialog.open(AppSearchDialogComponent)
+
+		dialogRef.afterClosed().subscribe((result) => {
+			console.log(`Dialog result: ${result}`)
+		})
+	}
+
+	changeLanguage(lang: any): void {
+		this.translate.use(lang.code)
+		this.selectedLanguage = lang
+	}
 }
 
 @Component({
