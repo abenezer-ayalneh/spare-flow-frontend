@@ -41,6 +41,7 @@ export class SignInComponent {
 			this.authenticationService.login({ username: this.loginFormGroup.value.username!, password: this.loginFormGroup.value.password! }).subscribe({
 				next: (loginResponse) => {
 					this.tokenService.storeTokens(loginResponse)
+					this.router.navigate(['/'])
 				},
 			})
 		}
