@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core'
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { HelperService } from '../services/helper.service'
+import { TokenService } from '../services/token.service'
 
 @Injectable()
 export class AccessTokenInterceptor implements HttpInterceptor {
-	constructor(private readonly helperService: HelperService) {}
+	constructor(private readonly tokenService: TokenService) {}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		let nextRequest = request
 
-		const accessToken = this.helperService.getAccessToken()
+		const accessToken = this.tokenService.getAccessToken()
 
 		if (accessToken) {
 			nextRequest = request.clone({

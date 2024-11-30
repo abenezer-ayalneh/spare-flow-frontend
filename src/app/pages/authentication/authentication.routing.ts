@@ -3,7 +3,7 @@ import { Routes } from '@angular/router'
 import { AppErrorComponent } from './error/error.component'
 import { AppForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { AppLockscreenComponent } from './lockscreen/lockscreen.component'
-import { AppLoginComponent } from './login/login.component'
+import { SignInComponent } from './sign-in/sign-in.component'
 import { AppMaintenanceComponent } from './maintenance/maintenance.component'
 import { AppRegisterComponent } from './register/register.component'
 
@@ -24,8 +24,8 @@ export const AuthenticationRoutes: Routes = [
 				component: AppForgotPasswordComponent,
 			},
 			{
-				path: 'login',
-				component: AppLoginComponent,
+				path: 'sign-in',
+				component: SignInComponent,
 			},
 			{
 				path: 'register',

@@ -20,10 +20,11 @@ import { BlankComponent } from './layouts/blank/blank.component'
 import { FullComponent } from './layouts/full/full.component'
 //Import all material modules
 import { MaterialModule } from './material.module'
-import { FilterPipe } from './pipes/filter.pipe'
+import { FilterPipe } from './shared/pipes/filter.pipe'
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor'
 import { AccessTokenInterceptor } from './shared/interceptors/access-token.interceptor'
 import { LoadingComponent } from './shared/components/loading/loading.component'
+import { HttpErrorsInterceptor } from './shared/interceptors/http-errors.interceptor'
 
 export function HttpLoaderFactory(http: HttpClient): any {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient): any {
 	],
 	providers: [
 		{ provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true },
+		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorsInterceptor, multi: true },
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: LoadingInterceptor,

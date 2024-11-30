@@ -7,16 +7,17 @@ import { CoreService } from 'src/app/shared/services/core.service'
 import { MaterialModule } from '../../../material.module'
 import { TranslateModule } from '@ngx-translate/core'
 import { APP_NAME } from '../../../shared/constants/shared.constant'
-import { TitleCasePipe } from '@angular/common'
 import { FormErrorMessageComponent } from '../../../shared/components/form-error-message/form-error-message.component'
+import { AuthenticationService } from '../authentication.service'
+import { TokenService } from '../../../shared/services/token.service'
 
 @Component({
-	selector: 'app-login',
+	selector: 'app-sign-in',
 	standalone: true,
-	imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, FeatherModule, TranslateModule, TitleCasePipe, FormErrorMessageComponent],
-	templateUrl: './login.component.html',
+	imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, FeatherModule, TranslateModule, FormErrorMessageComponent],
+	templateUrl: './sign-in.component.html',
 })
-export class AppLoginComponent {
+export class SignInComponent {
 	options = this.settings.getOptions()
 	loginFormGroup = new FormGroup({
 		username: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -27,6 +28,8 @@ export class AppLoginComponent {
 	constructor(
 		private settings: CoreService,
 		private router: Router,
+		private readonly authenticationService: AuthenticationService,
+		private readonly tokenService: TokenService,
 	) {}
 
 	get formControls() {
@@ -34,6 +37,12 @@ export class AppLoginComponent {
 	}
 
 	submit() {
-		this.router.navigate(['/'])
+		if (this.loginFormGroup.valid) {
+			this.authenticationService.login({ username: this.loginFormGroup.value.username!, password: this.loginFormGroup.value.password! }).subscribe({
+				next: (loginResponse) => {
+					this.tokenService.storeTokens(loginResponse)
+				},
+			})
+		}
 	}
 }
