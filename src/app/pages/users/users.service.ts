@@ -1,22 +1,53 @@
 import { Injectable } from '@angular/core'
 import { User } from '../../shared/models/user.model'
-import { delay, of } from 'rxjs'
-import { USERS } from '../../shared/mocks/users.mock'
+import { BehaviorSubject } from 'rxjs'
 import { Role } from '../../shared/models/role.model'
-import { ROLES } from '../../shared/mocks/roles.mock'
-import { MOCK_DELAY } from '../../shared/constants/shared.constant'
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../../environments/environment'
+import { CreateUserDto } from './dto/create-user.dto'
+import { MatDialog } from '@angular/material/dialog'
+import { AddOrEditUserComponent } from './components/add-or-edit-user/add-or-edit-user.component'
+
+const API_URL = environment.apiUrl
 
 @Injectable({
 	providedIn: 'root',
 })
 export class UsersService {
-	constructor() {}
+	usersList = new BehaviorSubject<User[] | null>(null)
 
-	getUsers() {
-		return of<User[]>(USERS).pipe(delay(MOCK_DELAY))
+	constructor(
+		private readonly httpClient: HttpClient,
+		private readonly matDialog: MatDialog,
+	) {}
+
+	openAddUserModal() {
+		this.matDialog.open(AddOrEditUserComponent)
+	}
+
+	openEditUserModal(user: User) {
+		this.matDialog.open(AddOrEditUserComponent, { data: user })
+	}
+
+	closeModals() {
+		this.matDialog.closeAll()
+	}
+
+	fetchUsers() {
+		return this.httpClient.get<User[]>(`${API_URL}/users`).subscribe({
+			next: (users: User[]) => this.usersList.next(users),
+		})
 	}
 
 	getRoles() {
-		return of<Role[]>(ROLES).pipe(delay(MOCK_DELAY))
+		return this.httpClient.get<Role[]>(`${API_URL}/roles`)
+	}
+
+	createUser(data: CreateUserDto) {
+		return this.httpClient.post<User>(`${API_URL}/users`, data)
+	}
+
+	updateUser(id: number, data: Partial<CreateUserDto>) {
+		return this.httpClient.patch<User>(`${API_URL}/users/${id}`, data)
 	}
 }

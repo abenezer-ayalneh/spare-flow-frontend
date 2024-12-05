@@ -5,7 +5,8 @@ export interface User {
 	name: string
 	username: string
 	phoneNumber: string
-	role: Role
+	roleId: number
+	Role?: Role
 	active: boolean
 	createdAt: string
 	updatedAt: string

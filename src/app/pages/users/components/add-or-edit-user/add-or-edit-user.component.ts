@@ -10,6 +10,7 @@ import { UsersService } from '../../users.service'
 import { finalize } from 'rxjs'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { TitleCasePipe } from '@angular/common'
+import { CreateUserDto } from '../../dto/create-user.dto'
 
 @Component({
 	selector: 'app-add-or-edit-user',
@@ -60,14 +61,36 @@ export class AddOrEditUserComponent implements OnInit {
 				name: this.data.name,
 				phoneNumber: this.data.phoneNumber,
 				username: this.data.username,
-				role: this.data.role.id,
+				role: this.data.roleId,
 				active: this.data.active,
 			})
 	}
 
 	addUserFormSubmit() {
 		if (this.addUserFormGroup.valid) {
-			console.log({ formData: this.addUserFormGroup.value })
+			const userDto: CreateUserDto = {
+				name: this.addUserFormGroup.value.name!,
+				username: this.addUserFormGroup.value.username!,
+				phoneNumber: this.addUserFormGroup.value.phoneNumber!,
+				roleId: this.addUserFormGroup.value.role!,
+				active: this.addUserFormGroup.value.active!,
+			}
+
+			if (this.isEditing) {
+				this.usersService.updateUser(this.data.id, userDto).subscribe({
+					next: () => {
+						this.usersService.fetchUsers()
+						this.usersService.closeModals()
+					},
+				})
+			} else {
+				this.usersService.createUser(userDto).subscribe({
+					next: () => {
+						this.usersService.fetchUsers()
+						this.usersService.closeModals()
+					},
+				})
+			}
 		}
 	}
 }
