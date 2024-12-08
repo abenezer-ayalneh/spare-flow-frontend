@@ -4,12 +4,14 @@ import { Injectable } from '@angular/core'
 import { SnackbarService } from '../services/snackbar.service'
 import FilterResponseInterface from '../interfaces/error-response.interface'
 import { TokenService } from '../services/token.service'
+import { Router } from '@angular/router'
 
 @Injectable()
 export class HttpErrorsInterceptor implements HttpInterceptor {
 	constructor(
 		private readonly snackbarService: SnackbarService,
 		private readonly tokenService: TokenService,
+		private readonly router: Router,
 	) {}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -27,7 +29,9 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
 
 				if (err.status === 401) {
 					this.tokenService.clearTokens()
-					window.location.assign('/authentication/sign-in')
+					if (this.router.routerState.snapshot.url !== '/authentication/sign-in') {
+						window.location.assign('/authentication/sign-in')
+					}
 				}
 
 				return throwError(() => new Error(err.message))
