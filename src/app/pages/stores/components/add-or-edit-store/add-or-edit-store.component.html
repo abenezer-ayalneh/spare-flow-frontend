@@ -1,6 +1,6 @@
 <p mat-dialog-title>{{ (isEditing ? 'stores.edit' : 'stores.add') | translate }}</p>
 <mat-dialog-content>
-	<form [formGroup]="addStoreFormGroup" (ngSubmit)="addStoreFormSubmit()" class="w-[600px]">
+	<form [formGroup]="addStoreFormGroup" (ngSubmit)="submitAddStoreForm()" class="w-[600px]">
 		<!-- input -->
 		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block">{{ 'stores.tableAndForm.name' | translate }}</mat-label>
 		<mat-form-field appearance="outline" class="w-100" color="primary">

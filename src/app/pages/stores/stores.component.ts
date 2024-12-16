@@ -24,8 +24,7 @@ import { TablerIconsModule } from 'angular-tabler-icons'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatPaginator } from '@angular/material/paginator'
 import { StoresService } from './stores.service'
-import { MatDialog } from '@angular/material/dialog'
-import { AddOrEditStoreComponent } from './components/add-or-edit-store/add-or-edit-store.component'
+import { filter } from 'rxjs'
 
 @Component({
 	selector: 'app-stores',
@@ -64,13 +63,12 @@ export class StoresComponent implements OnInit {
 
 	displayedColumns: string[] = ['name', 'description', 'actions']
 
-	constructor(
-		private readonly storesService: StoresService,
-		private readonly matDialog: MatDialog,
-	) {}
+	constructor(protected readonly storesService: StoresService) {}
 
 	ngOnInit() {
-		this.storesService.getStores().subscribe({
+		this.storesService.getStores().subscribe()
+
+		this.storesService.storesList.pipe(filter(Boolean)).subscribe({
 			next: (stores) => {
 				this.dataSource = new MatTableDataSource(stores)
 			},
@@ -80,13 +78,5 @@ export class StoresComponent implements OnInit {
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value
 		this.dataSource.filter = filterValue.trim().toLowerCase()
-	}
-
-	openAddStoreModal() {
-		this.matDialog.open(AddOrEditStoreComponent)
-	}
-
-	openEditStoreModal(store: Store) {
-		this.matDialog.open(AddOrEditStoreComponent, { data: store })
 	}
 }

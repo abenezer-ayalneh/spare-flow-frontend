@@ -5,6 +5,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MaterialModule } from '../../../../material.module'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Store } from '../../../../shared/models/store.model'
+import { StoresService } from '../../stores.service'
 
 @Component({
 	selector: 'app-add-or-edit-store',
@@ -21,7 +22,10 @@ export class AddOrEditStoreComponent implements OnInit {
 		description: new FormControl<string>(''),
 	})
 
-	constructor(@Inject(MAT_DIALOG_DATA) private readonly data: Store) {
+	constructor(
+		@Inject(MAT_DIALOG_DATA) private readonly data: Store,
+		private readonly storesService: StoresService,
+	) {
 		this.isEditing = Boolean(this.data)
 	}
 
@@ -30,16 +34,36 @@ export class AddOrEditStoreComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.isEditing)
+		if (this.isEditing) {
 			this.addStoreFormGroup.patchValue({
 				name: this.data.name,
 				description: this.data.description,
 			})
+		}
 	}
 
-	addStoreFormSubmit() {
+	submitAddStoreForm() {
 		if (this.addStoreFormGroup.valid) {
-			console.log({ formData: this.addStoreFormGroup.value })
+			const storeData = {
+				name: this.formControls.name.value!,
+				description: this.formControls.description.value ?? undefined,
+			}
+
+			if (this.isEditing) {
+				this.storesService.updateStore(this.data.id, storeData).subscribe({
+					next: () => {
+						this.storesService.getStores().subscribe()
+						this.storesService.closeModals()
+					},
+				})
+			} else {
+				this.storesService.createStore(storeData).subscribe({
+					next: () => {
+						this.storesService.getStores().subscribe()
+						this.storesService.closeModals()
+					},
+				})
+			}
 		}
 	}
 }
