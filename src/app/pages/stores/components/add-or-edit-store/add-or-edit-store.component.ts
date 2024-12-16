@@ -45,8 +45,8 @@ export class AddOrEditStoreComponent implements OnInit {
 	submitAddStoreForm() {
 		if (this.addStoreFormGroup.valid) {
 			const storeData = {
-				name: this.formControls.name.value!,
-				description: this.formControls.description.value ?? undefined,
+				name: this.addStoreFormGroup.value.name!,
+				description: this.addStoreFormGroup.value.description ?? undefined,
 			}
 
 			if (this.isEditing) {

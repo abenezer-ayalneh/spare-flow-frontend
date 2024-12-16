@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="d-flex d-sm-block align-items-center gap-1 m-b-16 m-t-16">
-			<button mat-fab extended (click)="openAddShelfModal()">
+			<button mat-fab extended (click)="shelvesService.openAddShelfModal()">
 				<mat-icon>add</mat-icon>
 				{{ 'shelves.add' | translate }}
 			</button>
@@ -43,7 +43,7 @@
 				<!-- Store Column -->
 				<ng-container matColumnDef="store">
 					<mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-16"> {{ 'shelves.tableAndForm.store' | translate }}</mat-header-cell>
-					<mat-cell *matCellDef="let row"> {{ row.store.name }}</mat-cell>
+					<mat-cell *matCellDef="let row"> {{ row.Store?.name }}</mat-cell>
 				</ng-container>
 
 				<!-- Actions Column -->
@@ -51,7 +51,7 @@
 					<mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-16"> {{ 'shelves.tableAndForm.actions' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
 						<div class="d-flex">
-							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" (click)="openEditShelfModal(row)">
+							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" (click)="shelvesService.openEditShelfModal(row)">
 								<i-tabler name="edit" class="icon-20"></i-tabler>
 							</button>
 						</div>

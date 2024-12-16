@@ -23,9 +23,8 @@ import { TablerIconsModule } from 'angular-tabler-icons'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatPaginator } from '@angular/material/paginator'
 import { Shelf } from '../../shared/models/shelf.model'
-import { MatDialog } from '@angular/material/dialog'
-import { AddOrEditShelvesComponent } from './components/add-or-edit-shelves/add-or-edit-shelves.component'
 import { ShelvesService } from './shelves.service'
+import { filter, map } from 'rxjs'
 
 @Component({
 	selector: 'app-shelves',
@@ -64,29 +63,23 @@ export class ShelvesComponent implements OnInit {
 
 	displayedColumns: string[] = ['name', 'description', 'store', 'actions']
 
-	constructor(
-		private readonly shelvesService: ShelvesService,
-		private readonly matDialog: MatDialog,
-	) {}
+	constructor(protected readonly shelvesService: ShelvesService) {}
 
 	ngOnInit() {
-		this.shelvesService.getShelves().subscribe({
-			next: (shelves) => {
-				this.dataSource = new MatTableDataSource(shelves)
-			},
-		})
+		this.shelvesService.getShelves().subscribe()
+
+		this.shelvesService.shelvesList
+			.pipe(
+				filter(Boolean),
+				map((shelves) => {
+					this.dataSource = new MatTableDataSource(shelves)
+				}),
+			)
+			.subscribe()
 	}
 
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value
 		this.dataSource.filter = filterValue.trim().toLowerCase()
-	}
-
-	openAddShelfModal() {
-		this.matDialog.open(AddOrEditShelvesComponent)
-	}
-
-	openEditShelfModal(shelf: Shelf) {
-		this.matDialog.open(AddOrEditShelvesComponent, { data: shelf })
 	}
 }

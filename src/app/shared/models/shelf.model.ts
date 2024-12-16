@@ -4,7 +4,8 @@ export interface Shelf {
 	id: number
 	name: string
 	description: string
-	store: Store
+	storeId: number
+	Store?: Store
 	createdAt: string
 	updatedAt: string
 }

@@ -5,10 +5,12 @@ import { FormErrorMessageComponent } from '../../../../shared/components/form-er
 import { TranslateModule } from '@ngx-translate/core'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Shelf } from '../../../../shared/models/shelf.model'
-import { finalize } from 'rxjs'
+import { filter, finalize } from 'rxjs'
 import { ItemsService } from '../../../items/items.service'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { Store } from '../../../../shared/models/store.model'
+import { StoresService } from '../../../stores/stores.service'
+import { ShelvesService } from '../../shelves.service'
 
 @Component({
 	selector: 'app-add-or-edit-shelves',
@@ -30,8 +32,10 @@ export class AddOrEditShelvesComponent implements OnInit {
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) private readonly data: Shelf,
+		private readonly shelvesService: ShelvesService,
 		private readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
+		private readonly storesService: StoresService,
 	) {
 		this.isEditing = Boolean(this.data)
 	}
@@ -47,12 +51,16 @@ export class AddOrEditShelvesComponent implements OnInit {
 			this.addShelfFormGroup.patchValue({
 				name: this.data.name,
 				description: this.data.description,
-				store: this.data.store.id,
+				store: this.data.storeId,
 			})
 
-		this.itemsService
-			.getStores()
-			.pipe(finalize(() => this.loadingService.loadingOff()))
+		this.itemsService.getStores().subscribe()
+
+		this.storesService.storesList
+			.pipe(
+				filter(Boolean),
+				finalize(() => this.loadingService.loadingOff()),
+			)
 			.subscribe({
 				next: (stores) => {
 					this.stores = stores
@@ -62,7 +70,27 @@ export class AddOrEditShelvesComponent implements OnInit {
 
 	addShelfFormSubmit() {
 		if (this.addShelfFormGroup.valid) {
-			console.log({ formData: this.addShelfFormGroup.value })
+			const shelfData = {
+				name: this.addShelfFormGroup.value.name!,
+				description: this.addShelfFormGroup.value.description ?? undefined,
+				storeId: this.addShelfFormGroup.value.store!,
+			}
+
+			if (this.isEditing) {
+				this.shelvesService.updateShelf(this.data.id, shelfData).subscribe({
+					next: () => {
+						this.shelvesService.getShelves().subscribe()
+						this.shelvesService.closeModals()
+					},
+				})
+			} else {
+				this.shelvesService.createShelf(shelfData).subscribe({
+					next: () => {
+						this.shelvesService.getShelves().subscribe()
+						this.shelvesService.closeModals()
+					},
+				})
+			}
 		}
 	}
 }

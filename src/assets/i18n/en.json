@@ -69,7 +69,8 @@
 			"name": "Name",
 			"description": "Description",
 			"store": "Store",
-			"actions": "Actions"
+			"actions": "Actions",
+			"storePlaceholder": "Select store location"
 		}
 	},
 	"users": {

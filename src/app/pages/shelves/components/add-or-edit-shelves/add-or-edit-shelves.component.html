@@ -20,9 +20,9 @@
 		</mat-form-field>
 
 		<!-- input -->
-		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'items.tableAndForm.store' | translate }}</mat-label>
+		<mat-label class="mat-subtitle-2 f-w-600 m-b-8 d-block m-t-12">{{ 'shelves.tableAndForm.store' | translate }}</mat-label>
 		<mat-form-field appearance="outline" class="w-100" color="primary">
-			<mat-select formControlName="store" [placeholder]="'items.tableAndForm.storePlaceholder' | translate">
+			<mat-select formControlName="store" [placeholder]="'shelves.tableAndForm.storePlaceholder' | translate">
 				@for (store of stores; track store) {
 					<mat-option [value]="store.id">
 						{{ store.name }}
