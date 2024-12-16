@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { User } from '../../shared/models/user.model'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, tap } from 'rxjs'
 import { Role } from '../../shared/models/role.model'
 import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../environments/environment'
@@ -33,21 +33,19 @@ export class UsersService {
 		this.matDialog.closeAll()
 	}
 
-	fetchUsers() {
-		return this.httpClient.get<User[]>(`${API_URL}/users`).subscribe({
-			next: (users: User[]) => this.usersList.next(users),
-		})
+	getUsers() {
+		return this.httpClient.get<User[]>(`${API_URL}/users`).pipe(tap((users) => this.usersList.next(users)))
 	}
 
 	getRoles() {
 		return this.httpClient.get<Role[]>(`${API_URL}/roles`)
 	}
 
-	createUser(data: CreateUserDto) {
-		return this.httpClient.post<User>(`${API_URL}/users`, data)
+	createUser(createUserDto: CreateUserDto) {
+		return this.httpClient.post<User>(`${API_URL}/users`, createUserDto)
 	}
 
-	updateUser(id: number, data: Partial<CreateUserDto>) {
-		return this.httpClient.patch<User>(`${API_URL}/users/${id}`, data)
+	updateUser(id: number, updateData: Partial<CreateUserDto>) {
+		return this.httpClient.patch<User>(`${API_URL}/users/${id}`, updateData)
 	}
 }

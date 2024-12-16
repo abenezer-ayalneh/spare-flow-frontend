@@ -79,14 +79,14 @@ export class AddOrEditUserComponent implements OnInit {
 			if (this.isEditing) {
 				this.usersService.updateUser(this.data.id, userDto).subscribe({
 					next: () => {
-						this.usersService.fetchUsers()
+						this.usersService.getUsers().subscribe()
 						this.usersService.closeModals()
 					},
 				})
 			} else {
 				this.usersService.createUser(userDto).subscribe({
 					next: () => {
-						this.usersService.fetchUsers()
+						this.usersService.getUsers().subscribe()
 						this.usersService.closeModals()
 					},
 				})

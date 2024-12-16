@@ -70,7 +70,7 @@ export class UsersComponent implements OnInit {
 	constructor(protected readonly usersService: UsersService) {}
 
 	ngOnInit() {
-		this.usersService.fetchUsers()
+		this.usersService.getUsers().subscribe()
 
 		this.usersService.usersList
 			.pipe(
