@@ -27,7 +27,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 	addShelfFormGroup = new FormGroup({
 		name: new FormControl<string>('', { validators: [Validators.required] }),
 		description: new FormControl<string>(''),
-		store: new FormControl<number | null>(null, { validators: [Validators.required] }),
+		storeId: new FormControl<number | null>(null, { validators: [Validators.required] }),
 	})
 
 	constructor(
@@ -51,7 +51,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 			this.addShelfFormGroup.patchValue({
 				name: this.data.name,
 				description: this.data.description,
-				store: this.data.storeId,
+				storeId: this.data.storeId,
 			})
 
 		this.itemsService.getStores().subscribe()
@@ -73,7 +73,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 			const shelfData = {
 				name: this.addShelfFormGroup.value.name!,
 				description: this.addShelfFormGroup.value.description ?? undefined,
-				storeId: this.addShelfFormGroup.value.store!,
+				storeId: this.addShelfFormGroup.value.storeId!,
 			}
 
 			if (this.isEditing) {

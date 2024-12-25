@@ -14,47 +14,47 @@
 		</div>
 
 		<div class="d-flex d-sm-block align-items-center gap-1 m-b-16 m-t-16">
-			<button mat-fab extended (click)="openAddModal()">
+			<button mat-fab extended (click)="itemsService.openAddModal()">
 				<mat-icon>add</mat-icon>
 				{{ 'items.add' | translate }}
 			</button>
 		</div>
 
-		<div class="table-responsive m-t-30">
-			<mat-table [dataSource]="dataSource" matSort>
+		<div class="material-table-responsive">
+			<table mat-table [dataSource]="dataSource" matSort>
 				<!-- Name Column -->
 				<ng-container matColumnDef="name">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.name' | translate }}</mat-header-cell
-					>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.name' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.name }}
+						{{ row.Item.name }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- Part Number Column -->
 				<ng-container matColumnDef="partNumber">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.partNumber' | translate }}</mat-header-cell
-					>
-					<mat-cell *matCellDef="let row"> {{ row.partNumber }}</mat-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.partNumber' | translate }}</mat-header-cell>
+					<mat-cell *matCellDef="let row"> {{ row.Item.partNumber }}</mat-cell>
 				</ng-container>
 
-				<!-- Location Column -->
-				<ng-container matColumnDef="location">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.location' | translate }}</mat-header-cell
-					>
+				<!-- Store Column -->
+				<ng-container matColumnDef="store">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.store' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.location }}
+						{{ row.ShelfLocation.Store.name }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Shelf Column -->
+				<ng-container matColumnDef="shelf">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.shelf' | translate }}</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						{{ row.ShelfLocation.name }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- Quantity Column -->
 				<ng-container matColumnDef="quantity">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.quantity' | translate }}</mat-header-cell
-					>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.quantity' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
 						{{ row.quantity }}
 					</mat-cell>
@@ -62,40 +62,50 @@
 
 				<!-- Price Column -->
 				<ng-container matColumnDef="price">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.price' | translate }}</mat-header-cell
-					>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.price' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.price }}
+						{{ row.Item.price | number: '1.0-2' }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- VAT Column -->
 				<ng-container matColumnDef="vat">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.vat' | translate }}</mat-header-cell
-					>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.vat' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.vat }}
+						{{ calculateVat(row.Item.price) | number: '1.0-2' }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- Total Price Column -->
 				<ng-container matColumnDef="totalPrice">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="f-w-600 mat-subtitle-1 f-s-16">
-						{{ 'items.tableAndForm.totalPrice' | translate }}</mat-header-cell
-					>
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.totalPrice' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.totalPrice }}
+						{{ calculateTotalPrice(row.Item.price) | number: '1.0-2' }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Source Column -->
+				<ng-container matColumnDef="source">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.source' | translate }}</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						{{ row.Item.source }}
+					</mat-cell>
+				</ng-container>
+
+				<!-- Description Column -->
+				<ng-container matColumnDef="description">
+					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.description' | translate }}</mat-header-cell>
+					<mat-cell *matCellDef="let row">
+						{{ row.Item.description }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- Actions Column -->
 				<ng-container matColumnDef="actions">
-					<mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-16"> {{ 'items.tableAndForm.actions' | translate }}</mat-header-cell>
+					<mat-header-cell *matHeaderCellDef> {{ 'items.tableAndForm.actions' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
 						<div class="d-flex">
-							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" (click)="openEditItemModal(row)">
+							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" (click)="itemsService.openEditItemModal(row)">
 								<i-tabler name="edit" class="icon-20"></i-tabler>
 							</button>
 						</div>
@@ -104,7 +114,7 @@
 
 				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-			</mat-table>
+			</table>
 
 			<mat-paginator [pageSizeOptions]="[25, 50, 100, 200]"></mat-paginator>
 		</div>

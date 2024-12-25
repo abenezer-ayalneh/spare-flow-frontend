@@ -1,120 +1,61 @@
 import { Injectable } from '@angular/core'
-import { Store } from '../../shared/models/store.model'
-import { delay, Observable, of } from 'rxjs'
-import { Shelf } from '../../shared/models/shelf.model'
+import { StoresService } from '../stores/stores.service'
+import { ShelvesService } from '../shelves/shelves.service'
 import { Item } from '../../shared/models/item.model'
-import { MOCK_DELAY } from '../../shared/constants/shared.constant'
-import { STORES } from '../../shared/mocks/stores.mock'
-import { SHELVES } from '../../shared/mocks/shelves.mock'
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../../environments/environment'
+import { BehaviorSubject, tap } from 'rxjs'
+import { CreateItemDto } from './dto/create-item.dto'
+import { AddItemComponent } from './components/add-or-edit-item/add-item.component'
+import { EditItemComponent } from './components/edit-item/edit-item.component'
+import { MatDialog } from '@angular/material/dialog'
+import { ItemList } from './types/item-list.type'
+import { UpdateItemDto } from './dto/update-item.dto'
 
-/** Constants used to fill up our data base. */
-const PART_NUMBERS = [
-	'46410-60A10',
-	'46410-60840',
-	'46410-60042',
-	'46430-60042',
-	'46420-60112',
-	'46430-60030',
-	'46410-60740',
-	'46410-60B20',
-	'46420-60090',
-	'17801-51020',
-	'17801-0L040',
-	'17801-61030',
-	'17801-30070',
-	'17801-0C010',
-	'23390-51030',
-	'48510-8Z005',
-	'04495-60080',
-	'04495-60070',
-	'48510-80A87(48520-80647)',
-	'48531-80822',
-	'90915-YZZD2',
-	'17801-54140',
-	'90915-30002',
-	'52119-0M979',
-	'52119-60890',
-	'52119-60984',
-	'62221-60020',
-	'DIZIRE',
-	'DIZIRE',
-	'DIZIRE',
-]
-
-const NAMES = [
-	'CABLE ASSY, PARKING BRAKE, NO.1',
-	'CABLE ASSY, PARKING BRAKE, NO.1',
-	'CABLE ASSY, PARKING BRAKE, NO.1',
-	'CABLE ASSY, PARKING BRAKE, NO.3',
-	'CABLE ASSY, PARKING BRAKE, NO.2',
-	'CABLE ASSY, PARKING BRAKE, NO.3',
-	'CABLE ASSY, PARKING BRAKE, NO.1',
-	'CABLE ASSY, PARKING BRAKE, NO.1',
-	'CABLE ASSY, PARKING BRAKE, NO.2',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'ELEMENT ASSY, FUEL FILTER',
-	'ABSORBER ASSY, SHOCK, FRONT RH',
-	'SHOE KIT, REAR BRAKE',
-	'SHOE KIT, REAR BRAKE',
-	'ABSORBER ASSY, SHOCK, FRONT RH,LH',
-	'ABSORBER ASSY, SHOCK, REAR RH',
-	'FILTER SUB-ASSY, OIL',
-	'ELEMENT SUB-ASSY, AIR CLEANER FILTER',
-	'FILTER SUB-ASSY, OIL',
-	'COVER, FRONT BUMPER',
-	'COVER, FRONT BUMPER',
-	'COVER, FRONT BUMPER',
-	'GLASS',
-	'LINER LH',
-	'LINER RH',
-	'MOTOR GUARD',
-]
+const API_URL = environment.apiUrl
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ItemsService {
-	constructor() {}
+	itemsList = new BehaviorSubject<ItemList[] | null>(null)
 
-	/**
-	 * Builds and returns a new Item.
-	 */
-	createNewItem(id: number): Item {
-		const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' + NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.'
-		const partNumber =
-			PART_NUMBERS[Math.round(Math.random() * (PART_NUMBERS.length - 1))] +
-			' ' +
-			PART_NUMBERS[Math.round(Math.random() * (PART_NUMBERS.length - 1))].charAt(0) +
-			'.'
+	constructor(
+		private readonly httpClient: HttpClient,
+		private readonly storesService: StoresService,
+		private readonly shelvesService: ShelvesService,
+		private readonly matDialog: MatDialog,
+	) {}
 
-		return {
-			id: id.toString(),
-			name: name,
-			partNumber: partNumber,
-			quantity: Math.round(Math.random() * 100),
-			location: 'Location',
-			price: Math.round(Math.random() * 100),
-			vat: 15,
-			totalPrice: Math.round(Math.random() * 100),
-			boughtFrom: 'ORIGINAL',
-			store: STORES[0],
-			shelf: SHELVES[0],
-		}
+	getItemsList() {
+		return this.httpClient.get<ItemList[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
 	}
 
 	getStores() {
-		return of<Store[]>(STORES).pipe(delay(MOCK_DELAY))
+		return this.storesService.getStores()
 	}
 
 	getShelves() {
-		return of<Shelf[]>(SHELVES).pipe(delay(MOCK_DELAY))
+		return this.shelvesService.getShelves()
 	}
 
-	getItemById(id: number): Observable<Item> {
-		return of<Item>(this.createNewItem(id)).pipe(delay(MOCK_DELAY))
+	createItem(createItemDto: CreateItemDto) {
+		return this.httpClient.post<Item>(`${API_URL}/items`, createItemDto)
+	}
+
+	updateItem(id: number, updateItemDto: UpdateItemDto) {
+		return this.httpClient.patch<Item>(`${API_URL}/items/${id}`, updateItemDto)
+	}
+
+	openAddModal() {
+		this.matDialog.open(AddItemComponent)
+	}
+
+	openEditItemModal(item: Item) {
+		this.matDialog.open(EditItemComponent, { data: item })
+	}
+
+	closeModals() {
+		this.matDialog.closeAll()
 	}
 }

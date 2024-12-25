@@ -1,61 +1,44 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
-import { BreakpointObserver } from '@angular/cdk/layout'
 import { MaterialModule } from '../../material.module'
 import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
-import { RouterLink, RouterLinkActive } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
-import { TitleCasePipe } from '@angular/common'
-import { Item } from '../../shared/models/item.model'
-import { MatDialog } from '@angular/material/dialog'
-import { EditItemComponent } from './components/edit-item/edit-item.component'
-import { AddItemComponent } from './components/add-or-edit-item/add-item.component'
+import { filter } from 'rxjs'
+import { ItemList } from './types/item-list.type'
+import { DecimalPipe } from '@angular/common'
 
 @Component({
 	selector: 'app-items',
 	standalone: true,
-	imports: [MaterialModule, TablerIconsModule, RouterLink, RouterLinkActive, TranslateModule, TitleCasePipe],
+	imports: [MaterialModule, TablerIconsModule, TranslateModule, DecimalPipe],
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })
-export class ItemsComponent implements AfterViewInit {
-	displayedColumns = ['name', 'partNumber', 'location', 'quantity', 'price', 'vat', 'totalPrice', 'actions']
-	dataSource: MatTableDataSource<Item>
+export class ItemsComponent implements OnInit {
+	displayedColumns = ['name', 'partNumber', 'store', 'shelf', 'quantity', 'price', 'vat', 'totalPrice', 'source', 'description', 'actions']
+
+	dataSource: MatTableDataSource<ItemList>
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
+
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null)
 
-	constructor(
-		breakpointObserver: BreakpointObserver,
-		private readonly itemsService: ItemsService,
-		private readonly matDialog: MatDialog,
-	) {
-		breakpointObserver.observe(['(max-width: 600px)']).subscribe((result) => {
-			this.displayedColumns = result.matches
-				? ['name', 'partNumber', 'location', 'quantity', 'price', 'vat', 'totalPrice', 'actions']
-				: ['name', 'partNumber', 'location', 'quantity', 'price', 'vat', 'totalPrice', 'actions']
+	constructor(protected readonly itemsService: ItemsService) {}
+
+	ngOnInit() {
+		this.itemsService.getItemsList().subscribe()
+
+		this.itemsService.itemsList.pipe(filter(Boolean)).subscribe({
+			next: (items) => {
+				// Assign the data to the data source for the table to render
+				this.dataSource = new MatTableDataSource(items)
+				this.dataSource.paginator = this.paginator
+				this.dataSource.sort = this.sort
+			},
 		})
-
-		// Create 100 items
-		const items: Item[] = []
-		for (let i = 1; i <= 100; i++) {
-			items.push(this.itemsService.createNewItem(i))
-		}
-
-		// Assign the data to the data source for the table to render
-		this.dataSource = new MatTableDataSource(items)
-	}
-
-	/**
-	 * Set the paginator and sort after the view init since this component will
-	 * be able to query its view for the initialized paginator and sort.
-	 */
-	ngAfterViewInit(): void {
-		this.dataSource.paginator = this.paginator
-		this.dataSource.sort = this.sort
 	}
 
 	applyFilter(event: Event) {
@@ -63,11 +46,11 @@ export class ItemsComponent implements AfterViewInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase()
 	}
 
-	openAddModal() {
-		this.matDialog.open(AddItemComponent)
+	calculateVat(price: string) {
+		return Number(price) * 0.15
 	}
 
-	openEditItemModal(item: Item) {
-		this.matDialog.open(EditItemComponent, { data: item })
+	calculateTotalPrice(price: string) {
+		return Number(price) + this.calculateVat(price)
 	}
 }

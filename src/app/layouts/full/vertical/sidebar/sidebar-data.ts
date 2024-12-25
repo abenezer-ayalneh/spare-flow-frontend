@@ -18,6 +18,15 @@ export const navItems: NavItem[] = [
 		route: '/items',
 	},
 	{
+		navCap: 'sidebar.config',
+	},
+
+	{
+		displayName: 'sidebar.users',
+		iconName: 'users',
+		route: '/users',
+	},
+	{
 		displayName: 'sidebar.stores',
 		iconName: 'building-store',
 		route: '/stores',
@@ -26,14 +35,5 @@ export const navItems: NavItem[] = [
 		displayName: 'sidebar.shelves',
 		iconName: 'packages',
 		route: '/shelves',
-	},
-	{
-		navCap: 'sidebar.config',
-	},
-
-	{
-		displayName: 'sidebar.users',
-		iconName: 'users',
-		route: '/users',
 	},
 ]

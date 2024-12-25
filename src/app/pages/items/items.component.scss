@@ -1,5 +1,5 @@
 .mat-column-name {
-	flex: 0 0 30%;
+	flex: 0 0 25%;
 	white-space: unset !important;
 	width: 28% !important;
 	overflow-wrap: break-word;
@@ -13,6 +13,7 @@
 	hyphens: auto;
 }
 
+.mat-column-description,
 .mat-column-partNumber {
 	flex: 0 0 15%;
 	white-space: unset !important;

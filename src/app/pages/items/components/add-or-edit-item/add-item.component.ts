@@ -8,6 +8,8 @@ import { TranslateModule } from '@ngx-translate/core'
 import { ItemsService } from '../../items.service'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { finalize } from 'rxjs'
+import { CreateItemDto } from '../../dto/create-item.dto'
+import { ItemSource } from '../../types/item.type'
 
 @Component({
 	selector: 'app-add-item',
@@ -30,9 +32,10 @@ export class AddItemComponent implements OnInit {
 		partNumber: new FormControl<string>('', { validators: [Validators.required] }),
 		quantity: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(1)] }),
 		price: new FormControl<number | null>(null, { validators: [Validators.required, Validators.min(0.1)] }),
-		store: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		shelf: new FormControl<number | null>({ value: null, disabled: true }, { validators: [Validators.required] }),
-		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),
+		storeId: new FormControl<number | null>(null, { validators: [Validators.required] }),
+		shelfId: new FormControl<number | null>({ value: null, disabled: true }, { validators: [Validators.required] }),
+		source: new FormControl<ItemSource | null>(null, { validators: [Validators.required] }),
+		description: new FormControl<string>(''),
 	})
 
 	protected readonly Boolean = Boolean
@@ -64,12 +67,12 @@ export class AddItemComponent implements OnInit {
 			},
 		})
 
-		this.formControls.store.valueChanges.subscribe({
+		this.formControls.storeId.valueChanges.subscribe({
 			next: (storeId: number | null) => {
-				this.formControls.shelf.setValue(null)
+				this.formControls.shelfId.setValue(null)
 				if (storeId) {
-					this.formControls.shelf.enable()
-					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.store.id === this.addItemFormGroup.controls.store.value)
+					this.formControls.shelfId.enable()
+					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.storeId === this.addItemFormGroup.controls.storeId.value)
 				} else {
 					this.shelvesUnderSelectedStore = []
 				}
@@ -79,7 +82,23 @@ export class AddItemComponent implements OnInit {
 
 	addItemFormSubmit() {
 		if (this.addItemFormGroup.valid) {
-			console.log({ formData: this.addItemFormGroup.value })
+			const itemData: CreateItemDto = {
+				name: this.addItemFormGroup.value.name!,
+				partNumber: this.addItemFormGroup.value.partNumber!,
+				price: this.addItemFormGroup.value.price!,
+				source: this.addItemFormGroup.value.source!,
+				description: this.addItemFormGroup.value.description ?? undefined,
+				storeId: this.addItemFormGroup.value.storeId!,
+				shelfId: this.addItemFormGroup.value.shelfId!,
+				quantity: this.addItemFormGroup.value.quantity!,
+			}
+
+			this.itemsService.createItem(itemData).subscribe({
+				next: () => {
+					this.itemsService.getItemsList().subscribe()
+					this.itemsService.closeModals()
+				},
+			})
 		}
 	}
 }

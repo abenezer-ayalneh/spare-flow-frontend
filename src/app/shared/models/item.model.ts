@@ -1,16 +1,18 @@
-import { Store } from './store.model'
-import { Shelf } from './shelf.model'
+import { ItemSource } from '../../pages/items/types/item.type'
+import { ShelfItem } from './shelf-item.model'
+import { Sale } from './sale.model'
+import { Transfer } from './transfer.model'
 
 export interface Item {
 	id: string
 	name: string
 	partNumber: string
-	quantity: number
-	location: string
+	description: string
 	price: number
-	vat: number
-	totalPrice: number
-	store: Store
-	shelf: Shelf
-	boughtFrom: 'ORIGINAL' | 'LOCAL'
+	source: ItemSource
+	createdAt: string
+	updatedAt: string
+	ShelfItem: ShelfItem[]
+	Sale?: Sale[]
+	Transfer?: Transfer[]
 }

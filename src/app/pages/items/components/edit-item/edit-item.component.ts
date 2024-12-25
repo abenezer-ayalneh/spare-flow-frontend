@@ -8,8 +8,10 @@ import { TranslateModule } from '@ngx-translate/core'
 import { ItemsService } from '../../items.service'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { finalize } from 'rxjs'
-import { Item } from '../../../../shared/models/item.model'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { ItemList } from '../../types/item-list.type'
+import { ItemSource } from '../../types/item.type'
+import { UpdateItemDto } from '../../dto/update-item.dto'
 
 @Component({
 	selector: 'app-edit-item',
@@ -27,20 +29,21 @@ export class EditItemComponent implements OnInit {
 
 	boughtFromList: string[] = ['ORIGINAL', 'LOCAL']
 
-	itemToEdit?: Item
+	itemToEdit?: ItemList
 
 	editItemFormGroup = new FormGroup({
 		name: new FormControl<string>('', { validators: [Validators.required] }),
 		partNumber: new FormControl<string>('', { validators: [Validators.required] }),
-		store: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		shelf: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		boughtFrom: new FormControl<string>('', { validators: [Validators.required] }),
+		description: new FormControl<string>(''),
+		storeId: new FormControl<number | null>(null, { validators: [Validators.required] }),
+		shelfId: new FormControl<number | null>(null, { validators: [Validators.required] }),
+		source: new FormControl<ItemSource | null>(null, { validators: [Validators.required] }),
 	})
 
 	protected readonly Boolean = Boolean
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: Item,
+		@Inject(MAT_DIALOG_DATA) private readonly data: ItemList,
 		protected readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
 	) {}
@@ -54,11 +57,12 @@ export class EditItemComponent implements OnInit {
 
 		this.itemToEdit = this.data
 		this.editItemFormGroup.patchValue({
-			name: this.data.name,
-			partNumber: this.data.partNumber,
-			store: this.data.store.id,
-			shelf: this.data.shelf.id,
-			boughtFrom: this.data.boughtFrom,
+			name: this.data.Item.name,
+			partNumber: this.data.Item.partNumber,
+			storeId: this.data.ShelfLocation.Store.id,
+			shelfId: this.data.ShelfLocation.id,
+			source: this.data.Item.source,
+			description: this.data.Item.description,
 		})
 
 		this.itemsService
@@ -75,17 +79,17 @@ export class EditItemComponent implements OnInit {
 				this.shelves = shelves
 
 				if (this.itemToEdit) {
-					this.shelvesUnderSelectedStore = shelves.filter((shelf) => shelf.store.id === this.itemToEdit?.store.id)
+					this.shelvesUnderSelectedStore = shelves.filter((shelf) => shelf.storeId === this.itemToEdit?.ShelfLocation.Store.id)
 				}
 			},
 		})
 
-		this.formControls.store.valueChanges.subscribe({
+		this.formControls.storeId.valueChanges.subscribe({
 			next: (storeId: number | null) => {
-				this.formControls.shelf.setValue(null)
+				this.formControls.shelfId.setValue(null)
 				if (storeId) {
-					this.formControls.shelf.enable()
-					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.store.id === this.editItemFormGroup.controls.store.value)
+					this.formControls.shelfId.enable()
+					this.shelvesUnderSelectedStore = this.shelves.filter((shelf) => shelf.storeId === this.editItemFormGroup.controls.storeId.value)
 				} else {
 					this.shelvesUnderSelectedStore = []
 				}
@@ -95,7 +99,22 @@ export class EditItemComponent implements OnInit {
 
 	editItemFormSubmit() {
 		if (this.editItemFormGroup.valid) {
-			console.log({ formData: this.editItemFormGroup.value })
+			const itemData: UpdateItemDto = {
+				name: this.editItemFormGroup.value.name!,
+				partNumber: this.editItemFormGroup.value.partNumber!,
+				source: this.editItemFormGroup.value.source!,
+				description: this.editItemFormGroup.value.description ?? undefined,
+				storeId: this.editItemFormGroup.value.storeId!,
+				shelfId: this.editItemFormGroup.value.shelfId!,
+				shelfItemId: this.data.id,
+			}
+
+			this.itemsService.updateItem(this.data.Item.id, itemData).subscribe({
+				next: () => {
+					this.itemsService.getItemsList().subscribe()
+					this.itemsService.closeModals()
+				},
+			})
 		}
 	}
 }

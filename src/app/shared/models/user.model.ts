@@ -1,4 +1,6 @@
 import { Role } from './role.model'
+import { Transfer } from './transfer.model'
+import { Sale } from './sale.model'
 
 export interface User {
 	id: number
@@ -6,8 +8,11 @@ export interface User {
 	username: string
 	phoneNumber: string
 	roleId: number
-	Role?: Role
 	active: boolean
 	createdAt: string
 	updatedAt: string
+
+	Role?: Role
+	Transfer?: Transfer[]
+	Sale?: Sale[]
 }
