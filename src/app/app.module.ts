@@ -1,5 +1,5 @@
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
-import { NgModule } from '@angular/core'
+import { APP_INITIALIZER, NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -25,8 +25,12 @@ import { LoadingInterceptor } from './shared/interceptors/loading.interceptor'
 import { AccessTokenInterceptor } from './shared/interceptors/access-token.interceptor'
 import { LoadingComponent } from './shared/components/loading/loading.component'
 import { HttpErrorsInterceptor } from './shared/interceptors/http-errors.interceptor'
+import { checkTokenFactory } from './shared/providers/player.provider'
+import { Router } from '@angular/router'
+import { UserService } from './shared/services/user.service'
+import { TokenService } from './shared/services/token.service'
 
-export function HttpLoaderFactory(http: HttpClient): any {
+export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json')
 }
 
@@ -62,6 +66,12 @@ export function HttpLoaderFactory(http: HttpClient): any {
 			provide: HTTP_INTERCEPTORS,
 			useClass: LoadingInterceptor,
 			multi: true,
+		},
+		{
+			provide: APP_INITIALIZER,
+			useFactory: checkTokenFactory,
+			multi: true,
+			deps: [Router, UserService, TokenService],
 		},
 	],
 	exports: [TablerIconsModule],

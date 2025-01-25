@@ -6,11 +6,12 @@ import { HttpClient } from '@angular/common/http'
 import { environment } from '../../../environments/environment'
 import { BehaviorSubject, tap } from 'rxjs'
 import { CreateItemDto } from './dto/create-item.dto'
-import { AddItemComponent } from './components/add-or-edit-item/add-item.component'
+import { AddItemComponent } from './components/add-item/add-item.component'
 import { EditItemComponent } from './components/edit-item/edit-item.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ItemList } from './types/item-list.type'
 import { UpdateItemDto } from './dto/update-item.dto'
+import { EditPriceComponent } from './components/edit-price/edit-price.component'
 
 const API_URL = environment.apiUrl
 
@@ -47,12 +48,20 @@ export class ItemsService {
 		return this.httpClient.patch<Item>(`${API_URL}/items/${id}`, updateItemDto)
 	}
 
-	openAddModal() {
+	openAddItemModal() {
 		this.matDialog.open(AddItemComponent)
 	}
 
 	openEditItemModal(item: Item) {
 		this.matDialog.open(EditItemComponent, { data: item })
+	}
+
+	openEditItemPriceModal(item: Item) {
+		this.matDialog.open(EditPriceComponent, { data: item })
+	}
+
+	editItemPrice(id: number, price: number) {
+		return this.httpClient.patch<Item>(`${API_URL}/items/${id}/price`, { price })
 	}
 
 	closeModals() {

@@ -1,0 +1,17 @@
+<p mat-dialog-title>{{ 'items.editPrice' | translate }}</p>
+<mat-dialog-content>
+	<form [formGroup]="editPriceFormGroup" (ngSubmit)="editPriceFormSubmit()" class="max-w-96 md:max-w-[480px]">
+		<!-- input -->
+		<mat-label>{{ 'items.tableAndForm.price' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-full" color="primary">
+			<input matInput formControlName="price" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.price" />
+			</mat-error>
+		</mat-form-field>
+
+		<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
+			<button mat-flat-button color="primary" type="submit">{{ 'common.update' | translate }}</button>
+		</div>
+	</form>
+</mat-dialog-content>

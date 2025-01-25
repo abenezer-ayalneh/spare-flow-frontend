@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="d-flex d-sm-block align-items-center gap-1 m-b-16 m-t-16">
-			<button mat-fab extended (click)="itemsService.openAddModal()">
+			<button mat-fab extended (click)="itemsService.openAddItemModal()">
 				<mat-icon>add</mat-icon>
 				{{ 'items.add' | translate }}
 			</button>
@@ -104,9 +104,22 @@
 				<ng-container matColumnDef="actions">
 					<mat-header-cell *matHeaderCellDef> {{ 'items.tableAndForm.actions' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						<div class="d-flex">
-							<button mat-icon-button class="d-flex" aria-label="Edit button" matTooltip="Edit" (click)="itemsService.openEditItemModal(row)">
+						<div class="flex flex-wrap">
+							<button
+								mat-icon-button
+								class="d-flex"
+								aria-label="Edit button"
+								matTooltip="Edit Item"
+								(click)="itemsService.openEditItemModal(row)">
 								<i-tabler name="edit" class="icon-20"></i-tabler>
+							</button>
+							<button
+								mat-icon-button
+								class="d-flex"
+								aria-label="Edit button"
+								matTooltip="Edit Price"
+								(click)="itemsService.openEditItemPriceModal(row)">
+								<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
 							</button>
 						</div>
 					</mat-cell>

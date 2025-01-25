@@ -4,7 +4,7 @@ import { Sale } from './sale.model'
 import { Transfer } from './transfer.model'
 
 export interface Item {
-	id: string
+	id: number
 	name: string
 	partNumber: string
 	description: string

@@ -29,10 +29,13 @@
 
 				<div class="d-flex align-items-center p-b-24 b-b-1 m-t-16">
 					<img alt="user profile" src="/assets/images/profile/user-1.jpg" class="rounded-circle" width="95" />
-					<div class="m-l-16">
-						<h6 class="f-s-14 f-w-600 m-0">User Name</h6>
-						<span class="f-s-14 d-block m-b-4">Role</span>
-					</div>
+					@if (userService.getUser | async; as user) {
+						<div class="m-l-16">
+							<h6 class="f-s-14 f-w-600 m-0">{{ user.name }}</h6>
+							<span class="f-s-14 d-block m-b-4">Username: {{ user.username }}</span>
+							<span class="f-s-14 d-block m-b-4">Role: {{ user.Role?.name }}</span>
+						</div>
+					}
 				</div>
 			</div>
 
