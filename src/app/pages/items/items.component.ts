@@ -7,7 +7,7 @@ import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { TranslateModule } from '@ngx-translate/core'
 import { filter } from 'rxjs'
-import { ItemList } from './types/item-list.type'
+import { ShelfItem } from './types/item-list.type'
 import { DecimalPipe } from '@angular/common'
 
 @Component({
@@ -20,7 +20,7 @@ import { DecimalPipe } from '@angular/common'
 export class ItemsComponent implements OnInit {
 	displayedColumns = ['name', 'partNumber', 'store', 'shelf', 'quantity', 'price', 'vat', 'totalPrice', 'source', 'description', 'actions']
 
-	dataSource: MatTableDataSource<ItemList>
+	dataSource: MatTableDataSource<ShelfItem>
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
 

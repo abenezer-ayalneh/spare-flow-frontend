@@ -1,0 +1,17 @@
+<p mat-dialog-title>{{ 'items.incrementQuantity' | translate }}</p>
+<mat-dialog-content>
+	<form [formGroup]="editQuantityFormGroup" (ngSubmit)="editQuantityFormSubmit()" class="max-w-96 md:max-w-[480px]">
+		<!-- input -->
+		<mat-label>{{ 'items.tableAndForm.quantity' | translate }}</mat-label>
+		<mat-form-field appearance="outline" class="w-full" color="primary">
+			<input matInput formControlName="quantity" />
+			<mat-error>
+				<app-form-error-message [control]="formControls.quantity" />
+			</mat-error>
+		</mat-form-field>
+
+		<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start gap-8 m-t-12">
+			<button mat-flat-button color="primary" type="submit">{{ 'common.update' | translate }}</button>
+		</div>
+	</form>
+</mat-dialog-content>

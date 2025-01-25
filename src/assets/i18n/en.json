@@ -34,6 +34,7 @@
 		"add": "Add item",
 		"edit": "Edit item",
     "editPrice": "Edit price",
+    "incrementQuantity": "Increment quantity",
     "tableAndForm": {
       "name": "Name",
       "nameHint": "The name of the item or a short description of the item",

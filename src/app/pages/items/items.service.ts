@@ -9,9 +9,10 @@ import { CreateItemDto } from './dto/create-item.dto'
 import { AddItemComponent } from './components/add-item/add-item.component'
 import { EditItemComponent } from './components/edit-item/edit-item.component'
 import { MatDialog } from '@angular/material/dialog'
-import { ItemList } from './types/item-list.type'
+import { ShelfItem } from './types/item-list.type'
 import { UpdateItemDto } from './dto/update-item.dto'
 import { EditPriceComponent } from './components/edit-price/edit-price.component'
+import { EditQuantityComponent } from './components/edit-quantity/edit-quantity.component'
 
 const API_URL = environment.apiUrl
 
@@ -19,7 +20,7 @@ const API_URL = environment.apiUrl
 	providedIn: 'root',
 })
 export class ItemsService {
-	itemsList = new BehaviorSubject<ItemList[] | null>(null)
+	itemsList = new BehaviorSubject<ShelfItem[] | null>(null)
 
 	constructor(
 		private readonly httpClient: HttpClient,
@@ -29,7 +30,7 @@ export class ItemsService {
 	) {}
 
 	getItemsList() {
-		return this.httpClient.get<ItemList[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
+		return this.httpClient.get<ShelfItem[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
 	}
 
 	getStores() {
@@ -52,16 +53,24 @@ export class ItemsService {
 		this.matDialog.open(AddItemComponent)
 	}
 
-	openEditItemModal(item: Item) {
+	openEditItemModal(item: ShelfItem) {
 		this.matDialog.open(EditItemComponent, { data: item })
 	}
 
-	openEditItemPriceModal(item: Item) {
+	openEditItemPriceModal(item: ShelfItem) {
 		this.matDialog.open(EditPriceComponent, { data: item })
 	}
 
 	editItemPrice(id: number, price: number) {
 		return this.httpClient.patch<Item>(`${API_URL}/items/${id}/price`, { price })
+	}
+
+	openEditItemQuantityModal(item: ShelfItem) {
+		this.matDialog.open(EditQuantityComponent, { data: item })
+	}
+
+	editItemQuantity(id: number, quantity: number) {
+		return this.httpClient.patch<ShelfItem>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
 	}
 
 	closeModals() {

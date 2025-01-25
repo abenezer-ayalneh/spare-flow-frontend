@@ -1,6 +1,6 @@
 import { ItemSource } from './item.type'
 
-export type ItemList = {
+export interface ShelfItem {
 	id: number // ShelfItem ID
 	quantity: number
 	Item: {

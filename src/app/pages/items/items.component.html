@@ -121,6 +121,14 @@
 								(click)="itemsService.openEditItemPriceModal(row)">
 								<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
 							</button>
+							<button
+								mat-icon-button
+								class="d-flex"
+								aria-label="Edit button"
+								matTooltip="Increment Quantity"
+								(click)="itemsService.openEditItemQuantityModal(row)">
+								<i-tabler name="plus" class="icon-20"></i-tabler>
+							</button>
 						</div>
 					</mat-cell>
 				</ng-container>

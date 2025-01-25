@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core'
+import { Component, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle } from '@angular/material/dialog'
 import { TranslatePipe } from '@ngx-translate/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -10,7 +10,7 @@ import { ItemsService } from '../../items.service'
 import { ShelfItem } from '../../types/item-list.type'
 
 @Component({
-	selector: 'app-edit-price',
+	selector: 'app-edit-quantity',
 	standalone: true,
 	imports: [
 		MatDialogContent,
@@ -25,12 +25,12 @@ import { ShelfItem } from '../../types/item-list.type'
 		MatFormField,
 		MatInput,
 	],
-	templateUrl: './edit-price.component.html',
-	styleUrl: './edit-price.component.scss',
+	templateUrl: './edit-quantity.component.html',
+	styleUrl: './edit-quantity.component.scss',
 })
-export class EditPriceComponent implements OnInit {
-	editPriceFormGroup = new FormGroup({
-		price: new FormControl<string>('', Validators.required),
+export class EditQuantityComponent {
+	editQuantityFormGroup = new FormGroup({
+		quantity: new FormControl<string>('', { validators: [Validators.required] }),
 	})
 
 	constructor(
@@ -39,18 +39,12 @@ export class EditPriceComponent implements OnInit {
 	) {}
 
 	get formControls() {
-		return this.editPriceFormGroup.controls
+		return this.editQuantityFormGroup.controls
 	}
 
-	ngOnInit(): void {
-		this.editPriceFormGroup.patchValue({
-			price: this.data.Item.price,
-		})
-	}
-
-	editPriceFormSubmit() {
-		if (this.editPriceFormGroup.valid) {
-			this.itemsService.editItemPrice(this.data.Item.id, Number(this.editPriceFormGroup.value.price!)).subscribe({
+	editQuantityFormSubmit() {
+		if (this.editQuantityFormGroup.valid) {
+			this.itemsService.editItemQuantity(this.data.id, Number(this.editQuantityFormGroup.value.quantity!)).subscribe({
 				next: () => {
 					this.itemsService.getItemsList().subscribe()
 					this.itemsService.closeModals()
