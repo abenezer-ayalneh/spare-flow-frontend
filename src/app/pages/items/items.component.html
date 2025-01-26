@@ -109,7 +109,7 @@
 								mat-icon-button
 								class="d-flex"
 								aria-label="Edit button"
-								matTooltip="Edit Item"
+								matTooltip="Edit item"
 								(click)="itemsService.openEditItemModal(row)">
 								<i-tabler name="edit" class="icon-20"></i-tabler>
 							</button>
@@ -117,17 +117,25 @@
 								mat-icon-button
 								class="d-flex"
 								aria-label="Edit button"
-								matTooltip="Edit Price"
+								matTooltip="Edit price"
 								(click)="itemsService.openEditItemPriceModal(row)">
 								<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
 							</button>
 							<button
 								mat-icon-button
 								class="d-flex"
-								aria-label="Edit button"
-								matTooltip="Increment Quantity"
+								aria-label="Add button"
+								matTooltip="Increment quantity"
 								(click)="itemsService.openEditItemQuantityModal(row)">
 								<i-tabler name="plus" class="icon-20"></i-tabler>
+							</button>
+							<button
+								mat-icon-button
+								class="d-flex"
+								aria-label="Sell button"
+								matTooltip="Sell item"
+								(click)="itemsService.openSellItemModal(row)">
+								<i-tabler name="brand-telegram" class="icon-20"></i-tabler>
 							</button>
 						</div>
 					</mat-cell>

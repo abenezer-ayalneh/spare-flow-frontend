@@ -13,6 +13,9 @@ import { ShelfItem } from './types/item-list.type'
 import { UpdateItemDto } from './dto/update-item.dto'
 import { EditPriceComponent } from './components/edit-price/edit-price.component'
 import { EditQuantityComponent } from './components/edit-quantity/edit-quantity.component'
+import { CreateSalesDto } from './components/sell-item/dto/create-sales.dto'
+import { Sale } from '../../shared/models/sale.model'
+import { SellItemComponent } from './components/sell-item/sell-item.component'
 
 const API_URL = environment.apiUrl
 
@@ -71,6 +74,14 @@ export class ItemsService {
 
 	editItemQuantity(id: number, quantity: number) {
 		return this.httpClient.patch<ShelfItem>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
+	}
+
+	openSellItemModal(item: ShelfItem) {
+		this.matDialog.open(SellItemComponent, { data: item })
+	}
+
+	sellItem(createSalesDto: CreateSalesDto) {
+		return this.httpClient.post<Sale>(`${API_URL}/sales`, createSalesDto)
 	}
 
 	closeModals() {

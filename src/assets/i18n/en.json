@@ -35,6 +35,7 @@
 		"edit": "Edit item",
     "editPrice": "Edit price",
     "incrementQuantity": "Increment quantity",
+    "sell": "Sell item",
     "tableAndForm": {
       "name": "Name",
       "nameHint": "The name of the item or a short description of the item",
@@ -55,7 +56,9 @@
       "description": "Description",
       "source": "Bought from",
       "shelf": "Shelf",
-      "store": "Store"
+      "store": "Store",
+      "sell": "Sell",
+      "client": "Client name"
     }
 	},
 	"stores": {
