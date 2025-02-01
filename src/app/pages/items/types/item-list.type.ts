@@ -1,6 +1,6 @@
 import { ItemSource } from './item.type'
 
-export interface ShelfItem {
+export interface ShelfItemForTable {
 	id: number // ShelfItem ID
 	quantity: number
 	Item: {
@@ -19,4 +19,19 @@ export interface ShelfItem {
 			name: string
 		}
 	}
+}
+
+export interface ItemForTable {
+	id: number
+	name: string
+	partNumber: string
+	store: string
+	shelf: string
+	quantity: number
+	price: number
+	vat: number
+	totalPrice: number
+	source: string
+	description: string
+	original: ShelfItemForTable
 }

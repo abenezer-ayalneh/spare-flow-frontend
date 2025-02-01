@@ -9,7 +9,7 @@ import { CreateItemDto } from './dto/create-item.dto'
 import { AddItemComponent } from './components/add-item/add-item.component'
 import { EditItemComponent } from './components/edit-item/edit-item.component'
 import { MatDialog } from '@angular/material/dialog'
-import { ShelfItem } from './types/item-list.type'
+import { ShelfItemForTable } from './types/item-list.type'
 import { UpdateItemDto } from './dto/update-item.dto'
 import { EditPriceComponent } from './components/edit-price/edit-price.component'
 import { EditQuantityComponent } from './components/edit-quantity/edit-quantity.component'
@@ -23,7 +23,7 @@ const API_URL = environment.apiUrl
 	providedIn: 'root',
 })
 export class ItemsService {
-	itemsList = new BehaviorSubject<ShelfItem[] | null>(null)
+	itemsList = new BehaviorSubject<ShelfItemForTable[] | null>(null)
 
 	constructor(
 		private readonly httpClient: HttpClient,
@@ -33,7 +33,7 @@ export class ItemsService {
 	) {}
 
 	getItemsList() {
-		return this.httpClient.get<ShelfItem[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
+		return this.httpClient.get<ShelfItemForTable[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
 	}
 
 	getStores() {
@@ -56,11 +56,11 @@ export class ItemsService {
 		this.matDialog.open(AddItemComponent)
 	}
 
-	openEditItemModal(item: ShelfItem) {
+	openEditItemModal(item: ShelfItemForTable) {
 		this.matDialog.open(EditItemComponent, { data: item })
 	}
 
-	openEditItemPriceModal(item: ShelfItem) {
+	openEditItemPriceModal(item: ShelfItemForTable) {
 		this.matDialog.open(EditPriceComponent, { data: item })
 	}
 
@@ -68,15 +68,15 @@ export class ItemsService {
 		return this.httpClient.patch<Item>(`${API_URL}/items/${id}/price`, { price })
 	}
 
-	openEditItemQuantityModal(item: ShelfItem) {
+	openEditItemQuantityModal(item: ShelfItemForTable) {
 		this.matDialog.open(EditQuantityComponent, { data: item })
 	}
 
 	editItemQuantity(id: number, quantity: number) {
-		return this.httpClient.patch<ShelfItem>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
+		return this.httpClient.patch<ShelfItemForTable>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
 	}
 
-	openSellItemModal(item: ShelfItem) {
+	openSellItemModal(item: ShelfItemForTable) {
 		this.matDialog.open(SellItemComponent, { data: item })
 	}
 

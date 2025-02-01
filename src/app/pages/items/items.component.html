@@ -26,21 +26,21 @@
 				<ng-container matColumnDef="name">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.name' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.Item.name }}
+						{{ row.name }}
 					</mat-cell>
 				</ng-container>
 
 				<!-- Part Number Column -->
 				<ng-container matColumnDef="partNumber">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.partNumber' | translate }}</mat-header-cell>
-					<mat-cell *matCellDef="let row"> {{ row.Item.partNumber }}</mat-cell>
+					<mat-cell *matCellDef="let row"> {{ row.partNumber }}</mat-cell>
 				</ng-container>
 
 				<!-- Store Column -->
 				<ng-container matColumnDef="store">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.store' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.ShelfLocation.Store.name }}
+						{{ row.store }}
 					</mat-cell>
 				</ng-container>
 
@@ -48,7 +48,7 @@
 				<ng-container matColumnDef="shelf">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.shelf' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.ShelfLocation.name }}
+						{{ row.shelf }}
 					</mat-cell>
 				</ng-container>
 
@@ -64,7 +64,7 @@
 				<ng-container matColumnDef="price">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.price' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.Item.price | number: '1.0-2' }}
+						{{ row.price | number: '1.0-2' }}
 					</mat-cell>
 				</ng-container>
 
@@ -72,7 +72,7 @@
 				<ng-container matColumnDef="vat">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.vat' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ calculateVat(row.Item.price) | number: '1.0-2' }}
+						{{ row.vat | number: '1.0-2' }}
 					</mat-cell>
 				</ng-container>
 
@@ -80,7 +80,7 @@
 				<ng-container matColumnDef="totalPrice">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.totalPrice' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ calculateTotalPrice(row.Item.price) | number: '1.0-2' }}
+						{{ row.totalPrice | number: '1.0-2' }}
 					</mat-cell>
 				</ng-container>
 
@@ -88,7 +88,7 @@
 				<ng-container matColumnDef="source">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.source' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.Item.source }}
+						{{ row.source }}
 					</mat-cell>
 				</ng-container>
 
@@ -96,7 +96,7 @@
 				<ng-container matColumnDef="description">
 					<mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'items.tableAndForm.description' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
-						{{ row.Item.description }}
+						{{ row.description }}
 					</mat-cell>
 				</ng-container>
 
@@ -110,7 +110,7 @@
 								class="d-flex"
 								aria-label="Edit button"
 								matTooltip="Edit item"
-								(click)="itemsService.openEditItemModal(row)">
+								(click)="itemsService.openEditItemModal(row.original)">
 								<i-tabler name="edit" class="icon-20"></i-tabler>
 							</button>
 							<button
@@ -118,7 +118,7 @@
 								class="d-flex"
 								aria-label="Edit button"
 								matTooltip="Edit price"
-								(click)="itemsService.openEditItemPriceModal(row)">
+								(click)="itemsService.openEditItemPriceModal(row.original)">
 								<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
 							</button>
 							<button
@@ -126,7 +126,7 @@
 								class="d-flex"
 								aria-label="Add button"
 								matTooltip="Increment quantity"
-								(click)="itemsService.openEditItemQuantityModal(row)">
+								(click)="itemsService.openEditItemQuantityModal(row.original)">
 								<i-tabler name="plus" class="icon-20"></i-tabler>
 							</button>
 							<button
@@ -134,7 +134,7 @@
 								class="d-flex"
 								aria-label="Sell button"
 								matTooltip="Sell item"
-								(click)="itemsService.openSellItemModal(row)">
+								(click)="itemsService.openSellItemModal(row.original)">
 								<i-tabler name="brand-telegram" class="icon-20"></i-tabler>
 							</button>
 						</div>

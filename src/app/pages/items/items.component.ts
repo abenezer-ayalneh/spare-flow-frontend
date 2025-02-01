@@ -6,8 +6,8 @@ import { MaterialModule } from '../../material.module'
 import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { TranslateModule } from '@ngx-translate/core'
-import { filter } from 'rxjs'
-import { ShelfItem } from './types/item-list.type'
+import { filter, map } from 'rxjs'
+import { ItemForTable, ShelfItemForTable } from './types/item-list.type'
 import { DecimalPipe } from '@angular/common'
 
 @Component({
@@ -20,7 +20,7 @@ import { DecimalPipe } from '@angular/common'
 export class ItemsComponent implements OnInit {
 	displayedColumns = ['name', 'partNumber', 'store', 'shelf', 'quantity', 'price', 'vat', 'totalPrice', 'source', 'description', 'actions']
 
-	dataSource: MatTableDataSource<ShelfItem>
+	dataSource: MatTableDataSource<ItemForTable>
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
 
@@ -31,14 +31,19 @@ export class ItemsComponent implements OnInit {
 	ngOnInit() {
 		this.itemsService.getItemsList().subscribe()
 
-		this.itemsService.itemsList.pipe(filter(Boolean)).subscribe({
-			next: (items) => {
-				// Assign the data to the data source for the table to render
-				this.dataSource = new MatTableDataSource(items)
-				this.dataSource.paginator = this.paginator
-				this.dataSource.sort = this.sort
-			},
-		})
+		this.itemsService.itemsList
+			.pipe(
+				filter(Boolean),
+				map((items) => this.convertShelfItemForTableToItemForTable(items)),
+			)
+			.subscribe({
+				next: (items) => {
+					// Assign the data to the data source for the table to render
+					this.dataSource = new MatTableDataSource(items)
+					this.dataSource.paginator = this.paginator
+					this.dataSource.sort = this.sort
+				},
+			})
 	}
 
 	applyFilter(event: Event) {
@@ -52,5 +57,22 @@ export class ItemsComponent implements OnInit {
 
 	calculateTotalPrice(price: string) {
 		return Number(price) + this.calculateVat(price)
+	}
+
+	convertShelfItemForTableToItemForTable(shelfItemsForTable: ShelfItemForTable[]): ItemForTable[] {
+		return shelfItemsForTable.map((shelfItem) => ({
+			id: shelfItem.id,
+			name: shelfItem.Item.name,
+			partNumber: shelfItem.Item.partNumber,
+			store: shelfItem.ShelfLocation.Store.name,
+			shelf: shelfItem.ShelfLocation.name,
+			quantity: shelfItem.quantity,
+			price: Number(shelfItem.Item.price),
+			vat: this.calculateVat(shelfItem.Item.price),
+			totalPrice: this.calculateTotalPrice(shelfItem.Item.price),
+			source: shelfItem.Item.source,
+			description: shelfItem.Item.description,
+			original: shelfItem,
+		}))
 	}
 }

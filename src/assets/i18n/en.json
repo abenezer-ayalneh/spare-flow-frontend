@@ -5,7 +5,8 @@
 		"search": "Search here",
 		"filter": "Filter",
 		"submit": "Submit",
-		"update": "Update"
+		"update": "Update",
+    "tableNoData": "No data matching the filter \"{{filter}}\""
 	},
 	"validation": {
 		"required": "Field is required.",

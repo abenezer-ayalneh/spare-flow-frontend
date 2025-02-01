@@ -9,7 +9,7 @@ import { ItemsService } from '../../items.service'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { finalize } from 'rxjs'
 import { MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { ShelfItem } from '../../types/item-list.type'
+import { ShelfItemForTable } from '../../types/item-list.type'
 import { ItemSource } from '../../types/item.type'
 import { UpdateItemDto } from '../../dto/update-item.dto'
 
@@ -29,7 +29,7 @@ export class EditItemComponent implements OnInit {
 
 	boughtFromList: string[] = ['ORIGINAL', 'LOCAL']
 
-	itemToEdit?: ShelfItem
+	itemToEdit?: ShelfItemForTable
 
 	editItemFormGroup = new FormGroup({
 		name: new FormControl<string>('', { validators: [Validators.required] }),
@@ -43,7 +43,7 @@ export class EditItemComponent implements OnInit {
 	protected readonly Boolean = Boolean
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: ShelfItem,
+		@Inject(MAT_DIALOG_DATA) private readonly data: ShelfItemForTable,
 		protected readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
 	) {}

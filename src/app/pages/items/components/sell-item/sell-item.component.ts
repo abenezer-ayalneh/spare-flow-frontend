@@ -7,7 +7,7 @@ import { MatError, MatFormField, MatLabel } from '@angular/material/form-field'
 import { MatButton } from '@angular/material/button'
 import { MatInput } from '@angular/material/input'
 import { ItemsService } from '../../items.service'
-import { ShelfItem } from '../../types/item-list.type'
+import { ShelfItemForTable } from '../../types/item-list.type'
 
 @Component({
 	selector: 'app-sell-item',
@@ -35,7 +35,7 @@ export class SellItemComponent {
 	})
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: ShelfItem,
+		@Inject(MAT_DIALOG_DATA) private readonly data: ShelfItemForTable,
 		private readonly itemsService: ItemsService,
 	) {}
 
