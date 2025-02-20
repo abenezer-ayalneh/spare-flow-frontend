@@ -1,30 +1,32 @@
+.mat-column-partNumber,
 .mat-column-name {
-	flex: 0 0 25%;
-	white-space: unset !important;
-	width: 28% !important;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-
-	word-break: break-word;
-
-	-ms-hyphens: auto;
-	-moz-hyphens: auto;
-	-webkit-hyphens: auto;
-	hyphens: auto;
-}
-
-.mat-column-description,
-.mat-column-partNumber {
 	flex: 0 0 15%;
-	white-space: unset !important;
-	width: 28% !important;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-
-	word-break: break-word;
-
-	-ms-hyphens: auto;
-	-moz-hyphens: auto;
-	-webkit-hyphens: auto;
-	hyphens: auto;
+	//white-space: unset !important;
+	//width: 28% !important;
+	//overflow-wrap: break-word;
+	//word-wrap: break-word;
+	//
+	//word-break: break-word;
+	//
+	//-ms-hyphens: auto;
+	//-moz-hyphens: auto;
+	//-webkit-hyphens: auto;
+	//hyphens: auto;
 }
+//
+//.mat-column-actions,
+//.mat-column-description,
+//.mat-column-partNumber {
+//	flex: 0 0 15%;
+//	//white-space: unset !important;
+//	//width: 28% !important;
+//	//overflow-wrap: break-word;
+//	//word-wrap: break-word;
+//  //
+//	//word-break: break-word;
+//  //
+//	//-ms-hyphens: auto;
+//	//-moz-hyphens: auto;
+//	//-webkit-hyphens: auto;
+//	//hyphens: auto;
+//}
