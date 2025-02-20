@@ -65,9 +65,11 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let row">
 						@if (row.active) {
-							<mat-chip-option class="f-s-14" color="accent" selected>Active</mat-chip-option>
+							<mat-chip-option class="f-s-14" color="accent" selected [selectable]="false">{{
+								'users.tableAndForm.active' | translate
+							}}</mat-chip-option>
 						} @else {
-							<mat-chip-option class="f-s-14" color="warn">Inactive</mat-chip-option>
+							<mat-chip-option class="f-s-14" color="warn" [selectable]="false">{{ 'users.tableAndForm.inactive' | translate }}</mat-chip-option>
 						}
 					</mat-cell>
 				</ng-container>

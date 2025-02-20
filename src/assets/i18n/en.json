@@ -1,5 +1,7 @@
 {
 	"common": {
+    "login": "Login",
+    "logout": "Logout",
 		"username": "Username",
 		"password": "Password",
 		"search": "Search here",
@@ -94,6 +96,7 @@
 			"phoneNumber": "Phone Number",
 			"role": "Role",
 			"active": "Active",
+			"inactive": "Inactive",
 			"actions": "Actions"
 		}
 	}

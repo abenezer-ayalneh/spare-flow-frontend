@@ -10,6 +10,8 @@ import { APP_NAME } from '../../../shared/constants/shared.constant'
 import { FormErrorMessageComponent } from '../../../shared/components/form-error-message/form-error-message.component'
 import { AuthenticationService } from '../authentication.service'
 import { TokenService } from '../../../shared/services/token.service'
+import { switchMap, tap } from 'rxjs'
+import { UserService } from '../../../shared/services/user.service'
 
 @Component({
 	selector: 'app-sign-in',
@@ -30,6 +32,7 @@ export class SignInComponent {
 		private router: Router,
 		private readonly authenticationService: AuthenticationService,
 		private readonly tokenService: TokenService,
+		private readonly userService: UserService,
 	) {}
 
 	get formControls() {
@@ -38,12 +41,18 @@ export class SignInComponent {
 
 	submit() {
 		if (this.loginFormGroup.valid) {
-			this.authenticationService.login({ username: this.loginFormGroup.value.username!, password: this.loginFormGroup.value.password! }).subscribe({
-				next: (loginResponse) => {
-					this.tokenService.storeTokens(loginResponse)
-					this.router.navigate(['/'])
-				},
-			})
+			this.authenticationService
+				.login({ username: this.loginFormGroup.value.username!, password: this.loginFormGroup.value.password! })
+				.pipe(
+					tap((loginResponse) => this.tokenService.storeTokens(loginResponse)),
+					switchMap(() => this.authenticationService.checkToken()),
+				)
+				.subscribe({
+					next: (user) => {
+						this.userService.setUser = user
+						this.router.navigate(['/'])
+					},
+				})
 		}
 	}
 }
