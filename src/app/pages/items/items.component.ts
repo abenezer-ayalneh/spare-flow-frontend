@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, signal, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
@@ -6,44 +6,70 @@ import { MaterialModule } from '../../material.module'
 import { ItemsService } from './items.service'
 import { TablerIconsModule } from 'angular-tabler-icons'
 import { TranslateModule } from '@ngx-translate/core'
-import { filter, map } from 'rxjs'
+import { filter, map, Subscription } from 'rxjs'
 import { ItemForTable, ShelfItemForTable } from './types/item-list.type'
 import { DecimalPipe } from '@angular/common'
+import { FeatherModule } from 'angular-feather'
+import { CartService } from './components/cart/cart.service'
 
 @Component({
 	selector: 'app-items',
 	standalone: true,
-	imports: [MaterialModule, TablerIconsModule, TranslateModule, DecimalPipe],
+	imports: [MaterialModule, TablerIconsModule, TranslateModule, DecimalPipe, FeatherModule],
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })
 export class ItemsComponent implements OnInit {
+	subscriptions$ = new Subscription()
+
 	displayedColumns = ['name', 'partNumber', 'store', 'shelf', 'quantity', 'price', 'vat', 'totalPrice', 'source', 'description', 'actions']
 
 	dataSource: MatTableDataSource<ItemForTable>
+
+	cartItemsCount = signal<number>(0)
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
 
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null)
 
-	constructor(protected readonly itemsService: ItemsService) {}
+	constructor(
+		protected readonly itemsService: ItemsService,
+		private readonly cartService: CartService,
+	) {}
 
 	ngOnInit() {
-		this.itemsService.getItemsList().subscribe()
+		this.prepareTableData()
+		this.subscribeToCart()
+	}
 
-		this.itemsService.itemsList
-			.pipe(
-				filter(Boolean),
-				map((items) => this.convertShelfItemForTableToItemForTable(items)),
-			)
-			.subscribe({
-				next: (items) => {
-					// Assign the data to the data source for the table to render
-					this.dataSource = new MatTableDataSource(items)
-					this.dataSource.paginator = this.paginator
-					this.dataSource.sort = this.sort
+	private prepareTableData() {
+		this.subscriptions$.add(this.itemsService.getItemsList().subscribe())
+
+		this.subscriptions$.add(
+			this.itemsService.itemsList
+				.pipe(
+					filter(Boolean),
+					map((items) => this.convertShelfItemForTableToItemForTable(items)),
+				)
+				.subscribe({
+					next: (items) => {
+						// Assign the data to the data source for the table to render
+						this.dataSource = new MatTableDataSource(items)
+						this.dataSource.paginator = this.paginator
+						this.dataSource.sort = this.sort
+					},
+				}),
+		)
+	}
+
+	private subscribeToCart() {
+		this.subscriptions$.add(
+			this.cartService.cart.subscribe({
+				next: (cartItems) => {
+					this.cartItemsCount.set(cartItems.length)
 				},
-			})
+			}),
+		)
 	}
 
 	applyFilter(event: Event) {

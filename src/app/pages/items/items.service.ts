@@ -13,9 +13,8 @@ import { ShelfItemForTable } from './types/item-list.type'
 import { UpdateItemDto } from './dto/update-item.dto'
 import { EditPriceComponent } from './components/edit-price/edit-price.component'
 import { EditQuantityComponent } from './components/edit-quantity/edit-quantity.component'
-import { CreateSalesDto } from './components/sell-item/dto/create-sales.dto'
-import { Sale } from '../../shared/models/sale.model'
-import { SellItemComponent } from './components/sell-item/sell-item.component'
+import { AddItemToCartComponent } from './components/add-item-to-cart/add-item-to-cart.component'
+import { CartComponent } from './components/cart/cart.component'
 
 const API_URL = environment.apiUrl
 
@@ -76,12 +75,12 @@ export class ItemsService {
 		return this.httpClient.patch<ShelfItemForTable>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
 	}
 
-	openSellItemModal(item: ShelfItemForTable) {
-		this.matDialog.open(SellItemComponent, { data: item })
+	openAddItemToCartModal(item: ShelfItemForTable) {
+		this.matDialog.open(AddItemToCartComponent, { data: item })
 	}
 
-	sellItem(createSalesDto: CreateSalesDto) {
-		return this.httpClient.post<Sale>(`${API_URL}/sales`, createSalesDto)
+	openCartModal() {
+		this.matDialog.open(CartComponent)
 	}
 
 	closeModals() {

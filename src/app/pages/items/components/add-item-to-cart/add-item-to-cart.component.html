@@ -1,0 +1,60 @@
+<p mat-dialog-title>{{ 'items.addToCart' | translate }}</p>
+<mat-dialog-content>
+	<form [formGroup]="sellItemFormGroup" (ngSubmit)="sellItemFormSubmit()" class="w-96 md:w-[620px] flex gap-8">
+		<div class="w-1/2 flex flex-col justify-start items-start">
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.name' | translate }}: <span class="text-sm font-normal">{{ data.Item.name }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.partNumber' | translate }}: <span class="text-sm font-normal">{{ data.Item.partNumber }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.store' | translate }}: <span class="text-sm font-normal">{{ data.ShelfLocation.Store.name }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.shelf' | translate }}: <span class="text-sm font-normal">{{ data.ShelfLocation.name }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.quantity' | translate }}: <span class="text-sm font-normal">{{ data.quantity }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.price' | translate }}: <span class="text-sm font-normal">{{ data.Item.price }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.vat' | translate }}: <span class="text-sm font-normal">{{ data.Item.name }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.totalPrice' | translate }}: <span class="text-sm font-normal">{{ data.Item.name }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.source' | translate }}: <span class="text-sm font-normal">{{ data.Item.source }}</span>
+			</p>
+			<p class="text-base font-bold py-2">
+				{{ 'items.tableAndForm.description' | translate }}: <span class="text-sm font-normal">{{ data.Item.description }}</span>
+			</p>
+		</div>
+
+		<div class="w-1/2 flex flex-col justify-start items-start">
+			<p class="text-base font-bold py-2">{{ 'items.tableAndForm.quantity' | translate }}</p>
+			<div class="flex gap-2">
+				<!-- input -->
+				<button mat-icon-button aria-label="subtract button" (click)="changeQuantity('DECREMENT')" type="button">
+					<mat-icon>remove</mat-icon>
+				</button>
+
+				<input formControlName="quantity" type="number" class="text-center border border-gray-300 rounded-md text-xl" />
+
+				<button mat-icon-button aria-label="add button" (click)="changeQuantity('INCREMENT')" type="button">
+					<mat-icon>add</mat-icon>
+				</button>
+			</div>
+			<mat-error>
+				<app-form-error-message [control]="formControls.quantity" />
+			</mat-error>
+
+			<button mat-flat-button color="primary" type="submit" [disabled]="this.sellItemFormGroup.invalid">
+				{{ 'items.tableAndForm.addToCart' | translate }}
+			</button>
+		</div>
+	</form>
+</mat-dialog-content>

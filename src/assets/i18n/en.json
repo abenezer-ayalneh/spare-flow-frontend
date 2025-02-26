@@ -38,7 +38,7 @@
 		"edit": "Edit item",
     "editPrice": "Edit price",
     "incrementQuantity": "Increment quantity",
-    "sell": "Sell item",
+    "addToCart": "Add to cart",
     "tableAndForm": {
       "name": "Name",
       "nameHint": "The name of the item or a short description of the item",
@@ -61,7 +61,15 @@
       "shelf": "Shelf",
       "store": "Store",
       "sell": "Sell",
-      "client": "Client name"
+      "addToCart": "Add to cart",
+      "client": "Client name",
+      "itemDescription": "Item description",
+      "tooltip": {
+        "editItem": "Edit item",
+        "editPrice": "Edit price",
+        "incrementQuantity": "Increment quantity",
+        "addToCart": "Add to cart"
+      }
     }
 	},
 	"stores": {
