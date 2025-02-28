@@ -18,14 +18,13 @@
 				<mat-icon>add</mat-icon>
 				{{ 'items.add' | translate }}
 			</button>
-			<button mat-icon-button aria-label="Notifications">
+			<button mat-icon-button aria-label="cart" (click)="itemsService.openCartModal()">
 				<i-feather
 					class="flex"
 					name="shopping-cart"
-					[matBadge]="cartItemsCount()"
+					[matBadge]="cartService.cartItems().length"
 					matBadgeSize="small"
-					[matBadgeColor]="cartItemsCount() > 0 ? 'accent' : 'primary'"
-					(click)="itemsService.openCartModal()"></i-feather>
+					[matBadgeColor]="cartService.cartItems().length > 0 ? 'accent' : 'primary'"></i-feather>
 			</button>
 		</div>
 

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core'
+import { Component, Inject, OnInit } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogTitle } from '@angular/material/dialog'
 import { TranslatePipe } from '@ngx-translate/core'
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
@@ -28,9 +28,9 @@ import { CartService } from '../cart/cart.service'
 	templateUrl: './add-item-to-cart.component.html',
 	styleUrl: './add-item-to-cart.component.scss',
 })
-export class AddItemToCartComponent {
-	sellItemFormGroup = new FormGroup({
-		quantity: new FormControl<number>(1, { validators: [Validators.required, Validators.min(1), Validators.max(this.data.quantity)] }),
+export class AddItemToCartComponent implements OnInit {
+	addItemToCartFormGroup = new FormGroup({
+		quantity: new FormControl<number>(1, { validators: [Validators.required, Validators.min(1)] }),
 	})
 
 	constructor(
@@ -40,12 +40,26 @@ export class AddItemToCartComponent {
 	) {}
 
 	get formControls() {
-		return this.sellItemFormGroup.controls
+		return this.addItemToCartFormGroup.controls
 	}
 
-	sellItemFormSubmit() {
-		if (this.sellItemFormGroup.valid) {
-			this.cartService.addToCart(this.data, this.sellItemFormGroup.value.quantity ?? 1)
+	ngOnInit() {
+		this.setMinimumAvailableQuantity()
+	}
+
+	setMinimumAvailableQuantity() {
+		const item = this.cartService.cartItems().find((cartItem) => cartItem.id === this.data.id)
+
+		if (item) {
+			this.addItemToCartFormGroup.controls.quantity.addValidators([Validators.max(Math.max(this.data.quantity - item.quantity, 0))])
+		} else {
+			this.addItemToCartFormGroup.controls.quantity.addValidators([Validators.max(this.data.quantity)])
+		}
+	}
+
+	addItemToCartFormSubmit() {
+		if (this.addItemToCartFormGroup.valid) {
+			this.cartService.addToCart(this.data, this.addItemToCartFormGroup.value.quantity ?? 1)
 			this.itemsService.closeModals()
 		}
 	}

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core'
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
@@ -19,14 +19,12 @@ import { CartService } from './components/cart/cart.service'
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })
-export class ItemsComponent implements OnInit {
+export class ItemsComponent implements OnInit, OnDestroy {
 	subscriptions$ = new Subscription()
 
 	displayedColumns = ['name', 'partNumber', 'store', 'shelf', 'quantity', 'price', 'vat', 'totalPrice', 'source', 'description', 'actions']
 
 	dataSource: MatTableDataSource<ItemForTable>
-
-	cartItemsCount = signal<number>(0)
 
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
 
@@ -34,42 +32,15 @@ export class ItemsComponent implements OnInit {
 
 	constructor(
 		protected readonly itemsService: ItemsService,
-		private readonly cartService: CartService,
+		protected readonly cartService: CartService,
 	) {}
 
 	ngOnInit() {
 		this.prepareTableData()
-		this.subscribeToCart()
 	}
 
-	private prepareTableData() {
-		this.subscriptions$.add(this.itemsService.getItemsList().subscribe())
-
-		this.subscriptions$.add(
-			this.itemsService.itemsList
-				.pipe(
-					filter(Boolean),
-					map((items) => this.convertShelfItemForTableToItemForTable(items)),
-				)
-				.subscribe({
-					next: (items) => {
-						// Assign the data to the data source for the table to render
-						this.dataSource = new MatTableDataSource(items)
-						this.dataSource.paginator = this.paginator
-						this.dataSource.sort = this.sort
-					},
-				}),
-		)
-	}
-
-	private subscribeToCart() {
-		this.subscriptions$.add(
-			this.cartService.cart.subscribe({
-				next: (cartItems) => {
-					this.cartItemsCount.set(cartItems.length)
-				},
-			}),
-		)
+	ngOnDestroy() {
+		this.subscriptions$.unsubscribe()
 	}
 
 	applyFilter(event: Event) {
@@ -100,5 +71,25 @@ export class ItemsComponent implements OnInit {
 			description: shelfItem.Item.description,
 			original: shelfItem,
 		}))
+	}
+
+	private prepareTableData() {
+		this.subscriptions$.add(this.itemsService.getItemsList().subscribe())
+
+		this.subscriptions$.add(
+			this.itemsService.itemsList
+				.pipe(
+					filter(Boolean),
+					map((items) => this.convertShelfItemForTableToItemForTable(items)),
+				)
+				.subscribe({
+					next: (items) => {
+						// Assign the data to the data source for the table to render
+						this.dataSource = new MatTableDataSource(items)
+						this.dataSource.paginator = this.paginator
+						this.dataSource.sort = this.sort
+					},
+				}),
+		)
 	}
 }

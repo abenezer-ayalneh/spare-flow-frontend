@@ -16,7 +16,7 @@
 		"maxLength": "Filed must be at most {{requiredLength}} characters long.",
 		"email": "You must enter a valid email.",
 		"min": "Value must at least be {{min}}.",
-		"max": "Value must at most be {{max}}.",
+		"max": "Value can at most be {{max}}.",
 		"emailTaken": "Email taken. Please try another email."
 	},
 	"login": {
@@ -72,6 +72,19 @@
       }
     }
 	},
+  "cart": {
+    "title": "Cart",
+    "selectAll": "Select all",
+    "deleteSelected": "Delete selected items",
+    "partNumber": "Part number",
+    "price": "Birr",
+    "summary": "Summary",
+    "subTotal": "Sub total",
+    "vat": "VAT",
+    "total": "Total",
+    "sell": "Sell",
+    "empty": "Cart is empty"
+  },
 	"stores": {
 		"list": "Stores list",
 		"add": "Add store",

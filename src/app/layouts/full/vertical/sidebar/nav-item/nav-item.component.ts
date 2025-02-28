@@ -24,15 +24,15 @@ import { NavItem } from './nav-item'
 	],
 })
 export class AppNavItemComponent implements OnChanges {
-	@Output() toggleMobileLink: any = new EventEmitter<void>()
+	@Output() toggleMobileLink = new EventEmitter<void>()
 	@Output() notify: EventEmitter<boolean> = new EventEmitter<boolean>()
 
-	expanded: any = false
-	disabled: any = false
-	twoLines: any = false
+	expanded = false
+	disabled = false
+	twoLines = false
 	@HostBinding('attr.aria-expanded') ariaExpanded = this.expanded
-	@Input() item: NavItem | any
-	@Input() depth: any
+	@Input() item: NavItem
+	@Input() depth: number | undefined = undefined
 
 	constructor(
 		public navService: NavService,
@@ -46,10 +46,8 @@ export class AppNavItemComponent implements OnChanges {
 	ngOnChanges() {
 		this.navService.currentUrl.subscribe((url?: string) => {
 			if (this.item.route && url) {
-				// console.log(`Checking '/${this.item.route}' against '${url}'`);
 				this.expanded = url.indexOf(`/${this.item.route}`) === 0
 				this.ariaExpanded = this.expanded
-				//console.log(`${this.item.route} is expanded: ${this.expanded}`);
 			}
 		})
 	}

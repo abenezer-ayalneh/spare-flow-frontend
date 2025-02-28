@@ -1,0 +1,99 @@
+<p mat-dialog-title>{{ 'cart.title' | translate }}</p>
+<mat-dialog-content class="h-[75vh] overflow-y-scroll">
+	@if (pageState() === PageState.LOADED) {
+		<div class="w-96 md:w-[680px] flex flex-col">
+			<div class="w-full flex justify-between items-center mb-4">
+				<mat-checkbox [checked]="selectAll() === 'ALL'" [indeterminate]="selectAll() === 'SOME'" color="primary" (click)="toggleSelectAll($event)">{{
+					'cart.selectAll' | translate
+				}}</mat-checkbox>
+				<button
+					class="underline font-medium text-sm"
+					[ngClass]="selectAll() === 'NONE' ? 'text-gray-500 cursor-pointer' : 'text-blue-500 cursor-pointer'"
+					[disabled]="selectAll() === 'NONE'"
+					(click)="removeSelectedItems()">
+					{{ 'cart.deleteSelected' | translate }}
+				</button>
+			</div>
+
+			<div class="flex w-full gap-20">
+				<div class="w-3/5 flex flex-col justify-start items-start">
+					@for (cartItem of cartService.cartItems(); track cartItem.id) {
+						<div class="flex w-full justify-between py-2 border-b border-gray-200">
+							<div class="flex">
+								<mat-checkbox [checked]="cartItem.selected" color="primary" (click)="toggleItemSelection($event, cartItem.id)" />
+								<div class="flex flex-col gap-4">
+									<p class="text-base font-semibold">{{ cartItem.shelfItemForTable.Item.name }}</p>
+									<p class="text-sm text-gray-500">{{ cartItem.shelfItemForTable.Item.partNumber }}</p>
+									<p class="text-sm font-semibold text-black">{{ cartItem.shelfItemForTable.Item.price | number: '1.0-2' }}</p>
+								</div>
+							</div>
+
+							<div class="flex flex-col items-end justify-between gap-8">
+								<button mat-icon-button class="d-flex" (click)="removeItem(cartItem.id)">
+									<i-tabler name="trash"></i-tabler>
+								</button>
+
+								<div class="flex gap-2 border border-gray-300 rounded-full">
+									<button
+										aria-label="subtract button"
+										type="button"
+										class="flex justify-center items-center w-8 h-8 hover:bg-gray-100 rounded-full"
+										(click)="adjustQuantity(cartItem.shelfItemForTable, AdjustmentType.DECREMENT)">
+										<mat-icon class="rounded-full">remove</mat-icon>
+									</button>
+
+									<input type="number" class="w-12 h-8 text-center text-black text-base" [value]="cartItem.quantity" />
+
+									<button
+										aria-label="add button"
+										type="button"
+										class="flex justify-center items-center w-8 h-8 hover:bg-gray-100 rounded-full"
+										(click)="adjustQuantity(cartItem.shelfItemForTable, AdjustmentType.INCREMENT)">
+										<mat-icon>add</mat-icon>
+									</button>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+
+				<form
+					[formGroup]="cartFormGroup"
+					(ngSubmit)="cartFormSubmit()"
+					class="w-2/5 flex flex-col h-fit justify-start items-start border border-gray-100 rounded-md py-2 px-4">
+					<h1 class="text-lg text-black font-semibold mb-4">{{ 'cart.summary' | translate }}</h1>
+
+					<!-- input -->
+					<mat-label>{{ 'items.tableAndForm.client' | translate }}</mat-label>
+					<mat-form-field appearance="outline" class="w-full" color="primary">
+						<input matInput formControlName="client" size="small" />
+						<mat-error>
+							<app-form-error-message [control]="cartFormGroup.controls.client" />
+						</mat-error>
+					</mat-form-field>
+
+					<div class="w-full flex justify-between items-center py-1">
+						<p class="text-sm font-semibold">{{ 'cart.subTotal' | translate }}</p>
+						<p class="text-sm text-black font-bold">{{ subTotal() | number: '1.0-2' }}</p>
+					</div>
+					<div class="w-full flex justify-between items-center py-1">
+						<p class="text-sm font-semibold">{{ 'cart.vat' | translate }}</p>
+						<p class="text-sm text-black font-bold">{{ vat() | number: '1.0-2' }}</p>
+					</div>
+					<div class="w-full flex justify-between items-center py-1">
+						<p class="text-lg font-semibold">{{ 'cart.total' | translate }}</p>
+						<p class="text-lg text-black font-bold">{{ total() | number: '1.0-2' }}</p>
+					</div>
+
+					<button mat-flat-button color="primary" type="submit" class="w-full mt-2" [disabled]="cartFormGroup.invalid">
+						{{ 'cart.sell' | translate }} ({{ cartService.cartItems().length | number: '1.0-2' }})
+					</button>
+				</form>
+			</div>
+		</div>
+	} @else {
+		<div class="w-96 md:w-[680px] h-full flex justify-center items-center">
+			<p class="text-lg font-medium text-gray-500">{{ 'cart.empty' | translate }}</p>
+		</div>
+	}
+</mat-dialog-content>
