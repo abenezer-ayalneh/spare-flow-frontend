@@ -77,3 +77,4 @@ log.txt
 /.jetclient
 
 src/environments/version.ts
+.vercel

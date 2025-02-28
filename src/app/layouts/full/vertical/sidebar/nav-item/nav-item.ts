@@ -1,4 +1,5 @@
 export interface NavItem {
+	external?: boolean
 	displayName?: string
 	iconName?: string
 	navCap?: string
