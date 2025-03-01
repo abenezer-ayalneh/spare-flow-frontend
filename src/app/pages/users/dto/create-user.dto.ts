@@ -7,5 +7,9 @@ export class CreateUserDto {
 
 	roleId: number
 
+	password: string
+
+	confirmPassword: string
+
 	active?: boolean
 }

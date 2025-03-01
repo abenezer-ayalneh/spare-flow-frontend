@@ -26,4 +26,8 @@
 	@if (control.errors['emailTaken']) {
 		<span>{{ 'validation.emailTaken' | translate }}</span>
 	}
+
+	@if (control.errors['passwordMismatch']) {
+		<span>{{ 'validation.passwordMismatch' | translate }}</span>
+	}
 }

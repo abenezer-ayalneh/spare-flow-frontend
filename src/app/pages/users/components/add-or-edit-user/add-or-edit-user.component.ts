@@ -11,6 +11,8 @@ import { finalize } from 'rxjs'
 import { LoadingService } from '../../../../shared/components/loading/loading.service'
 import { TitleCasePipe } from '@angular/common'
 import { CreateUserDto } from '../../dto/create-user.dto'
+import { PasswordMatchValidator } from '../../validators/password-match-validator'
+import { UserService } from '../../../../shared/services/user.service'
 
 @Component({
 	selector: 'app-add-or-edit-user',
@@ -22,20 +24,28 @@ import { CreateUserDto } from '../../dto/create-user.dto'
 export class AddOrEditUserComponent implements OnInit {
 	isEditing: boolean
 
+	isSelfUpdate = false
+
 	roles: Role[] = []
 
-	addUserFormGroup = new FormGroup({
-		name: new FormControl<string>('', { validators: [Validators.required] }),
-		username: new FormControl<string>('', { validators: [Validators.required] }),
-		phoneNumber: new FormControl<string>('', { validators: [Validators.required] }),
-		role: new FormControl<number | null>(null, { validators: [Validators.required] }),
-		active: new FormControl<boolean>(true, { validators: [Validators.required] }),
-	})
+	addUserFormGroup = new FormGroup(
+		{
+			name: new FormControl<string>('', { validators: [Validators.required] }),
+			username: new FormControl<string>('', { validators: [Validators.required] }),
+			phoneNumber: new FormControl<string>('', { validators: [Validators.required] }),
+			role: new FormControl<number | null>(null, { validators: [Validators.required] }),
+			password: new FormControl<string>(''),
+			confirmPassword: new FormControl<string>(''),
+			active: new FormControl<boolean>(true, { validators: [Validators.required] }),
+		},
+		{ validators: [PasswordMatchValidator.match('password', 'confirmPassword')] },
+	)
 
 	constructor(
 		@Inject(MAT_DIALOG_DATA) private readonly data: User,
 		private readonly usersService: UsersService,
 		private readonly loadingService: LoadingService,
+		protected readonly userService: UserService,
 	) {
 		this.isEditing = Boolean(this.data)
 	}
@@ -47,6 +57,12 @@ export class AddOrEditUserComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
+		if (this.userService.getUser.getValue()?.id === this.data.id) {
+			this.isSelfUpdate = true
+			this.formControls.role.disable()
+			this.formControls.active.disable()
+		}
+
 		this.usersService
 			.getRoles()
 			.pipe(finalize(() => this.loadingService.loadingOff()))
@@ -56,7 +72,9 @@ export class AddOrEditUserComponent implements OnInit {
 				},
 			})
 
-		if (this.isEditing)
+		if (this.isEditing) {
+			this.formControls.password.disable()
+			this.formControls.confirmPassword.disable()
 			this.addUserFormGroup.patchValue({
 				name: this.data.name,
 				phoneNumber: this.data.phoneNumber,
@@ -64,6 +82,10 @@ export class AddOrEditUserComponent implements OnInit {
 				role: this.data.roleId,
 				active: this.data.active,
 			})
+		} else {
+			this.formControls.password.addValidators([Validators.required, Validators.minLength(4)])
+			this.formControls.confirmPassword.addValidators([Validators.required, Validators.minLength(4)])
+		}
 	}
 
 	addUserFormSubmit() {
@@ -73,6 +95,8 @@ export class AddOrEditUserComponent implements OnInit {
 				username: this.addUserFormGroup.value.username!,
 				phoneNumber: this.addUserFormGroup.value.phoneNumber!,
 				roleId: this.addUserFormGroup.value.role!,
+				password: this.addUserFormGroup.value.password!,
+				confirmPassword: this.addUserFormGroup.value.confirmPassword!,
 				active: this.addUserFormGroup.value.active!,
 			}
 

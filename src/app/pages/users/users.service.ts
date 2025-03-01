@@ -7,6 +7,7 @@ import { environment } from '../../../environments/environment'
 import { CreateUserDto } from './dto/create-user.dto'
 import { MatDialog } from '@angular/material/dialog'
 import { AddOrEditUserComponent } from './components/add-or-edit-user/add-or-edit-user.component'
+import { UpdatePasswordComponent } from './components/update-password/update-password.component'
 
 const API_URL = environment.apiUrl
 
@@ -29,6 +30,10 @@ export class UsersService {
 		this.matDialog.open(AddOrEditUserComponent, { data: user })
 	}
 
+	openUpdateUserPasswordModal(user: User) {
+		this.matDialog.open(UpdatePasswordComponent, { data: user })
+	}
+
 	closeModals() {
 		this.matDialog.closeAll()
 	}
@@ -47,5 +52,9 @@ export class UsersService {
 
 	updateUser(id: number, updateData: Partial<CreateUserDto>) {
 		return this.httpClient.patch<User>(`${API_URL}/users/${id}`, updateData)
+	}
+
+	updateUserPassword(id: number, updatePasswordData: Pick<CreateUserDto, 'password' | 'confirmPassword'>) {
+		return this.httpClient.patch<User>(`${API_URL}/users/password/${id}`, updatePasswordData)
 	}
 }

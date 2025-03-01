@@ -17,7 +17,8 @@
 		"email": "You must enter a valid email.",
 		"min": "Value must at least be {{min}}.",
 		"max": "Value can at most be {{max}}.",
-		"emailTaken": "Email taken. Please try another email."
+		"emailTaken": "Email taken. Please try another email.",
+    "passwordMismatch": "Passwords do not match."
 	},
 	"login": {
 		"title": "Welcome to {{appName}}!"
@@ -111,14 +112,17 @@
 		"list": "Users list",
 		"add": "Add user",
 		"edit": "Edit user",
+    "updatePassword": "Update password",
 		"tableAndForm": {
 			"name": "Name",
 			"username": "Username",
-			"phoneNumber": "Phone Number",
+			"phoneNumber": "Phone number",
 			"role": "Role",
 			"active": "Active",
 			"inactive": "Inactive",
-			"actions": "Actions"
+			"actions": "Actions",
+      "password": "Password",
+      "confirmPassword": "Confirm password"
 		}
 	}
 }
