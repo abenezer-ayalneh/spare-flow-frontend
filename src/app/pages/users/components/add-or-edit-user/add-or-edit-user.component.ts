@@ -42,10 +42,10 @@ export class AddOrEditUserComponent implements OnInit {
 	)
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: User,
 		private readonly usersService: UsersService,
 		private readonly loadingService: LoadingService,
 		protected readonly userService: UserService,
+		@Inject(MAT_DIALOG_DATA) private readonly data: User | undefined,
 	) {
 		this.isEditing = Boolean(this.data)
 	}
@@ -57,7 +57,7 @@ export class AddOrEditUserComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
-		if (this.userService.getUser.getValue()?.id === this.data.id) {
+		if (this.data && this.userService.getUser.getValue()?.id === this.data.id) {
 			this.isSelfUpdate = true
 			this.formControls.role.disable()
 			this.formControls.active.disable()
@@ -72,7 +72,7 @@ export class AddOrEditUserComponent implements OnInit {
 				},
 			})
 
-		if (this.isEditing) {
+		if (this.isEditing && this.data) {
 			this.formControls.password.disable()
 			this.formControls.confirmPassword.disable()
 			this.addUserFormGroup.patchValue({
@@ -100,7 +100,7 @@ export class AddOrEditUserComponent implements OnInit {
 				active: this.addUserFormGroup.value.active!,
 			}
 
-			if (this.isEditing) {
+			if (this.isEditing && this.data) {
 				this.usersService.updateUser(this.data.id, userDto).subscribe({
 					next: () => {
 						this.usersService.getUsers().subscribe()

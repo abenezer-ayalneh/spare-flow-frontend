@@ -31,7 +31,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 	})
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: Shelf,
+		@Inject(MAT_DIALOG_DATA) private readonly data: Shelf | undefined,
 		private readonly shelvesService: ShelvesService,
 		private readonly itemsService: ItemsService,
 		private readonly loadingService: LoadingService,
@@ -47,7 +47,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
-		if (this.isEditing)
+		if (this.isEditing && this.data)
 			this.addShelfFormGroup.patchValue({
 				name: this.data.name,
 				description: this.data.description,
@@ -76,7 +76,7 @@ export class AddOrEditShelvesComponent implements OnInit {
 				storeId: this.addShelfFormGroup.value.storeId!,
 			}
 
-			if (this.isEditing) {
+			if (this.isEditing && this.data) {
 				this.shelvesService.updateShelf(this.data.id, shelfData).subscribe({
 					next: () => {
 						this.shelvesService.getShelves().subscribe()

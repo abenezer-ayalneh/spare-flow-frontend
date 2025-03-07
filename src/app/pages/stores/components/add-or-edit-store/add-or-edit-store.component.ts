@@ -23,7 +23,7 @@ export class AddOrEditStoreComponent implements OnInit {
 	})
 
 	constructor(
-		@Inject(MAT_DIALOG_DATA) private readonly data: Store,
+		@Inject(MAT_DIALOG_DATA) private readonly data: Store | undefined,
 		private readonly storesService: StoresService,
 	) {
 		this.isEditing = Boolean(this.data)
@@ -34,7 +34,7 @@ export class AddOrEditStoreComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.isEditing) {
+		if (this.isEditing && this.data) {
 			this.addStoreFormGroup.patchValue({
 				name: this.data.name,
 				description: this.data.description,
@@ -49,7 +49,7 @@ export class AddOrEditStoreComponent implements OnInit {
 				description: this.addStoreFormGroup.value.description ?? undefined,
 			}
 
-			if (this.isEditing) {
+			if (this.isEditing && this.data) {
 				this.storesService.updateStore(this.data.id, storeData).subscribe({
 					next: () => {
 						this.storesService.getStores().subscribe()
