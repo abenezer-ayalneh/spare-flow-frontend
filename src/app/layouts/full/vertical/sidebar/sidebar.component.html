@@ -1,11 +1,8 @@
-<div class="d-flex align-items-center justify-content-between">
+<div class="flex items-center justify-between">
 	<app-branding></app-branding>
 
 	@if (showToggle) {
-		<a
-			href="javascript:void(0)"
-			(click)="toggleMobileNav.emit()"
-			class="d-flex justify-content-center ng-star-inserted icon-40 align-items-center mat-body-1">
+		<a href="javascript:void(0)" (click)="toggleMobileNav.emit()" class="flex justify-center items-center ng-star-inserted icon-40 mat-body-1">
 			<i-tabler name="x" class="icon-20 d-flex"></i-tabler>
 		</a>
 	}

@@ -3,9 +3,6 @@ import { AdjustmentType, CartItem } from './types/cart-item.type'
 import { ShelfItemForTable } from '../../types/item-list.type'
 import { HttpClient } from '@angular/common/http'
 import { CreateSalesDto } from './dto/create-sales.dto'
-import { environment } from '../../../../../environments/environment'
-
-const API_URL = environment.apiUrl
 
 @Injectable({
 	providedIn: 'root',
@@ -65,6 +62,6 @@ export class CartService {
 	}
 
 	sellSelectedItemsInTheCart(createSalesDto: CreateSalesDto) {
-		return this.httpClient.post<boolean>(`${API_URL}/sales`, createSalesDto)
+		return this.httpClient.post<boolean>(`sales`, createSalesDto)
 	}
 }

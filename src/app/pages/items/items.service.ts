@@ -3,7 +3,6 @@ import { StoresService } from '../stores/stores.service'
 import { ShelvesService } from '../shelves/shelves.service'
 import { Item } from '../../shared/models/item.model'
 import { HttpClient } from '@angular/common/http'
-import { environment } from '../../../environments/environment'
 import { BehaviorSubject, tap } from 'rxjs'
 import { CreateItemDto } from './dto/create-item.dto'
 import { AddItemComponent } from './components/add-item/add-item.component'
@@ -15,8 +14,6 @@ import { EditPriceComponent } from './components/edit-price/edit-price.component
 import { EditQuantityComponent } from './components/edit-quantity/edit-quantity.component'
 import { AddItemToCartComponent } from './components/add-item-to-cart/add-item-to-cart.component'
 import { CartComponent } from './components/cart/cart.component'
-
-const API_URL = environment.apiUrl
 
 @Injectable({
 	providedIn: 'root',
@@ -32,7 +29,7 @@ export class ItemsService {
 	) {}
 
 	getItemsList() {
-		return this.httpClient.get<ShelfItemForTable[]>(`${API_URL}/items/list`).pipe(tap((items) => this.itemsList.next(items)))
+		return this.httpClient.get<ShelfItemForTable[]>(`items/list`).pipe(tap((items) => this.itemsList.next(items)))
 	}
 
 	getStores() {
@@ -44,11 +41,11 @@ export class ItemsService {
 	}
 
 	createItem(createItemDto: CreateItemDto) {
-		return this.httpClient.post<Item>(`${API_URL}/items`, createItemDto)
+		return this.httpClient.post<Item>(`items`, createItemDto)
 	}
 
 	updateItem(id: number, updateItemDto: UpdateItemDto) {
-		return this.httpClient.patch<Item>(`${API_URL}/items/${id}`, updateItemDto)
+		return this.httpClient.patch<Item>(`items/${id}`, updateItemDto)
 	}
 
 	openAddItemModal() {
@@ -64,7 +61,7 @@ export class ItemsService {
 	}
 
 	editItemPrice(id: number, price: number) {
-		return this.httpClient.patch<Item>(`${API_URL}/items/${id}/price`, { price })
+		return this.httpClient.patch<Item>(`items/${id}/price`, { price })
 	}
 
 	openEditItemQuantityModal(item: ShelfItemForTable) {
@@ -72,7 +69,7 @@ export class ItemsService {
 	}
 
 	editItemQuantity(id: number, quantity: number) {
-		return this.httpClient.patch<ShelfItemForTable>(`${API_URL}/shelf-item/${id}/quantity`, { quantity })
+		return this.httpClient.patch<ShelfItemForTable>(`shelf-item/${id}/quantity`, { quantity })
 	}
 
 	openAddItemToCartModal(item: ShelfItemForTable) {

@@ -5,7 +5,7 @@ import { CoreService } from 'src/app/shared/services/core.service'
 	selector: 'app-branding',
 	standalone: true,
 	template: `
-		<div class="branding">
+		<div class="p-5 overflow-hidden">
 			@if (options.theme === 'light') {
 				<a href="/">
 					<img src="./assets/images/logos/logo-dark.svg" class="align-middle m-2" alt="logo" />

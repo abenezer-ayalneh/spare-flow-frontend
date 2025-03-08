@@ -1,10 +1,13 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http'
-import { catchError, Observable, throwError } from 'rxjs'
+import { catchError, Observable, throwError, timeout } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { SnackbarService } from '../services/snackbar.service'
 import FilterResponseInterface from '../interfaces/error-response.interface'
 import { TokenService } from '../services/token.service'
 import { Router } from '@angular/router'
+import { environment } from '../../../environments/environment'
+
+const TIMEOUT = environment.timeout
 
 @Injectable()
 export class HttpErrorsInterceptor implements HttpInterceptor {
@@ -14,13 +17,14 @@ export class HttpErrorsInterceptor implements HttpInterceptor {
 		private readonly router: Router,
 	) {}
 
-	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	intercept(request: HttpRequest<object>, next: HttpHandler): Observable<HttpEvent<object>> {
 		return next.handle(request).pipe(
+			timeout(TIMEOUT),
 			catchError((err: HttpErrorResponse) => {
 				const backendError = err.error as FilterResponseInterface
 
-				if (typeof backendError.data === 'object' && typeof (backendError.data as any)['message'] === 'string') {
-					this.snackbarService.showSnackbar((backendError.data as any)['message'])
+				if (typeof backendError.data === 'object' && typeof (backendError.data as unknown as { message: string })['message'] === 'string') {
+					this.snackbarService.showSnackbar((backendError.data as unknown as { message: string })['message'])
 				} else if (backendError.error) {
 					this.snackbarService.showSnackbar(backendError.error)
 				} else {

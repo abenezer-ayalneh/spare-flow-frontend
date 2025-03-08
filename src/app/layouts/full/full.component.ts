@@ -14,6 +14,8 @@ import { AppSearchDialogComponent, HeaderComponent } from './vertical/header/hea
 import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component'
 import { SidebarComponent } from './vertical/sidebar/sidebar.component'
 import { navItems } from './vertical/sidebar/sidebar-data'
+import { Role } from '../../shared/enums/role.enum'
+import { IsGrantedDirective } from '../../shared/directives/is-granted.directive'
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)'
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)'
@@ -24,7 +26,17 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)'
 	selector: 'app-full',
 	templateUrl: './full.component.html',
 	standalone: true,
-	imports: [NgScrollbarModule, HeaderComponent, SidebarComponent, AppSearchDialogComponent, MaterialModule, RouterModule, CommonModule, AppNavItemComponent],
+	imports: [
+		NgScrollbarModule,
+		HeaderComponent,
+		SidebarComponent,
+		AppSearchDialogComponent,
+		MaterialModule,
+		RouterModule,
+		CommonModule,
+		AppNavItemComponent,
+		IsGrantedDirective,
+	],
 	styleUrls: [],
 	encapsulation: ViewEncapsulation.None,
 })
@@ -40,15 +52,11 @@ export class FullComponent implements OnDestroy {
 	options = this.settings.getOptions()
 
 	navopt = this.navService.showClass
-
+	protected readonly Role = Role
 	private layoutChangesSubscription = Subscription.EMPTY
-
 	private isMobileScreen = false
-
 	private isContentWidthFixed = true
-
 	private isCollapsedWidthFixed = false
-
 	private htmlElement!: HTMLHtmlElement
 
 	constructor(

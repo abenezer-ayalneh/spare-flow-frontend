@@ -6,13 +6,13 @@ import { BehaviorSubject } from 'rxjs'
 	providedIn: 'root',
 })
 export class UserService {
-	private user = new BehaviorSubject<User | null>(null)
+	#user = new BehaviorSubject<User | null>(null)
 
-	get getUser() {
-		return this.user
+	get user() {
+		return this.#user.getValue()
 	}
 
 	set setUser(user: User) {
-		this.user.next(user)
+		this.#user.next(user)
 	}
 }

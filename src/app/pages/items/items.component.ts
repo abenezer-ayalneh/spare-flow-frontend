@@ -11,11 +11,13 @@ import { ItemForTable, ShelfItemForTable } from './types/item-list.type'
 import { DecimalPipe } from '@angular/common'
 import { FeatherModule } from 'angular-feather'
 import { CartService } from './components/cart/cart.service'
+import { IsGrantedDirective } from '../../shared/directives/is-granted.directive'
+import { Role } from '../../shared/enums/role.enum'
 
 @Component({
 	selector: 'app-items',
 	standalone: true,
-	imports: [MaterialModule, TablerIconsModule, TranslateModule, DecimalPipe, FeatherModule],
+	imports: [MaterialModule, TablerIconsModule, TranslateModule, DecimalPipe, FeatherModule, IsGrantedDirective],
 	templateUrl: './items.component.html',
 	styleUrl: './items.component.scss',
 })
@@ -29,6 +31,8 @@ export class ItemsComponent implements OnInit, OnDestroy {
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator = Object.create(null)
 
 	@ViewChild(MatSort, { static: true }) sort: MatSort = Object.create(null)
+
+	protected readonly Role = Role
 
 	constructor(
 		protected readonly itemsService: ItemsService,

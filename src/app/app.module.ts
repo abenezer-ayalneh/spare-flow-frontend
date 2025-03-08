@@ -29,6 +29,7 @@ import { checkTokenFactory } from './shared/providers/player.provider'
 import { Router } from '@angular/router'
 import { UserService } from './shared/services/user.service'
 import { TokenService } from './shared/services/token.service'
+import { BaseUrlInterceptor } from './shared/interceptors/base-url.interceptor'
 
 export function HttpLoaderFactory(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json')
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 		LoadingComponent,
 	],
 	providers: [
+		{ provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: AccessTokenInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorsInterceptor, multi: true },
 		{

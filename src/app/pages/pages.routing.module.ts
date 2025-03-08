@@ -5,6 +5,8 @@ import { ItemsComponent } from './items/items.component'
 import { StoresComponent } from './stores/stores.component'
 import { ShelvesComponent } from './shelves/shelves.component'
 import { UsersComponent } from './users/users.component'
+import { Role } from '../shared/enums/role.enum'
+import { roleGuard } from '../shared/guards/role.guard'
 
 export const PagesRoutes: Routes = [
 	{
@@ -17,17 +19,33 @@ export const PagesRoutes: Routes = [
 	{
 		path: 'items',
 		component: ItemsComponent,
+		canActivate: [roleGuard],
+		data: {
+			roles: [Role.ADMIN, Role.SALES],
+		},
 	},
 	{
 		path: 'stores',
 		component: StoresComponent,
+		canActivate: [roleGuard],
+		data: {
+			roles: [Role.ADMIN],
+		},
 	},
 	{
 		path: 'shelves',
 		component: ShelvesComponent,
+		canActivate: [roleGuard],
+		data: {
+			roles: [Role.ADMIN],
+		},
 	},
 	{
 		path: 'users',
 		component: UsersComponent,
+		canActivate: [roleGuard],
+		data: {
+			roles: [Role.ADMIN],
+		},
 	},
 ]

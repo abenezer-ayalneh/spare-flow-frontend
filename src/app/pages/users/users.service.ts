@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core'
 import { User } from '../../shared/models/user.model'
 import { BehaviorSubject, tap } from 'rxjs'
-import { Role } from '../../shared/models/role.model'
 import { HttpClient } from '@angular/common/http'
-import { environment } from '../../../environments/environment'
 import { CreateUserDto } from './dto/create-user.dto'
 import { MatDialog } from '@angular/material/dialog'
 import { AddOrEditUserComponent } from './components/add-or-edit-user/add-or-edit-user.component'
 import { UpdatePasswordComponent } from './components/update-password/update-password.component'
-
-const API_URL = environment.apiUrl
 
 @Injectable({
 	providedIn: 'root',
@@ -39,22 +35,18 @@ export class UsersService {
 	}
 
 	getUsers() {
-		return this.httpClient.get<User[]>(`${API_URL}/users`).pipe(tap((users) => this.usersList.next(users)))
-	}
-
-	getRoles() {
-		return this.httpClient.get<Role[]>(`${API_URL}/roles`)
+		return this.httpClient.get<User[]>(`users`).pipe(tap((users) => this.usersList.next(users)))
 	}
 
 	createUser(createUserDto: CreateUserDto) {
-		return this.httpClient.post<User>(`${API_URL}/users`, createUserDto)
+		return this.httpClient.post<User>(`users`, createUserDto)
 	}
 
 	updateUser(id: number, updateData: Partial<CreateUserDto>) {
-		return this.httpClient.patch<User>(`${API_URL}/users/${id}`, updateData)
+		return this.httpClient.patch<User>(`users/${id}`, updateData)
 	}
 
 	updateUserPassword(id: number, updatePasswordData: Pick<CreateUserDto, 'password' | 'confirmPassword'>) {
-		return this.httpClient.patch<User>(`${API_URL}/users/password/${id}`, updatePasswordData)
+		return this.httpClient.patch<User>(`users/password/${id}`, updatePasswordData)
 	}
 }

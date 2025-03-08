@@ -113,38 +113,46 @@
 					<mat-header-cell *matHeaderCellDef> {{ 'items.tableAndForm.actions' | translate }}</mat-header-cell>
 					<mat-cell *matCellDef="let row">
 						<div class="grid grid-cols-3 grid-rows-2 gap-x-2">
-							<button
-								mat-icon-button
-								class="d-flex"
-								aria-label="Edit item button"
-								[matTooltip]="'Edit item' | translate"
-								(click)="itemsService.openEditItemModal(row.original)">
-								<i-tabler name="edit" class="icon-20"></i-tabler>
-							</button>
-							<button
-								mat-icon-button
-								class="d-flex"
-								aria-label="Edit price button"
-								[matTooltip]="'Edit price' | translate"
-								(click)="itemsService.openEditItemPriceModal(row.original)">
-								<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
-							</button>
-							<button
-								mat-icon-button
-								class="d-flex"
-								aria-label="Increment quantity button"
-								[matTooltip]="'Increment quantity' | translate"
-								(click)="itemsService.openEditItemQuantityModal(row.original)">
-								<i-tabler name="plus" class="icon-20"></i-tabler>
-							</button>
-							<button
-								mat-icon-button
-								class="d-flex"
-								aria-label="Add to cart button"
-								[matTooltip]="'Add to cart' | translate"
-								(click)="itemsService.openAddItemToCartModal(row.original)">
-								<i-tabler name="shopping-cart-plus" class="icon-20"></i-tabler>
-							</button>
+							<ng-template [appIsGranted]="[Role.ADMIN, Role.SALES]">
+								<button
+									mat-icon-button
+									class="d-flex"
+									aria-label="Edit item button"
+									[matTooltip]="'Edit item' | translate"
+									(click)="itemsService.openEditItemModal(row.original)">
+									<i-tabler name="edit" class="icon-20"></i-tabler>
+								</button>
+							</ng-template>
+							<ng-template [appIsGranted]="[Role.ADMIN]">
+								<button
+									mat-icon-button
+									class="d-flex"
+									aria-label="Edit price button"
+									[matTooltip]="'Edit price' | translate"
+									(click)="itemsService.openEditItemPriceModal(row.original)">
+									<i-tabler name="pencil-dollar" class="icon-20"></i-tabler>
+								</button>
+							</ng-template>
+							<ng-template [appIsGranted]="[Role.ADMIN, Role.SALES]">
+								<button
+									mat-icon-button
+									class="d-flex"
+									aria-label="Increment quantity button"
+									[matTooltip]="'Increment quantity' | translate"
+									(click)="itemsService.openEditItemQuantityModal(row.original)">
+									<i-tabler name="plus" class="icon-20"></i-tabler>
+								</button>
+							</ng-template>
+							<ng-template [appIsGranted]="[Role.ADMIN, Role.SALES]">
+								<button
+									mat-icon-button
+									class="d-flex"
+									aria-label="Add to cart button"
+									[matTooltip]="'Add to cart' | translate"
+									(click)="itemsService.openAddItemToCartModal(row.original)">
+									<i-tabler name="shopping-cart-plus" class="icon-20"></i-tabler>
+								</button>
+							</ng-template>
 						</div>
 					</mat-cell>
 				</ng-container>

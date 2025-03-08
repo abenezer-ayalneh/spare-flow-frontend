@@ -1,3 +1,5 @@
+import { Role } from '../../../../../shared/enums/role.enum'
+
 export interface NavItem {
 	external?: boolean
 	displayName?: string
@@ -9,4 +11,5 @@ export interface NavItem {
 	route?: string
 	children?: NavItem[]
 	ddType?: string
+	roles?: Role[]
 }

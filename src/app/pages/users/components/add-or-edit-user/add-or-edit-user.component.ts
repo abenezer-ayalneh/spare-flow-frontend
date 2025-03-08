@@ -13,6 +13,7 @@ import { TitleCasePipe } from '@angular/common'
 import { CreateUserDto } from '../../dto/create-user.dto'
 import { PasswordMatchValidator } from '../../validators/password-match-validator'
 import { UserService } from '../../../../shared/services/user.service'
+import { RbacService } from '../../../../shared/services/rbac.service'
 
 @Component({
 	selector: 'app-add-or-edit-user',
@@ -44,6 +45,7 @@ export class AddOrEditUserComponent implements OnInit {
 	constructor(
 		private readonly usersService: UsersService,
 		private readonly loadingService: LoadingService,
+		private readonly rbacService: RbacService,
 		protected readonly userService: UserService,
 		@Inject(MAT_DIALOG_DATA) private readonly data: User | undefined,
 	) {
@@ -57,13 +59,13 @@ export class AddOrEditUserComponent implements OnInit {
 	ngOnInit(): void {
 		this.loadingService.loadingOn()
 
-		if (this.data && this.userService.getUser.getValue()?.id === this.data.id) {
+		if (this.data && this.userService.user?.id === this.data.id) {
 			this.isSelfUpdate = true
 			this.formControls.role.disable()
 			this.formControls.active.disable()
 		}
 
-		this.usersService
+		this.rbacService
 			.getRoles()
 			.pipe(finalize(() => this.loadingService.loadingOff()))
 			.subscribe({

@@ -30,7 +30,9 @@
 			<ng-scrollbar class="position-relative" style="height: 100%">
 				<mat-nav-list class="sidebar-list">
 					@for (item of navItems; track item) {
-						<app-nav-item [item]="item" (notify)="sidenav.toggle()"></app-nav-item>
+						<ng-template [appIsGranted]="item.roles">
+							<app-nav-item [item]="item" (notify)="sidenav.toggle()"></app-nav-item>
+						</ng-template>
 					}
 				</mat-nav-list>
 			</ng-scrollbar>
