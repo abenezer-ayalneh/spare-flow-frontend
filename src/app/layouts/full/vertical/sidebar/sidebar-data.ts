@@ -43,4 +43,10 @@ export const navItems: NavItem[] = [
 		route: '/shelves',
 		roles: [Role.ADMIN],
 	},
+	{
+		displayName: 'sidebar.transactions',
+		iconName: 'arrows-exchange-2',
+		route: '/transaction-log',
+		roles: [Role.ADMIN],
+	},
 ]

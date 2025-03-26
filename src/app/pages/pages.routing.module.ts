@@ -7,6 +7,7 @@ import { ShelvesComponent } from './shelves/shelves.component'
 import { UsersComponent } from './users/users.component'
 import { Role } from '../shared/enums/role.enum'
 import { roleGuard } from '../shared/guards/role.guard'
+import { TransactionLogComponent } from './transaction-log/transaction-log.component'
 
 export const PagesRoutes: Routes = [
 	{
@@ -43,6 +44,14 @@ export const PagesRoutes: Routes = [
 	{
 		path: 'users',
 		component: UsersComponent,
+		canActivate: [roleGuard],
+		data: {
+			roles: [Role.ADMIN],
+		},
+	},
+	{
+		path: 'transaction-log',
+		component: TransactionLogComponent,
 		canActivate: [roleGuard],
 		data: {
 			roles: [Role.ADMIN],

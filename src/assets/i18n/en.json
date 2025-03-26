@@ -1,42 +1,43 @@
 {
-	"common": {
+  "common": {
     "login": "Login",
     "logout": "Logout",
-		"username": "Username",
-		"password": "Password",
-		"search": "Search here",
-		"filter": "Filter",
-		"submit": "Submit",
-		"update": "Update",
+    "username": "Username",
+    "password": "Password",
+    "search": "Search here",
+    "filter": "Filter",
+    "submit": "Submit",
+    "update": "Update",
     "tableNoData": "No data matching the filter \"{{filter}}\""
-	},
-	"validation": {
-		"required": "Field is required.",
-		"minLength": "Filed must be at least {{requiredLength}} characters long.",
-		"maxLength": "Filed must be at most {{requiredLength}} characters long.",
-		"email": "You must enter a valid email.",
-		"min": "Value must at least be {{min}}.",
-		"max": "Value can at most be {{max}}.",
-		"emailTaken": "Email taken. Please try another email.",
+  },
+  "validation": {
+    "required": "Field is required.",
+    "minLength": "Filed must be at least {{requiredLength}} characters long.",
+    "maxLength": "Filed must be at most {{requiredLength}} characters long.",
+    "email": "You must enter a valid email.",
+    "min": "Value must at least be {{min}}.",
+    "max": "Value can at most be {{max}}.",
+    "emailTaken": "Email taken. Please try another email.",
     "passwordMismatch": "Passwords do not match."
-	},
-	"login": {
-		"title": "Welcome to {{appName}}!"
-	},
-	"sidebar": {
-		"reporting": "Report",
-		"dashboard": "Dashboard",
-		"main": "Main",
-		"items": "Items",
-		"stores": "Stores",
-		"shelves": "Shelves",
-		"config": "Config",
-		"users": "Users"
-	},
-	"items": {
-		"list": "Items list",
-		"add": "Add item",
-		"edit": "Edit item",
+  },
+  "login": {
+    "title": "Welcome to {{appName}}!"
+  },
+  "sidebar": {
+    "reporting": "Report",
+    "dashboard": "Dashboard",
+    "main": "Main",
+    "items": "Items",
+    "stores": "Stores",
+    "shelves": "Shelves",
+    "config": "Config",
+    "users": "Users",
+    "transactions": "Transactions"
+  },
+  "items": {
+    "list": "Items list",
+    "add": "Add item",
+    "edit": "Edit item",
     "editPrice": "Edit price",
     "incrementQuantity": "Increment quantity",
     "addToCart": "Add to cart",
@@ -72,7 +73,7 @@
         "addToCart": "Add to cart"
       }
     }
-	},
+  },
   "cart": {
     "title": "Cart",
     "selectAll": "Select all",
@@ -86,43 +87,57 @@
     "sell": "Sell",
     "empty": "Cart is empty"
   },
-	"stores": {
-		"list": "Stores list",
-		"add": "Add store",
-		"edit": "Edit store",
-		"tableAndForm": {
-			"name": "Name",
-			"description": "Description",
-			"actions": "Actions"
-		}
-	},
-	"shelves": {
-		"list": "Shelves list",
-		"add": "Add shelf",
-		"edit": "Edit shelf",
-		"tableAndForm": {
-			"name": "Name",
-			"description": "Description",
-			"store": "Store",
-			"actions": "Actions",
-			"storePlaceholder": "Select store location"
-		}
-	},
-	"users": {
-		"list": "Users list",
-		"add": "Add user",
-		"edit": "Edit user",
+  "stores": {
+    "list": "Stores list",
+    "add": "Add store",
+    "edit": "Edit store",
+    "tableAndForm": {
+      "name": "Name",
+      "description": "Description",
+      "actions": "Actions"
+    }
+  },
+  "shelves": {
+    "list": "Shelves list",
+    "add": "Add shelf",
+    "edit": "Edit shelf",
+    "tableAndForm": {
+      "name": "Name",
+      "description": "Description",
+      "store": "Store",
+      "actions": "Actions",
+      "storePlaceholder": "Select store location"
+    }
+  },
+  "users": {
+    "list": "Users list",
+    "add": "Add user",
+    "edit": "Edit user",
     "updatePassword": "Update password",
-		"tableAndForm": {
-			"name": "Name",
-			"username": "Username",
-			"phoneNumber": "Phone number",
-			"role": "Role",
-			"active": "Active",
-			"inactive": "Inactive",
-			"actions": "Actions",
+    "tableAndForm": {
+      "name": "Name",
+      "username": "Username",
+      "phoneNumber": "Phone number",
+      "role": "Role",
+      "active": "Active",
+      "inactive": "Inactive",
+      "actions": "Actions",
       "password": "Password",
       "confirmPassword": "Confirm password"
-		}
-	}
+    }
+  },
+  "transactionLog": {
+    "list": "Transactions list",
+    "table": {
+      "time": "Time",
+      "username": "Username",
+      "itemName": "Item name",
+      "partNumber": "Part number",
+      "price": "Price",
+      "type": "Type",
+      "quantity": "Quantity",
+      "remainingQuantity": "Remaining Quantity",
+      "source": "Source"
+    }
+  }
 }

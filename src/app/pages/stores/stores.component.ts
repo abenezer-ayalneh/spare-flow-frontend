@@ -24,7 +24,7 @@ import { TablerIconsModule } from 'angular-tabler-icons'
 import { MatTooltip } from '@angular/material/tooltip'
 import { MatPaginator } from '@angular/material/paginator'
 import { StoresService } from './stores.service'
-import { filter } from 'rxjs'
+import { filter, Subscription } from 'rxjs'
 
 @Component({
 	selector: 'app-stores',
@@ -59,6 +59,8 @@ import { filter } from 'rxjs'
 	styleUrl: './stores.component.scss',
 })
 export class StoresComponent implements OnInit {
+	subscriptions = new Subscription()
+
 	dataSource: MatTableDataSource<Store>
 
 	displayedColumns: string[] = ['name', 'description', 'actions']
@@ -68,11 +70,13 @@ export class StoresComponent implements OnInit {
 	ngOnInit() {
 		this.storesService.getStores().subscribe()
 
-		this.storesService.storesList.pipe(filter(Boolean)).subscribe({
-			next: (stores) => {
-				this.dataSource = new MatTableDataSource(stores)
-			},
-		})
+		this.subscriptions.add(
+			this.storesService.storesList.pipe(filter(Boolean)).subscribe({
+				next: (stores) => {
+					this.dataSource = new MatTableDataSource(stores)
+				},
+			}),
+		)
 	}
 
 	applyFilter(event: Event) {
